@@ -1,0 +1,36 @@
+{
+    "name": "kioskboard",
+    "main": "dist/kioskboard-1.0.0.js",
+    "style": "dist/kioskboard-1.0.0.css",
+    "version": "1.0.0-beta.01",
+    "description": "A pure JavaScript library for using the Virtual Keyboard. Coming Soon.",
+    "homepage": "https://github.com/furcan/KioskBoard",
+    "files": [
+      "dist"
+    ],
+    "keywords": [
+      "keyboard",
+      "virtual keyboard",
+      "kiosk",
+      "kiosk keyboard",
+      "numpad",
+      "virtual numpad"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/furcan/KioskBoard.git"
+    },
+    "bugs": {
+      "url": "https://github.com/furcan/KioskBoard/issues"
+    },
+    "author": "Furkan MT (https://github.com/furcan)",
+    "contributors": [
+      "Furkan MT (https://github.com/furcan)"
+    ],
+    "licenses": [
+      {
+        "type": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    ]
+  }
