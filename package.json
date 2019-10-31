@@ -1,9 +1,9 @@
 {
     "name": "kioskboard",
-    "main": "dist/kioskboard-1.0.0.js",
+    "main": "dist/kioskboard-aio-1.0.0.js",
     "style": "dist/kioskboard-1.0.0.css",
-    "version": "1.0.0-beta.01",
-    "description": "A pure JavaScript library for using the Virtual Keyboard. Coming Soon.",
+    "version": "1.0.0",
+    "description": "A pure JavaScript library for using the Virtual Keyboard.",
     "homepage": "https://github.com/furcan/KioskBoard",
     "files": [
       "dist"

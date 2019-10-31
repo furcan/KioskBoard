@@ -1,6 +1,496 @@
 ﻿/*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.0.0-beta.01
+* Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2019 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
+
+/* KioskBoard: Main on */
+#KioskBoard-VirtualKeyboard {
+box-sizing: border-box !important;
+position: fixed;
+z-index: 2000;
+width: 100%;
+max-width: 1440px;
+background: #e3e3e3;
+background: linear-gradient(to right bottom, #eeeeee, #ebebeb, #e8e8e8, #e6e6e6, #e3e3e3);
+box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
+padding: 25px 20px 20px;
+border-radius: 10px 10px 0 0;
+left: 0;
+right: 0;
+bottom: 0;
+margin: auto;}
+#KioskBoard-VirtualKeyboard * {
+box-sizing: border-box !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-wrapper {
+position: relative;
+background: inherit;
+float: left;
+width: 100%;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-wrapper.kioskboard-overflow {
+padding-right: 12px !important;
+overflow: hidden auto;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-wrapper.kioskboard-overflow::-webkit-scrollbar {
+height: 6px;
+width: 6px;}
+#KioskBoard-VirtualKeyboard .kioskboard-wrapper.kioskboard-overflow::-webkit-scrollbar-track {
+border-radius: 3px;
+background: rgba(255, 255, 255, 0.75);}
+#KioskBoard-VirtualKeyboard .kioskboard-wrapper.kioskboard-overflow::-webkit-scrollbar-thumb {
+border-radius: 3px;
+background: rgba(0, 0, 0, 0.25);
+cursor: pointer;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row {
+position: relative;
+text-align: center;
+float: left;
+width: 100%;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key] {
+-webkit-user-select: none;
+-ms-user-select: none;
+-moz-user-select: none;
+user-select: none;
+position: relative;
+transition: all .2s ease-in-out;
+transform-origin: bottom center;
+cursor: pointer;
+font-size: 22px;
+line-height: 1;
+font-weight: normal;
+font-family: sans-serif;
+text-align: left;
+display: inline-block;
+max-width: 120px;
+width: calc(8.3333% - 16px);
+margin: 8px 8px 12px;
+padding: 12px 12px 22px;
+border-radius: 8px;
+background: #fafafa;
+color: #707070;
+border: 2px solid rgba(255, 255, 255, 0.04);
+box-shadow: 0 4px 0 0.04px rgba(0, 0, 0, 0.12);
+border-bottom-color: rgba(255, 255, 255, 0.1);
+border-bottom-width: 4px;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key]:not(.spacebar-denied):hover {
+transform: scaleY(.98) translateY(1px);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key]:not(.spacebar-denied):active {
+transform: scaleY(.95) translateY(4px);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-tolowercase .kioskboard-row-dynamic span[class^=kioskboard-key] {
+text-transform: lowercase;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-touppercase .kioskboard-row-dynamic span[class^=kioskboard-key] {
+text-transform: uppercase;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key] svg {
+position: absolute;
+z-index: 10;
+left: 10px;
+top: 10px;}
+/* KioskBoard: Main off */
+
+/* KioskBoard: Keys Top Group on */
+#KioskBoard-VirtualKeyboard .kioskboard-row-top {
+padding: 0 0 10px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+margin: 0 0 10px;}
+    
+#KioskBoard-VirtualKeyboard .kioskboard-row-top span[class^=kioskboard-key] {
+max-width:90px;}
+/* KioskBoard: Keys Top Group off */
+
+/* KioskBoard: Keys Bottom Group on */
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom {
+padding: 10px 0 0;
+border-top: 1px solid rgba(0, 0, 0, 0.06);
+margin: 10px 0 0;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span[class^=kioskboard-key] {
+float: left;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-capslock {
+max-width: unset;
+min-height: 60px; 
+width: 140px;}
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-capslock:before {
+content:"";
+position: absolute;
+z-index: 2;
+width: 10px;
+height: 10px;
+border-radius: 10px;
+right: 6px;
+top: 6px;
+background: #c4c4c4;}
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before {
+background: #5decaa;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-backspace {
+position: relative;
+max-width: unset;
+min-height: 60px;
+width: 140px;}
+
+/* 140+16=>CapsLock && 140+16=>BackSpace */
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-space {
+min-height: 60px;
+max-width: unset;
+width: calc(100% - 16px - 140px - 16px - 140px - 16px);} 
+
+/* 140+16=>CapsLock && 140+16=>BackSpace && 140+16=>SpecialChar */
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-space {
+width: calc(100% - 16px - 140px - 16px - 140px - 16px - 140px - 16px);} 
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-space.spacebar-denied {
+opacity: .4 !important;
+cursor: not-allowed !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-specialcharacter {
+position: relative;
+max-width: unset;
+min-height: 60px;
+width: 140px;}
+/* KioskBoard: Keys Bottom Group off */
+
+/* KioskBoard: Keys Numpad Group on */
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad {
+float: none;
+display: block;
+max-width: 320px;
+margin: auto;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span[class^=kioskboard-key] {
+min-height: 60px;
+float: left;
+width: calc(33.3333% - 16px);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-0,
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
+max-width: unset;
+width: calc(50% - 16px);}
+/* KioskBoard: Keys Numpad Group off */
+
+/* KioskBoard: Keys SpecialChar Group on */
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters {
+transition: all .2s ease-in-out;
+visibility: hidden;
+opacity: 0;
+position: absolute;
+background: inherit;
+padding: 20px;
+z-index: 20;
+left: 0;
+top: 0;
+height: 100%;
+width: 100%;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters.kioskboard-specialcharacter-show {
+visibility: visible;
+opacity: 1;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close {
+transition: all .36s ease-in-out;
+cursor: pointer;
+position: absolute;
+z-index: 30;
+right: 0px;
+top: -42.5px;
+width: 40px;
+height: 40px;
+background: #a9a9a9;
+border-radius: 20px;
+box-shadow: 0 0 16px -6px rgba(0, 0, 0, 0.25);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close svg {
+position: absolute;
+left: 0;
+top: 0;
+right:0;
+bottom:0;
+margin:auto;
+fill:#fff !important;
+width: 16px !important;
+height: 16px !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close:hover {
+transform:rotate(90deg);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters .kioskboard-specialcharacters-content {
+float:left;
+width:100%;
+max-height: 100%;
+padding-right:5px;
+overflow-x:hidden;
+overflow-y: auto;}
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters .kioskboard-specialcharacters-content::-webkit-scrollbar {
+height: 6px;
+width: 6px;}
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters .kioskboard-specialcharacters-content::-webkit-scrollbar-track {
+border-radius: 3px;
+background: rgba(255, 255, 255, 0.75);}
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters .kioskboard-specialcharacters-content::-webkit-scrollbar-thumb {
+border-radius: 3px;
+background: rgba(0, 0, 0, 0.25);
+cursor: pointer;}
+/* KioskBoard: Keys SpecialChar Group off */
+
+/* KioskBoard: Theme on */
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light {
+box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
+background: #e3e3e3;
+background: linear-gradient(to right bottom, #eeeeee, #ebebeb, #e8e8e8, #e6e6e6, #e3e3e3);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark {
+box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
+background: #151515;
+background: linear-gradient(to left top, #151515, #171717, #1a1a1a, #1c1c1c, #1e1e1e);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat {
+box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
+background: #dfdfdf;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool {
+box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.02), 0 0 20px -8px rgba(0, 0, 0, 0.1);
+background: #e5e5e5;
+background: linear-gradient(to right bottom, #e5e5e5, #e6e6e6, #e7e7e7, #e7e7e7, #e8e8e8);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row span[class^=kioskboard-key],
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light .kioskboard-row span[class^=kioskboard-key] {
+color: #707070;
+background: #fafafa;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row span[class^=kioskboard-key] {
+border-color: rgba(255, 255, 255, 0.02);
+border-bottom-color: rgba(255, 255, 255, 0.04);
+box-shadow: 0 5px 0 0.05px rgba(255, 255, 255, 0.2);
+color: #b7b7b7;
+background: #323232;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row span[class^=kioskboard-key] {
+color: #707070;
+background: #fafafa;
+box-shadow: unset;
+border: 1px solid rgba(0, 0, 0, 0.05);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row span[class^=kioskboard-key] {
+color: #8f8f8f;
+text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+background: #fafafa;
+box-shadow: 0 4px 6px 0.06px rgba(0, 0, 0, 0.05);}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row span[class^=kioskboard-key]:after {
+content: "";
+position: absolute;
+left: 0px;
+top: -5px;
+right: 0;
+bottom: 0;
+width: 100%;
+height: calc(100% - 5px);
+background: rgba(255, 255, 255, 0.1);
+box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.4);
+margin: auto;
+border-radius: inherit;
+border: 4px solid rgba(0, 0, 0, 0.06);
+border-top-color: rgba(0, 0, 0, 0.02);
+border-bottom-color: transparent;
+box-sizing: border-box;
+border-top-width: 2px;
+border-bottom-width: 6px;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row-bottom span.kioskboard-key-capslock:before {
+right: 9px;
+top: 9px;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row-bottom span.kioskboard-key-capslock:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row-bottom span.kioskboard-key-capslock:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light .kioskboard-row-bottom span.kioskboard-key-capslock:before {
+background: #c4c4c4;}
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row-bottom span.kioskboard-key-capslock:before {
+background: #a9a9a9;}
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-bottom span.kioskboard-key-capslock:before {
+background: #e6e6e6;}
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-bottom span.kioskboard-key-capslock.capslock-active:before {
+background: #5decaa;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row span[class^=kioskboard-key] svg,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light .kioskboard-row span[class^=kioskboard-key] svg {
+fill:#707070 !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row span[class^=kioskboard-key] svg {
+fill:#a9a9a9 !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row span[class^=kioskboard-key] svg {
+left: 12px;
+fill: #a1a1a1 !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-numpad span.kioskboard-key-backspace,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-bottom span.kioskboard-key-specialcharacter,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-bottom span.kioskboard-key-capslock,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-bottom span.kioskboard-key-backspace {
+box-shadow: 0 4px 0 0.04px rgba(0, 0, 0, 0.3);
+border-bottom-color: rgba(0, 0, 0, 0.03);
+color:#fafafa;
+background: #b0b0b0;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row span[class^=kioskboard-key] svg {
+fill:#fafafa !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-material .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-light .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close,
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close {
+background:#a9a9a9 !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close {
+background:#323232 !important;}
+#KioskBoard-VirtualKeyboard.kioskboard-theme-dark .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close svg {
+fill:#b7b7b7 !important;}
+/* KioskBoard: Theme off */
+
+/* KioskBoard: Animations on */
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-fade {
+opacity:1;
+animation: kioskboard-animation-fade .36s ease-in-out 0s normal;
+-webkit-animation: kioskboard-animation-fade .36s ease-in-out 0s normal;}
+@keyframes kioskboard-animation-fade {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+@-webkit-keyframes kioskboard-animation-fade {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-fade.kioskboard-fade-remove {
+opacity:0;
+animation: kioskboard-animation-fade-remove .36s ease-in-out 0s normal;
+-webkit-animation: kioskboard-animation-fade-remove .36s ease-in-out 0s normal;}
+@keyframes kioskboard-animation-fade-remove {
+0% {opacity:1;}
+100% {opacity:0;}
+}
+@-webkit-keyframes kioskboard-animation-fade-remove {
+0% {opacity:1;}
+100% {opacity:0;}
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide {
+bottom:0;
+animation: kioskboard-animation-slide 1.2s ease-in-out 0s normal;
+-webkit-animation: kioskboard-animation-slide 1.2s ease-in-out 0s normal;}
+@keyframes kioskboard-animation-slide {
+0% {bottom: -100%;}
+100% {bottom: 0;}
+}
+@-webkit-keyframes kioskboard-animation-slide {
+0% {bottom: -100%;}
+100% {bottom: 0;}
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide.kioskboard-slide-remove {
+bottom:-100%;
+animation: kioskboard-animation-slide-remove 1.2s ease-in-out 0s normal;
+-webkit-animation: kioskboard-animation-slide-remove 1.2s ease-in-out 0s normal;}
+@keyframes kioskboard-animation-slide-remove {
+0% {bottom: 0;}
+100% {bottom: -100%;}
+}
+@-webkit-keyframes kioskboard-animation-slide-remove {
+0% {bottom: 0;}
+100% {bottom: -100%;}
+}
+/* KioskBoard: Animations off */
+
+/* KioskBoard: Responsive on */
+@media only screen and (max-width: 767px) {
+
+#KioskBoard-VirtualKeyboard {
+min-height: 210px;
+padding:12px 6px;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters {
+padding: 30px 0;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close {
+top:-30px;
+width: 35px;
+height: 35px;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key] {
+font-size: 13.5px !important;
+line-height: 1 !important;
+padding: 4px 2px !important;
+text-align: center;
+min-width: 21px;
+margin: 4px 4px 10px;
+border-radius: 3px;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row span[class^=kioskboard-key] {
+line-height: 22px !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span[class^=kioskboard-key] {
+font-size: 16px !important;
+line-height: 36px !important;
+padding: 0 2px !important;
+width: calc(33.3333% - 8px);
+min-height: 36px;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row.kioskboard-row-numpad span[class^=kioskboard-key] {
+line-height: 36px !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-specialcharacter,
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-backspace,
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-capslock {
+max-width: unset;
+min-height: 40px;
+width:60px;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-space {
+max-width: unset;
+min-height: 40px;
+width: calc(100% - 8px - 60px - 8px - 60px - 8px);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-space {
+width: calc(100% - 8px  - 60px - 8px - 60px - 8px - 60px - 8px);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-0, 
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
+max-width: unset;
+min-height: 36px;
+width: calc(50% - 8px);}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
+min-height: 42px;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-flat .kioskboard-row-numpad span.kioskboard-key-backspace {
+min-height: 38px;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row span[class^=kioskboard-key] svg {
+left: 6px;
+top: 5px;
+width: 18px !important;
+height: 18px !important;}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-specialcharacter svg {
+width: 36px !important;
+height: 18px !important;}
+
+#KioskBoard-VirtualKeyboard.kioskboard-theme-oldschool .kioskboard-row span[class^=kioskboard-key] svg {
+left: 10px;}
+
+}
+/* KioskBoard: Responsive off */
