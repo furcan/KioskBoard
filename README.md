@@ -36,6 +36,25 @@ yarn add kioskboard
 
 ---------
 
+### Adding to an HTML Document
+A) CSS and JS
+
+```html
+<link rel="stylesheet" href="../KioskBoard/dist/kioskboard-1.0.0.css" />
+```
+
+```html
+<script src="../KioskBoard/dist/kioskboard-1.0.0.js"></script>
+```
+
+B) Only JS (Internal CSS)
+
+```html
+<script src="../KioskBoard/dist/kioskboard-aio-1.0.0.js"></script>
+```
+
+---------
+
 ### Keyboard Types and Themes
 3 types of keyboards can be used: `all`, `keyboard`, and `numapad`.
 
