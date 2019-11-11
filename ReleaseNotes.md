@@ -1,3 +1,10 @@
+@1.1.0
+* **Added:** "allowMobileKeyboard" option is added. Default value is "false" and prevents mobile keyboard.
+
+* Code Review
+
+-----
+
 @1.0.0
 * A pure JavaScript library for using the Virtual Keyboard is ready to use.
 

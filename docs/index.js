@@ -69,10 +69,11 @@ var turkishKeyboard = [
 KioskBoard.Init({
     keysArrayOfObjects: turkishKeyboard,
     language: 'tr',
-    theme: 'light', 
+    theme: 'light',
     keysFontFamily: 'Barlow',
     keysFontWeight: '600',
     keysIconSize: '25px',
+    allowMobileKeyboard: false,
 });
 KioskBoard.Run('.virtual-keyboard-demo');
 // DEMO: KioskBoard Init off

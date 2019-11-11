@@ -1,6 +1,6 @@
 ﻿/*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.0.0
+* Version: 1.1.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2019 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -16,6 +16,7 @@ var kioskBoardDefaultOptions = {
     theme: 'light', // "light" || "dark" || "flat" || "material" || "oldschool"
     capsLockActive: true,
     allowRealKeyboard: false,
+    allowMobileKeyboard: false,
     cssAnimations: true,
     cssAnimationsDuration: 360,
     cssAnimationsStyle: 'slide', // "slide" || "fade"
@@ -42,7 +43,7 @@ var extendKioskBoard = function () {
     }
     var merge = function (obj) {
         for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
+            if (Object.prototype.hasOwnProperty.call(obj, prop)) {
                 if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
                     extended[prop] = extendKioskBoard(extended[prop], obj[prop]);
                 } else {
@@ -140,7 +141,7 @@ var KioskBoard = {
             // if exist
             if (firstOne) {
                 for (var key in firstOne) {
-                    if (firstOne.hasOwnProperty(key)) {
+                    if (Object.prototype.hasOwnProperty.call(firstOne, key)) {
                         // has keys object
                         hasKeysObject = true;
 
@@ -171,6 +172,10 @@ var KioskBoard = {
             var allInputs = [];
             allInputs.push(input);
 
+            // all inputs readonly check
+            var allowMobileKeyboard = typeof kioskBoardNewOptions.allowMobileKeyboard === 'boolean' ? kioskBoardNewOptions.allowMobileKeyboard : false;
+            var getReadOnlyAttr = input.getAttribute('readonly');
+
             // each input focus listener on
             var inputFocusListener = function (e) {
 
@@ -181,6 +186,12 @@ var KioskBoard = {
                 var keyboadType = (theInput.dataset.kioskboardType ? theInput.dataset.kioskboardType.toString().toLowerCase() : 'all');
                 var allowedSpecialCharacters = (theInput.dataset.kioskboardSpecialcharacters ? JSON.parse(theInput.dataset.kioskboardSpecialcharacters) : false);
                 // input element variables off
+
+                // check mobile keyboard allowed on
+                if (!allowMobileKeyboard) {
+                    theInput.setAttribute('readonly', 'readonly');
+                }
+                // check mobile keyboard allowed off
 
                 // update theInputSelIndex on focus
                 theInputSelIndex = theInput.selectionStart;
@@ -271,7 +282,7 @@ var KioskBoard = {
                         // if exist
                         if (firstOne) {
                             for (var key in firstOne) {
-                                if (firstOne.hasOwnProperty(key)) {
+                                if (Object.prototype.hasOwnProperty.call(firstOne, key)) {
                                     specialKeysObject = specialCharsObj; // override special characters object
                                 }
                             }
@@ -280,7 +291,7 @@ var KioskBoard = {
                     // check "specialCharactersObject" for override off
 
                     for (var key in specialKeysObject) {
-                        if (specialKeysObject.hasOwnProperty(key)) {
+                        if (Object.prototype.hasOwnProperty.call(specialKeysObject, key)) {
                             var index = key;
                             var value = specialKeysObject[key];
                             var length = Object.keys(specialKeysObject).length;
@@ -308,7 +319,7 @@ var KioskBoard = {
 
                     var numpadKeysContent = '';
                     for (var key in numpadKeysObject) {
-                        if (numpadKeysObject.hasOwnProperty(key)) {
+                        if (Object.prototype.hasOwnProperty.call(numpadKeysObject, key)) {
                             var index = key;
                             var value = numpadKeysObject[key];
                             var length = Object.keys(numpadKeysObject).length;
@@ -340,7 +351,7 @@ var KioskBoard = {
 
                         var numberKeysContent = '';
                         for (var key in numberKeysObject) {
-                            if (numberKeysObject.hasOwnProperty(key)) {
+                            if (Object.prototype.hasOwnProperty.call(numberKeysObject, key)) {
                                 var index = key;
                                 var value = numberKeysObject[key];
                                 var length = Object.keys(numberKeysObject).length;
@@ -357,7 +368,7 @@ var KioskBoard = {
                         var eachObj = data[i];
                         var rowKeysContent = '';
                         for (var key in eachObj) {
-                            if (eachObj.hasOwnProperty(key)) {
+                            if (Object.prototype.hasOwnProperty.call(eachObj, key)) {
                                 var index = key;
                                 var value = eachObj[key];
                                 var length = Object.keys(eachObj).length;
@@ -438,7 +449,8 @@ var KioskBoard = {
                 // input element keyup listener on
                 theInput.addEventListener('keypress', function (e) {
                     // if: allowed real keyboard use
-                    if (typeof kioskBoardNewOptions.allowRealKeyboard === 'boolean' && kioskBoardNewOptions.allowRealKeyboard) {
+                    var allowRealKeyboard = typeof kioskBoardNewOptions.allowRealKeyboard === 'boolean' ? kioskBoardNewOptions.allowRealKeyboard : false;
+                    if (allowRealKeyboard) {
                         // update theInputValArray on keyup
                         theInputValArray = this.value.split('');
                     }
@@ -492,7 +504,7 @@ var KioskBoard = {
                                             keyValue = keyValue.toString().toLowerCase();
                                         }
                                     }
-                                    // other language
+                                    // other languages
                                     else {
                                         keyValue = keyValue.toString().toLowerCase();
                                     }
@@ -673,8 +685,17 @@ var KioskBoard = {
                 // append keyboard off
 
             }
-            input.addEventListener('focus', inputFocusListener); // remove input focus listener
+            input.addEventListener('focus', inputFocusListener); // add input focus listener
             // each input focus listener off
+
+            // each input focusout listener on
+            var inputFocusoutListener = function (e) {
+                if (!allowMobileKeyboard && getReadOnlyAttr === null) {
+                    this.removeAttribute('readonly');
+                }
+            }
+            input.addEventListener('focusout', inputFocusoutListener); // add input focusout listener
+            // each input focusout listener off
 
         }
         // Create Keyboard and AppendTo... off
@@ -703,7 +724,7 @@ var KioskBoard = {
                             kioskBoardCachedKeys = parsedData; // cache the keys
                             createKeyboardAndAppendTo(parsedData, input); // create the keyboard
                         } else {
-                            kioskBoardConsoleError('XMLHttpRequest Failed. Please check your URL path or Protocol.');
+                            kioskBoardConsoleError('XMLHttpRequest Failed. Please check your URL path or protocol.');
                         }
                     }
                 };

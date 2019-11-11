@@ -9,7 +9,7 @@ A pure JavaScript library for using the Virtual Keyboard.
 ---------
 
 ### Current Version
-1.0.0 [*](https://github.com/furcan/KioskBoard/blob/master/ReleaseNotes.md)
+1.1.0 [*](https://github.com/furcan/KioskBoard/blob/master/ReleaseNotes.md)
 
 ---------
 
@@ -40,17 +40,17 @@ yarn add kioskboard
 A) CSS and JS
 
 ```html
-<link rel="stylesheet" href="../KioskBoard/dist/kioskboard-1.0.0.css" />
+<link rel="stylesheet" href="../KioskBoard/dist/kioskboard-1.1.0.css" />
 ```
 
 ```html
-<script src="../KioskBoard/dist/kioskboard-1.0.0.js"></script>
+<script src="../KioskBoard/dist/kioskboard-1.1.0.js"></script>
 ```
 
 B) Only JS (Internal CSS)
 
 ```html
-<script src="../KioskBoard/dist/kioskboard-aio-1.0.0.js"></script>
+<script src="../KioskBoard/dist/kioskboard-aio-1.1.0.js"></script>
 ```
 
 ---------
@@ -147,6 +147,11 @@ KioskBoard.Init({
 
   // Size of the icon keys
   keysIconSize: '25px', 
+
+
+   // v1.1.0 and the next versions
+   // Allow or prevent mobile keyboard usage. Prevented when "false"
+   allowMobileKeyboard: false,
 
 });
 

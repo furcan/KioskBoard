@@ -24,7 +24,7 @@
     <link id="FontBungee" href="https://fonts.googleapis.com/css?family=Bungee&display=swap&subset=latin-ext" rel="stylesheet">
     <link id="FontConsolas" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
 
-    <link rel="stylesheet" href="index.css?v=1.0.0" />
+    <link rel="stylesheet" href="index.css?v=1.1.0" />
 </head>
 
 <body>
@@ -49,7 +49,7 @@
             <h1 class="title">KioskBoard<i class="fab fa-js-square"></i></h1>
             <h4 class="sub-title">Virtual Keyboard</h4>
             <p class="desc">A pure JavaScript library for using the Virtual Keyboard.</p>
-            <p class="version" data-toggle="tooltip" title="Current Version">v1.0.0</p>
+            <p class="version" data-toggle="tooltip" title="Current Version">v1.1.0</p>
             <div class="browser-compatibility">
                 <h5 class="bc-title">Browser Compatibility</h5>
                 <ul class="bc-ul">
@@ -114,7 +114,7 @@
                         <p><i class="fas fa-circle"></i>Number Keys (Static)</p>
                     </div>
                     <div class="demo">
-                        <input class="virtual-keyboard-demo" data-kioskboard-type="numpad" type="text" placeholder="Try me." />
+                        <input class="virtual-keyboard-demo" data-kioskboard-type="numpad" type="text" placeholder="Try me." readonly="readonly" />
                     </div>
                 </div>
             </div>
@@ -176,6 +176,33 @@
                         <input class="virtual-keyboard-demo" onfocus="KioskBoard.Merge({theme:'oldschool'});" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" type="text" placeholder="Try Oldschool theme." />
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <section id="KeyboardInstall" class="sections">
+        <div class="max-width">
+
+            <div class="head">
+                <h2 class="sec-title">Install</h2>
+                <p class="sec-desc">There are two ways to install KioskBoard. 1st option is to add CSS and JS assets to the HTML file one by one. 2nd option is to add only the All In One file (Internal CSS). Examples of snippets are shown below.</p>
+            </div>
+
+            <div class="section-content keyboard-install">
+                <code class="html">
+                    <span class="label">HTML <span class="desc">CSS and JS</span></span>
+
+                    <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"../KioskBoard/dist/kioskboard-1.1.0.css"</span></span> /&gt;</span>
+
+                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"../KioskBoard/dist/kioskboard-1.1.0.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+                </code>
+
+                <code class="html">
+                    <span class="label">HTML <span class="desc">Only JS (Internal CSS)</span></span>
+
+                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"../KioskBoard/dist/kioskboard-aio-1.1.0.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+                </code>
             </div>
 
         </div>
@@ -257,6 +284,10 @@
                     <span class="l1 l2"><span class="fnc1">keysFontSize:</span> <span class="str">'22px'</span>, <span class="cmmnt">// Font size of the keys</span></span>
                     <span class="l1 l2"><span class="fnc1">keysFontWeight:</span> <span class="str">'normal'</span>, <span class="cmmnt">// Font weight of the keys</span></span>
                     <span class="l1 l2"><span class="fnc1">keysIconSize:</span> <span class="str">'25px'</span>, <span class="cmmnt">// Size of the icon keys</span></span>
+
+                    <span class="l1 l2 break"></span>
+                    <span class="l1 l2 cmmnt">// v1.1.0 and the next versions</span>
+                    <span class="l1 l2"><span class="fnc1">allowMobileKeyboard:</span> <span class="bool">false</span>, <span class="cmmnt">// Allow or prevent mobile keyboard usage. Prevented when "false"</span></span>
 
                     <span class="l1">});</span>
 
@@ -352,8 +383,9 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/833245c2e4.js"></script>
-    <script src="kioskboard-aio-1.0.0.js"></script>
+    <script src="kioskboard-aio-1.1.0.js"></script>
     <script src="index-tooltip.js"></script>
-    <script src="index.js?v=1.0.0"></script>
+    <script src="index.js?v=1.1.0"></script>
+
 </body>
 </html>
