@@ -1,3 +1,8 @@
+@1.1.1
+* Code Review
+
+-----
+
 @1.1.0
 * **Added:** "allowMobileKeyboard" option is added. Default value is "false" and prevents mobile keyboard.
 

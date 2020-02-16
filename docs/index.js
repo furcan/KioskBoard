@@ -2,7 +2,7 @@
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2019 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 // DEMO: Tooltip on
@@ -12,7 +12,7 @@ function furcanTooltip(tooltip) {
         trigger: 'hover',
         container: 'body',
     });
-}
+};
 furcanTooltip('[data-toggle="tooltip"]');
 
 $(document).on('click', function () {
@@ -62,7 +62,7 @@ var turkishKeyboard = [
         "7": "Ö",
         "8": "Ç"
     }
-]
+];
 // DEMO: Turkish Keys off
 
 // DEMO: KioskBoard Init off
