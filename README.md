@@ -37,7 +37,7 @@ yarn add kioskboard
 Import
 
 ```jsx
-import Kioskboard from "kioskboard";
+import KioskBoard from "kioskboard";
 ```
 
 ---------
