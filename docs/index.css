@@ -334,6 +334,9 @@ line-height: 26px;
 padding: 0 0 0 12px;
 margin: 0 0 15px;}
 
+section.sections .head .sec-title.no-margin {
+margin: 0;}
+
 section.sections .head .sec-title::before {
 content: "";
 position: absolute;
@@ -609,6 +612,7 @@ border-radius: 10px 10px 0 0;}
 
 code > span.label > span.desc {
 float: right;
+height: 100%;
 font-weight: normal;
 margin-left: 15px;
 font-size: 12px;
@@ -662,6 +666,9 @@ color: #569cd6;}
 
 code span.int {
 color: #b5cea4;}
+
+code span.imp {
+color: #b77baf;}
 
 code span.the-button {
 cursor: pointer;}

@@ -24,7 +24,7 @@
     <link id="FontBungee" href="https://fonts.googleapis.com/css?family=Bungee&display=swap&subset=latin-ext" rel="stylesheet">
     <link id="FontConsolas" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
 
-    <link rel="stylesheet" href="index.css?v=1.1.1" />
+    <link rel="stylesheet" href="index.css?v=1.2.0" />
 </head>
 
 <body>
@@ -49,7 +49,7 @@
             <h1 class="title">KioskBoard<i class="fab fa-js-square"></i></h1>
             <h4 class="sub-title">Virtual Keyboard</h4>
             <p class="desc">A pure JavaScript library for using the Virtual Keyboard.</p>
-            <p class="version" data-toggle="tooltip" title="Current Version">v1.1.1</p>
+            <p class="version" data-toggle="tooltip" title="Current Version">v1.2.0</p>
             <div class="browser-compatibility">
                 <h5 class="bc-title">Browser Compatibility</h5>
                 <ul class="bc-ul">
@@ -181,27 +181,44 @@
         </div>
     </section>
 
-    <section id="KeyboardInstall" class="sections">
+    <section id="KeyboardAdd" class="sections">
         <div class="max-width">
 
             <div class="head">
-                <h2 class="sec-title">Install</h2>
-                <p class="sec-desc">There are two ways to install KioskBoard. 1st option is to add CSS and JS assets to the HTML file one by one. 2nd option is to add only the All In One file (Internal CSS). Examples of snippets are shown below.</p>
+                <h2 class="sec-title">Add to HTML</h2>
+                <p class="sec-desc">There are two ways to add KioskBoard. 1st option is to add CSS and JS assets to the HTML file one by one. 2nd option is to add only the All In One file (Internal CSS). Examples of snippets are shown below.</p>
             </div>
 
-            <div class="section-content keyboard-install">
+            <div class="section-content keyboard-add">
                 <code class="html">
                     <span class="label">HTML <span class="desc">CSS and JS</span></span>
 
-                    <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"../KioskBoard/dist/kioskboard-1.1.1.css"</span></span> /&gt;</span>
+                    <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"kioskboard-1.2.0.css"</span></span> /&gt;</span>
 
-                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"../KioskBoard/dist/kioskboard-1.1.1.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"kioskboard-1.2.0.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
                 </code>
 
                 <code class="html">
                     <span class="label">HTML <span class="desc">Only JS (Internal CSS)</span></span>
 
-                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"../KioskBoard/dist/kioskboard-aio-1.1.1.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+                    <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"kioskboard-aio-1.2.0.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+                </code>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="KeyboardImport" class="sections">
+        <div class="max-width">
+
+            <div class="head">
+                <h2 class="sec-title no-margin">Import</h2>
+            </div>
+
+            <div class="section-content keyboard-import">
+                <code class="js">
+                    <span class="label">JS <span class="desc">Import</span></span>
+                    <span class="l1"><span class="imp">import</span> <span class="fnc1">KioskBoard</span> <span class="imp">from</span> <span class="str">'kioskboard'</span>;</span>
                 </code>
             </div>
 
@@ -383,9 +400,9 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/833245c2e4.js"></script>
-    <script src="kioskboard-aio-1.1.1.js"></script>
+    <script src="kioskboard-aio-1.2.0.js"></script>
     <script src="index-tooltip.js"></script>
-    <script src="index.js?v=1.1.1"></script>
+    <script src="index.js?v=1.2.0"></script>
 </body>
 
 </html>

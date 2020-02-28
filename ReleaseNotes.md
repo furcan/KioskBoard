@@ -1,3 +1,9 @@
+@1.2.0
+* **Added:** Universal Module Definition.
+* Code Review
+
+-----
+
 @1.1.1
 * Code Review
 
