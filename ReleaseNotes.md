@@ -1,3 +1,8 @@
+@1.2.1
+* **Fixed:** Document Object Model definition fixes.
+
+-----
+
 @1.2.0
 * **Added:** Universal Module Definition.
 * Code Review

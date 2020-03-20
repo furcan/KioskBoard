@@ -1,6 +1,6 @@
 ﻿/*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.2.0
+* Version: 1.2.1
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -36,11 +36,11 @@
 
     // KioskBoard: Internal CSS on
     var kioskBoardInternalCSS = function () {
-        if (!document.getElementById('KioskBoardInternalCSS')) {
-            var internalCSS = document.createElement('style');
+        if (!window.document.getElementById('KioskBoardInternalCSS')) {
+            var internalCSS = window.document.createElement('style');
             internalCSS.id = 'KioskBoardInternalCSS';
             internalCSS.innerHTML = kioskBoardInternalCSSCodes();
-            document.head.appendChild(internalCSS);
+            window.document.head.appendChild(internalCSS);
         }
     };
     // KioskBoard: Internal CSS off
@@ -424,7 +424,7 @@
 
                     // create keys wrapper on
                     var wrapKeysElement = function (stringHtml) {
-                        var div = document.createElement('div');
+                        var div = window.document.createElement('div');
                         div.className = 'kioskboard-wrapper';
                         div.innerHTML = stringHtml.trim();
                         return div;
@@ -450,7 +450,7 @@
 
                     // create the keyboard on
                     var theTheme = (kioskBoardNewOptions.theme && kioskBoardNewOptions.theme.length > 0 ? kioskBoardNewOptions.theme : 'light');
-                    var kioskBoardVirtualKeyboard = document.createElement('div');
+                    var kioskBoardVirtualKeyboard = window.document.createElement('div');
                     kioskBoardVirtualKeyboard.id = 'KioskBoard-VirtualKeyboard';
                     kioskBoardVirtualKeyboard.classList.add('kioskboard-theme-' + theTheme);
                     kioskBoardVirtualKeyboard.classList.add(cssAnimationsClass);
@@ -499,7 +499,7 @@
                     var keysClickListeners = function (input) {
 
                         // each key click listener on
-                        var eachKeyElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key');
+                        var eachKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key');
                         if (eachKeyElm && eachKeyElm.length > 0) {
                             for (var i = 0; i < eachKeyElm.length; i++) {
                                 var keyElm = eachKeyElm[i];
@@ -538,7 +538,7 @@
                         // each key click listener off
 
                         // capslock key click listener on
-                        var capsLockKeyElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
+                        var capsLockKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
                         if (capsLockKeyElm) {
                             capsLockKeyElm.addEventListener('click', function (e) {
                                 e.preventDefault();
@@ -559,7 +559,7 @@
                         // capslock key click listener off
 
                         // backspace key click listener on
-                        var backspaceKeyElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-backspace')[0];
+                        var backspaceKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-backspace')[0];
                         if (backspaceKeyElm) {
                             backspaceKeyElm.addEventListener('click', function (e) {
                                 e.preventDefault();
@@ -581,8 +581,8 @@
                         // backspace key click listener off
 
                         // specialcharacter key click listener on
-                        var specialCharacterKeyElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-specialcharacter')[0];
-                        var specialCharactersRowElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-row-specialcharacters')[0];
+                        var specialCharacterKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-specialcharacter')[0];
+                        var specialCharactersRowElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-row-specialcharacters')[0];
                         // open
                         if (specialCharacterKeyElm && specialCharactersRowElm) {
                             specialCharacterKeyElm.addEventListener('click', function (e) {
@@ -598,7 +598,7 @@
                             }, false);
                         }
                         // close
-                        var specialCharCloseElm = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-specialcharacter-close')[0];
+                        var specialCharCloseElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-specialcharacter-close')[0];
                         if (specialCharCloseElm && specialCharacterKeyElm && specialCharactersRowElm) {
                             specialCharCloseElm.addEventListener('click', function (e) {
                                 e.preventDefault();
@@ -613,19 +613,19 @@
                     // keys click listeners off
 
                     // append keyboard on
-                    var keyboardElement = document.getElementById(kioskBoardVirtualKeyboard.id);
+                    var keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
                     if (!keyboardElement) {
 
                         // append the keyboard to body
-                        document.body.appendChild(kioskBoardVirtualKeyboard);
-                        keyboardElement = document.getElementById(kioskBoardVirtualKeyboard.id);
+                        window.document.body.appendChild(kioskBoardVirtualKeyboard);
+                        keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
 
                         // check window and keyboard heights on
                         var windowHeight = Math.round(window.innerHeight);
-                        var documentHeight = Math.round(document.body.clientHeight);
-                        var keyboardHeight = Math.round(document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
+                        var documentHeight = Math.round(window.document.body.clientHeight);
+                        var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
                         if (keyboardHeight > Math.round((windowHeight / 3) * 2)) {
-                            var keyboardWrapper = document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
+                            var keyboardWrapper = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
                             keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 3) + 'px';
                             keyboardWrapper.style.overflowX = 'hidden';
                             keyboardWrapper.style.overflowY = 'auto';
@@ -634,20 +634,20 @@
                         // check window and keyboard heights off
 
                         // body padding bottom on
-                        var theInputOffsetTop = Math.round(theInput.getBoundingClientRect().top + document.documentElement.scrollTop);
+                        var theInputOffsetTop = Math.round(theInput.getBoundingClientRect().top + window.document.documentElement.scrollTop);
                         if (documentHeight <= theInputOffsetTop + keyboardHeight + 50) {
                             // body padding style on
-                            var styleElm = document.getElementById('KioskboardBodyPadding');
+                            var styleElm = window.document.getElementById('KioskboardBodyPadding');
                             if (styleElm && styleElm.parentNode !== null) {
                                 styleElm.parentNode.removeChild(styleElm);
                             }
 
                             var style = '<style id="KioskboardBodyPadding">.kioskboard-body-padding {padding-bottom:' + keyboardHeight + 'px !important;}</style>';
-                            var styleRange = document.createRange();
-                            styleRange.selectNode(document.head);
+                            var styleRange = window.document.createRange();
+                            styleRange.selectNode(window.document.head);
                             var styleFragment = styleRange.createContextualFragment(style);
-                            document.head.appendChild(styleFragment);
-                            document.body.classList.add('kioskboard-body-padding');
+                            window.document.head.appendChild(styleFragment);
+                            window.document.body.classList.add('kioskboard-body-padding');
                             // body padding style off
                         }
 
@@ -674,8 +674,8 @@
                                 var removeTimeout = setTimeout(function () {
                                     if (keyboardElement.parentNode !== null) {
                                         keyboardElement.parentNode.removeChild(keyboardElement); // remove keyboard
-                                        document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
-                                        document.removeEventListener('click', docClickListener); // remove document click listener
+                                        window.document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
+                                        window.document.removeEventListener('click', docClickListener); // remove document click listener
                                     }
                                     clearTimeout(removeTimeout);
                                 }, cssAnimationsDuration);
@@ -693,7 +693,7 @@
                             // toggle inputs off
 
                         }
-                        document.addEventListener('click', docClickListener); // add document click listener
+                        window.document.addEventListener('click', docClickListener); // add document click listener
                         // keyboard click outside listener off
 
                     }
@@ -751,7 +751,7 @@
             // Check the arguments for proceed on
             if (arguments && arguments.length === 1) {
                 // get all elements
-                var kbElements = document.querySelectorAll(keyboardElement);
+                var kbElements = window.document.querySelectorAll(keyboardElement);
 
                 // if: elements exist on the document
                 if (kbElements && kbElements.length > 0) {
