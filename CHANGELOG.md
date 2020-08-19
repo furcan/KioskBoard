@@ -1,3 +1,9 @@
+@1.3.2
+* **Added:** Internet Explorer 11 compatibility. ([#3](https://github.com/furcan/KioskBoard/issues/3))
+* **Changed:** Code Review.
+
+-----
+
 @1.3.1
 * **Fixed:** Fixes on checking the "window.location.protocol". ([#4](https://github.com/furcan/KioskBoard/issues/4))
 * **Added:** IE polyfill for the CustomEvent constructor. ([#3](https://github.com/furcan/KioskBoard/issues/3))

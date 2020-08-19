@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.3.1
+* Version: 1.3.2
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -168,6 +168,25 @@
     window.Event = Event;
   })();
   // KioskBoard: IE support for Event: end
+
+  // KioskBoard: Check the event target by element: begin
+  var kioskBoardEventTargetIsElementOrChilds = function name(event, element) {
+    if (event.target === element) {
+      return true;
+    } else {
+      var nodeList = element.querySelectorAll('*');
+      if (nodeList && nodeList.length > 0) {
+        for (var ni = 0; ni < nodeList.length; ni++) {
+          var child = nodeList[ni];
+          if (event.target === child) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  };
+  // KioskBoard: Check the event target by element: end
 
   // KioskBoard: begin
   var KioskBoard = {
@@ -659,8 +678,8 @@
             // body padding bottom: begin
             var inputTop = theInput.getBoundingClientRect().top || 0;
             var docTop = window.document.documentElement.scrollTop || 0;
-            var theInputOffsetTop = Math.round(inputTop + docTop);
-            if (documentHeight <= theInputOffsetTop + keyboardHeight + 50) {
+            var theInputOffsetTop = Math.round(inputTop + docTop) - 50;
+            if (documentHeight <= theInputOffsetTop + keyboardHeight) {
               var styleElm = window.document.getElementById('KioskboardBodyPadding');
               if (styleElm && styleElm.parentNode !== null) {
                 styleElm.parentNode.removeChild(styleElm);
@@ -675,13 +694,17 @@
             }
 
             var autoScroll = opt.autoScroll === true;
+            var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
+            var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
             if (autoScroll) {
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
               if (userAgent.indexOf('edge') <= -1 && userAgent.indexOf('.net4') <= -1) {
                 var scrollTimeout = setTimeout(function () {
-                  window.scrollTo({ top: theInputOffsetTop - 50, left: 0, behavior: 'smooth' });
+                  window.scrollTo({ top: theInputOffsetTop, left: 0, behavior: scrollBehavior });
                   clearTimeout(scrollTimeout);
-                }, 360);
+                }, scrollDelay);
+              } else {
+                window.document.documentElement.scrollTop = theInputOffsetTop;
               }
             }
             // body padding bottom: end
@@ -692,7 +715,7 @@
             // keyboard click outside listener: begin
             var docClickListener = function (e) {
               // check event target to remove keyboard: begin
-              if ((e.target !== theInput) && (e.target !== keyboardElement) && !e.target.closest('#' + kioskBoardVirtualKeyboard.id)) {
+              if (e.target !== theInput && !kioskBoardEventTargetIsElementOrChilds(e, keyboardElement)) {
                 // add remove class
                 kioskBoardVirtualKeyboard.classList.add(cssAnimationsStyle + '-remove');
 
