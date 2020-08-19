@@ -9,7 +9,7 @@ A pure JavaScript library for using the Virtual Keyboard.
 ---------
 
 ### Current Version
-1.2.1 [*](https://github.com/furcan/KioskBoard/blob/master/ReleaseNotes.md)
+1.3.0 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
 
 ---------
 
@@ -46,21 +46,21 @@ import KioskBoard from "kioskboard";
 ##### CSS and JS
 
 ```html
-<link rel="stylesheet" href="kioskboard-1.2.1.css" />
+<link rel="stylesheet" href="dist/kioskboard-1.3.0.min.css" />
 
-<script src="kioskboard-1.2.1.js"></script>
+<script src="dist/kioskboard-1.3.0.min.js"></script>
 ```
 
 ##### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="kioskboard-aio-1.2.1.js"></script>
+<script src="dist/kioskboard-aio-1.3.0.min.js"></script>
 ```
 
 ---------
 
 ### Keyboard Types and Themes
-3 types of keyboards can be used: `all`, `keyboard`, and `numapad`.
+3 types of keyboards can be used: `all`, `keyboard`, and `numpad`.
 
 5 types of themes can be used. `light`, `dark`, `flat`, `material`, and `oldschool`.
 
@@ -105,7 +105,7 @@ KioskBoard.Init({
   */
   keysJsonUrl: null,
 
-  /* 
+  /*
   * Optional: (Special Characters Object)* Can override default special characters object with the new/custom one.
   * e.g. {"key":"value", "key":"value", ...} => {"0":"#", "1":"$", "2":"%", "3":"+", "4":"-", "5":"*"}
   */
@@ -114,55 +114,57 @@ KioskBoard.Init({
   // Optional: (Other Options)
 
   // Language Code (ISO 639-1) for custom keys (for language support) => e.g. "en" || "tr" || "es" || "de" || "fr" etc.
-  language: 'en', 
+  language: 'en',
 
   // The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"
-  theme: 'light', 
+  theme: 'light',
 
   // Uppercase or lowercase to start. Uppercase when "true"
-  capsLockActive: true, 
+  capsLockActive: true,
 
   // Allow or prevent real/physical keyboard usage. Prevented when "false"
   allowRealKeyboard: false,
 
   // CSS animations for opening or closing the keyboard
-  cssAnimations: true, 
+  cssAnimations: true,
 
   // CSS animations duration as millisecond
-  cssAnimationsDuration: 360, 
+  cssAnimationsDuration: 360,
 
   // CSS animations style for opening or closing the keyboard => "slide" || "fade"
-  cssAnimationsStyle: 'slide', 
+  cssAnimationsStyle: 'slide',
 
   // Allow or deny Spacebar on the keyboard. The keyboard is denied when "false"
-  keysAllowSpacebar: true, 
+  keysAllowSpacebar: true,
 
   // Text of the space key (spacebar). Without text => " "
-  keysSpacebarText: 'Space', 
+  keysSpacebarText: 'Space',
 
   // Font family of the keys
-  keysFontFamily: 'sans-serif', 
+  keysFontFamily: 'sans-serif',
 
   // Font size of the keys
-  keysFontSize: '22px', 
+  keysFontSize: '22px',
 
   // Font weight of the keys
-  keysFontWeight: 'normal', 
+  keysFontWeight: 'normal',
 
   // Size of the icon keys
-  keysIconSize: '25px', 
+  keysIconSize: '25px',
 
+  // v1.1.0 and the next versions
+  // Allow or prevent mobile keyboard usage. Prevented when "false"
+  allowMobileKeyboard: false,
 
-   // v1.1.0 and the next versions
-   // Allow or prevent mobile keyboard usage. Prevented when "false"
-   allowMobileKeyboard: false,
-
+  // v1.3.0 and the next versions
+  // Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"
+  autoScroll: true,
 });
 
 
 // Run KioskBoard
 // Select any input or textarea element(s) to run KioskBoard
-KioskBoard.Run('.virtual-keyboard'); 
+KioskBoard.Run('.virtual-keyboard');
 ```
 
 ---------
@@ -173,7 +175,7 @@ KioskBoard.Run('.virtual-keyboard');
 ```js
 // The Merge function extends the initialize function for a specific action or event.
 KioskBoard.Merge({
-  theme: 'dark', 
+  theme: 'dark',
 });
 
 ```
@@ -181,9 +183,9 @@ KioskBoard.Merge({
 ---------
 
 ### Language (JSON)
-If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text. 
+If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text.
 
-Additionally, KioskBoard includes 5 different language packages: `English` `Turkish` `Spanish` `German` `French`
+Additionally, KioskBoard includes 6 different language packages: `English` `Turkish` `Spanish` `German` `French` `Hungarian`
 
 An example of a JSON file (for custom keys) is as below.
 ```json

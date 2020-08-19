@@ -1,35 +1,51 @@
 {
-    "name": "kioskboard",
-    "main": "dist/kioskboard-aio-1.2.1.js",
-    "version": "1.2.1",
-    "description": "A pure JavaScript library for using the Virtual Keyboard.",
-    "homepage": "https://github.com/furcan/KioskBoard",
-    "files": [
-      "dist"
-    ],
-    "keywords": [
-      "keyboard",
-      "virtual keyboard",
-      "kiosk",
-      "kiosk keyboard",
-      "numpad",
-      "virtual numpad"
-    ],
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/furcan/KioskBoard.git"
-    },
-    "bugs": {
-      "url": "https://github.com/furcan/KioskBoard/issues"
-    },
-    "author": "Furkan MT (https://github.com/furcan)",
-    "contributors": [
-      "Furkan MT (https://github.com/furcan)"
-    ],
-    "licenses": [
-      {
-        "type": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
-    ]
+  "name": "kioskboard",
+  "main": "dist/kioskboard-aio-1.3.0.min.js",
+  "version": "1.3.0",
+  "description": "A pure JavaScript library for using the Virtual Keyboard.",
+  "homepage": "https://github.com/furcan/KioskBoard",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "keyboard",
+    "virtual keyboard",
+    "kiosk",
+    "kiosk keyboard",
+    "numpad",
+    "virtual numpad"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furcan/KioskBoard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/furcan/KioskBoard/issues"
+  },
+  "author": "Furkan MT (https://github.com/furcan)",
+  "contributors": [
+    "Furkan MT (https://github.com/furcan)"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "babel-minify": "^0.5.1",
+    "clean-css": "^4.2.3",
+    "eslint": "^7.6.0",
+    "stylelint": "^13.6.1",
+    "stylelint-config-standard": "^20.0.0"
+  },
+  "scripts": {
+    "src-stylelint": "stylelint src/kioskboard.css",
+    "src-eslint": "eslint src/kioskboard.js",
+    "src-lint": "npm run src-stylelint && npm run src-eslint",
+    "dev-constants-eslint": "eslint helpers/dev-constants.js",
+    "dev-allinone-eslint": "eslint helpers/dev-allinone.js",
+    "dev-minifier-eslint": "eslint helpers/dev-minifier.js",
+    "dev-lint": "npm run dev-constants-eslint && npm run dev-allinone-eslint && npm run dev-minifier-eslint",
+    "dev-allinone": "npm run dev-lint && npm run src-lint && node helpers/dev-allinone.js",
+    "src-allinone-eslint": "eslint src/all-in-one/kioskboard-aio.js",
+    "dev-minifier": "npm run dev-allinone && npm run src-allinone-eslint && node helpers/dev-minifier.js",
+    "build": "npm run dev-minifier"
   }
+}
