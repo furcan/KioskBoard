@@ -19,7 +19,7 @@ https://furcan.github.io/KioskBoard/
 ---------
 
 ### Browser Compatibility
-`Chrome` - `Firefox` - `Safari` - `Opera` - `Edge` - `Internet Explorer 11`
+`Chrome` - `Firefox` - `Safari` - `Opera` - `Edge` - `IE 11`
 
 ---------
 
