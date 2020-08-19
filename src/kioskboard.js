@@ -724,7 +724,7 @@
       // Functions: Get the Keys from JSON by XMLHttpRequest and AppendTo: begin
       var getKeysViaXmlHttpRequest = function (jsonUrl, input) {
         // check the protocol
-        var protocolSchemes = ['http', 'data', 'chrome', 'chrome-extension', 'https'];
+        var protocolSchemes = ['http:', 'data:', 'chrome:', 'chrome-extension:', 'https:'];
         var protocol = (window.location || {}).protocol;
         if (protocolSchemes.indexOf(protocol) <= -1) {
           kioskBoardConsoleError('The Browser has blocked this request by CORS policy.');
