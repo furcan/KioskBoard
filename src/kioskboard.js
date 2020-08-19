@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.3.0
+* Version: 1.3.1
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -29,13 +29,13 @@
   // KioskBoard: Internal CSS Codes: begin
   var kioskBoardInternalCSSCodes = function () {
     var internalCSS = '';
-    return internalCSS || '';
+    return internalCSS || null;
   };
   // KioskBoard: Internal CSS codes: end
 
   // KioskBoard: Internal CSS: begin
   var kioskBoardInternalCSS = function () {
-    if (!window.document.getElementById('KioskBoardInternalCSS')) {
+    if (kioskBoardInternalCSSCodes() !== null && !window.document.getElementById('KioskBoardInternalCSS')) {
       var internalCSS = window.document.createElement('style');
       internalCSS.id = 'KioskBoardInternalCSS';
       internalCSS.innerHTML = kioskBoardInternalCSSCodes();
@@ -152,6 +152,22 @@
     return icon;
   };
   // KioskBoard: Icons: end
+
+  // KioskBoard: IE support for Event: begin
+  (function () {
+    if (typeof window.Event === 'function') {
+      return false;
+    }
+    function Event(event, params) {
+      params = params || { bubbles: false, cancelable: false, detail: undefined };
+      var evt = window.document.createEvent('CustomEvent');
+      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+      return evt;
+    }
+    Event.prototype = window.Event.prototype;
+    window.Event = Event;
+  })();
+  // KioskBoard: IE support for Event: end
 
   // KioskBoard: begin
   var KioskBoard = {

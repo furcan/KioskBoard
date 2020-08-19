@@ -1,3 +1,10 @@
+@1.3.1
+* **Fixed:** Fixes on checking the "window.location.protocol". ([#4](https://github.com/furcan/KioskBoard/issues/4))
+* **Added:** IE polyfill for the CustomEvent constructor. ([#3](https://github.com/furcan/KioskBoard/issues/3))
+* **Changed:** Code Review.
+
+-----
+
 @1.3.0
 * **Changed:** `kioskboard.css`, and `kioskboard.js` files have been moved from `dist` folder to `src` folder.
 * **Changed:** `kioskboard-aio.js` file has been moved from `dist` folder to `src/all-in-one` folder.

@@ -68,6 +68,7 @@ var turkishKeyboard = [
 // DEMO: KioskBoard Init off
 KioskBoard.Init({
   keysArrayOfObjects: turkishKeyboard,
+  // keysJsonUrl: 'kioskboard-keys-turkish.json',
   language: 'tr',
   keysFontFamily: 'Barlow',
   keysFontWeight: '500',
