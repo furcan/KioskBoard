@@ -59,6 +59,7 @@ import KioskBoard from "kioskboard";
 
 ---------
 
+
 ### Keyboard Types and Themes
 3 types of keyboards can be used: `all`, `keyboard`, and `numpad`.
 
