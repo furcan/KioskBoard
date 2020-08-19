@@ -1,0 +1,14 @@
+
+# Node Modules
+node_modules/
+/npm-debug.log
+
+# Misc
+.DS_Store
+*.DS_Store
+.code-workspace
+*.code-workspace
+
+# IDE/Editor
+.vscode/
+.vs/
