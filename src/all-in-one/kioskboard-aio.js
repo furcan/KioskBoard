@@ -1,7 +1,7 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Description: This file contains the KioskBoard CSS codes as internal to use the KioskBoard as one file. This file has been created automatically from using the "kioskboard.js", and "kioskboard.css" files.
-* Version: 1.3.2
+* Version: 1.3.3
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -274,6 +274,7 @@
           // check mobile keyboard allowed: begin
           if (!allowMobileKeyboard) {
             theInput.setAttribute('readonly', 'readonly');
+            theInput.blur();
           }
           // check mobile keyboard allowed: end
 

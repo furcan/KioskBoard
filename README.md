@@ -2,6 +2,16 @@
   <img src="https://raw.githubusercontent.com/furcan/KioskBoard/master/docs/github-cover.png" width="640" height="auto" alt="KioskBoard">
 </p>
 
+[npm-version-badge]: https://img.shields.io/npm/v/kioskboard.svg
+[npm-version-url]: https://www.npmjs.com/package/kioskboard
+[synk-badge]: https://snyk.io/test/github/furcan/KioskBoard/badge.svg?targetFile=package.json
+[synk-url]: https://snyk.io/test/github/furcan/KioskBoard?targetFile=package.json
+[lic-badge]: https://img.shields.io/github/license/furcan/KioskBoard.svg
+[lic-url]: https://github.com/furcan/KioskBoard/blob/master/LICENSE
+
+[![NPM Version][npm-version-badge]][npm-version-url]
+[![Known Vulnerabilities][synk-badge]][synk-url]
+[![License][lic-badge]][lic-url]
 
 # KioskBoard - Virtual Keyboard
 A pure JavaScript library for using the Virtual Keyboard.
@@ -9,7 +19,7 @@ A pure JavaScript library for using the Virtual Keyboard.
 ---------
 
 ### Current Version
-1.3.2 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
+1.3.3 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
 
 ---------
 
@@ -46,15 +56,15 @@ import KioskBoard from "kioskboard";
 ##### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-1.3.2.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-1.3.3.min.css" />
 
-<script src="dist/kioskboard-1.3.2.min.js"></script>
+<script src="dist/kioskboard-1.3.3.min.js"></script>
 ```
 
 ##### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-1.3.2.min.js"></script>
+<script src="dist/kioskboard-aio-1.3.3.min.js"></script>
 ```
 
 ---------

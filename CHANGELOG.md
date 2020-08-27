@@ -1,3 +1,8 @@
+@1.3.3
+* **Fixed:** `AllowMobileKeyboard` option was not working properly on iOS devices. ([#7](https://github.com/furcan/KioskBoard/issues/7))
+
+-----
+
 @1.3.2
 * **Added:** Internet Explorer 11 compatibility. ([#3](https://github.com/furcan/KioskBoard/issues/3))
 * **Changed:** Code Review.
