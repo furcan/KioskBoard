@@ -552,9 +552,6 @@
                 keyElm.addEventListener('click', function (e) {
                   e.preventDefault();
 
-                  // input trigger change for selectionStart
-                  input.dispatchEvent(changeEvent);
-
                   // input trigger focus
                   input.focus();
 
@@ -573,6 +570,9 @@
 
                   // update input value
                   input.value = theInputValArray.join('');
+                  
+                  // input trigger change for selectionStart
+                  input.dispatchEvent(changeEvent);
 
                 }, false);
               }
@@ -608,9 +608,6 @@
               backspaceKeyElm.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                // trigger for selectionStart
-                input.dispatchEvent(changeEvent);
-
                 // input trigger focus
                 input.focus();
 
@@ -619,6 +616,9 @@
 
                 // update input value
                 input.value = theInputValArray.join('');
+                
+                // trigger for selectionStart
+                input.dispatchEvent(changeEvent);
 
               }, false);
             }
