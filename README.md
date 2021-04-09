@@ -196,7 +196,7 @@ KioskBoard.Merge({
 ### Language (JSON)
 If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text.
 
-Additionally, KioskBoard includes 6 different language packages: `English` `Turkish` `Spanish` `German` `French` `Hungarian` `Russian`
+Additionally, KioskBoard includes 7 different language packages: `English` `Turkish` `Spanish` `German` `French` `Hungarian` `Russian`
 
 An example of a JSON file (for custom keys) is as below.
 ```json
