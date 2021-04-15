@@ -242,7 +242,7 @@ An example of a JSON file (for custom keys) is as below.
 ---------
 
 #### Copyright
-Copyright © 2020 KioskBoard - Virtual Keyboard
+Copyright © 2021 KioskBoard - Virtual Keyboard
 
 #### License
 MIT license - https://opensource.org/licenses/MIT
