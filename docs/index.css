@@ -2,7 +2,7 @@
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* Reset on */
@@ -620,8 +620,10 @@ section#KeyboardTypes .keyboard-types .types .demo {
   width: 100%;
 }
 
-section#KeyboardThemes .keyboard-themes .themes .demo .virtual-keyboard-demo,
-section#KeyboardTypes .keyboard-types .types .demo .virtual-keyboard-demo {
+section#KeyboardThemes .keyboard-themes .themes .demo input,
+section#KeyboardThemes .keyboard-themes .themes .demo textarea,
+section#KeyboardTypes .keyboard-types .types .demo input,
+section#KeyboardTypes .keyboard-types .types .demo textarea {
   transition: all 0.2s ease-in-out;
   float: left;
   width: 100%;
@@ -636,18 +638,23 @@ section#KeyboardTypes .keyboard-types .types .demo .virtual-keyboard-demo {
   background: rgba(255, 255, 255, 0.5);
 }
 
-section#KeyboardThemes .keyboard-themes .themes .demo .virtual-keyboard-demo:focus {
+section#KeyboardThemes .keyboard-themes .themes .demo input:focus,
+section#KeyboardThemes .keyboard-themes .themes .demo textarea:focus {
   background: #fff;
 }
 
-section#KeyboardThemes .keyboard-themes .themes .demo .virtual-keyboard-demo::-webkit-input-placeholder,
-section#KeyboardTypes .keyboard-types .types .demo .virtual-keyboard-demo::-webkit-input-placeholder {
+section#KeyboardThemes .keyboard-themes .themes .demo input::-webkit-input-placeholder,
+section#KeyboardThemes .keyboard-themes .themes .demo textarea::-webkit-input-placeholder,
+section#KeyboardTypes .keyboard-types .types .demo input::-webkit-input-placeholder,
+section#KeyboardTypes .keyboard-types .types .demo textarea::-webkit-input-placeholder {
   transition: all 0.2s ease-in-out;
   color: #b8b8b8;
 }
 
-section#KeyboardThemes .keyboard-themes .themes .demo .virtual-keyboard-demo::-moz-placeholder,
-section#KeyboardTypes .keyboard-types .types .demo .virtual-keyboard-demo::-moz-placeholder {
+section#KeyboardThemes .keyboard-themes .themes .demo input::-moz-placeholder,
+section#KeyboardThemes .keyboard-themes .themes .demo textarea::-moz-placeholder,
+section#KeyboardTypes .keyboard-types .types .demo input::-moz-placeholder,
+section#KeyboardTypes .keyboard-types .types .demo textarea::-moz-placeholder {
   transition: all 0.2s ease-in-out;
   color: #b8b8b8;
 }
@@ -686,6 +693,19 @@ footer#Footer a.github i {
 /* Footer off */
 
 /* Code on */
+.code-or {
+  font-size: 15px;
+  line-height: 25px;
+  margin: 0 0 25px;
+  float: left;
+  width: 100%;
+}
+
+.code-deprecated {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 code {
   text-align: left;
   font-family: "Inconsolata", monospace;
@@ -1006,3 +1026,36 @@ code span.the-button {
   }
 }
 /* Responsive off */
+
+/* Furcan on */
+section#Furcan {
+  width: 100%;
+}
+
+input.furcan {
+  width: 100%;
+  height: 90px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  padding: 0 20px;
+  border-radius: 0;
+  background: #5decaa;
+  color: #1e1e1e;
+}
+
+input.furcan::placeholder {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+input.furcan:-ms-input-placeholder {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+input.furcan::-ms-input-placeholder {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.2);
+}
+/* Furcan off */

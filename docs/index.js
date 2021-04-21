@@ -2,10 +2,10 @@
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
-// DEMO: Tooltip on
+// DEMO: Tooltip: begin
 function furcanTooltip(tooltip) {
   $('body > .tooltip').remove();
   $(tooltip).tooltip({
@@ -20,9 +20,9 @@ $(document).on('click', function () {
     $('body > .tooltip').remove();
   }
 });
-// DEMO: Tooltip off
+// DEMO: Tooltip: end
 
-// DEMO: Turkish Keys on
+// DEMO: Turkish Keys: begin
 var turkishKeyboard = [
   {
     "0": "Q",
@@ -63,18 +63,49 @@ var turkishKeyboard = [
     "8": "Ç"
   }
 ];
-// DEMO: Turkish Keys off
+// DEMO: Turkish Keys: end
 
-// DEMO: KioskBoard Init off
-KioskBoard.Init({
-  // keysJsonUrl: 'kioskboard-keys-turkish.json',
+// DEMO: KioskBoard Run: begin
+KioskBoard.Run('.js-kioskboard-input', {
   keysArrayOfObjects: turkishKeyboard,
+  // keysJsonUrl: 'kioskboard-keys-turkish.json',
   language: 'tr',
   keysFontFamily: 'Barlow',
   keysFontWeight: '500',
-  cssAnimations: true,
-  // allowRealKeyboard: false,
-  // allowMobileKeyboard: false,
 });
-KioskBoard.Run('.virtual-keyboard-demo');
-// DEMO: KioskBoard Init off
+// DEMO: KioskBoard Run: end
+
+// DEMO: KioskBoard Theme: begin
+$('.js-kioskboard-input-theme').each(function () {
+  var $this = $(this);
+  var thisTheme = $this.data('theme') || 'light';
+  KioskBoard.Run(this, {
+    keysArrayOfObjects: turkishKeyboard,
+    language: 'tr',
+    theme: thisTheme,
+  });
+});
+// DEMO: KioskBoard Theme: end
+
+// DEMO: KioskBoard: Alternative Run: begin
+KioskBoard.Run('.js-kioskboard-input-furcan', {
+  keysArrayOfObjects: [
+    {
+      "0": "F",
+      "1": "U",
+      "2": "R",
+      "3": "C",
+      "4": "A",
+      "5": "N",
+    },
+  ],
+  allowRealKeyboard: false,
+  allowMobileKeyboard: true,
+  language: 'en',
+  theme: 'dark',
+});
+
+$('.js-kioskboard-input-furcan').on('change', function () {
+  console.log('".js-kioskboard-input-furcan" value is: \n\n', this.value);
+});
+// DEMO: KioskBoard: Alternative Run: end

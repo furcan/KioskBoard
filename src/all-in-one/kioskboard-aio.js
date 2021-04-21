@@ -1,9 +1,9 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Description: This file contains the KioskBoard CSS codes as internal to use the KioskBoard as one file. This file has been created automatically from using the "kioskboard.js", and "kioskboard.css" files.
-* Version: 1.3.3
+* Version: 1.4.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2020 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* global define */
@@ -199,29 +199,62 @@
     },
     // Merge
     Merge: function (userMergeOptions) {
-      userMergeOptions = typeof userMergeOptions === 'object' && !Array.isArray(userMergeOptions) ? userMergeOptions : {};
-      // if: initialized
-      if (kioskBoardNewOptions) {
-        kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardNewOptions, userMergeOptions);
-      }
-      // else: initialize first
-      else {
-        kioskBoardConsoleError('You have to initialize KioskBoard before call the Merge function.');
-        return false;
-      }
+      // The Merge function has been deprecated. (v1.4.0 and the next versions).
+      kioskBoardConsoleLog('The Merge function has been deprecated. (v1.4.0 and the next versions). \n\n' + JSON.stringify(userMergeOptions || {}));
+      return false;
     },
     // Run
-    Run: function (selector) {
-      // Check the initialize
-      if (!kioskBoardNewOptions) {
-        kioskBoardConsoleError('You have to initialize KioskBoard first. \n\nVisit to learn more: ' + kioskBoardGithubUrl);
+    Run: function (selectorOrElement, options) {
+      // Element(s)
+      var kbElements = [];
+
+      // Allowed Element Types
+      var allowedElementTypes = ['input', 'textarea'];
+
+      // If: Check the selector is an element
+      var isElement = allowedElementTypes.indexOf((selectorOrElement.nodeName || '').toLocaleLowerCase('en')) > -1;
+      if (isElement) {
+        kbElements.push(selectorOrElement);
+      }
+      // Else: Check the selector is valid for the querySelector
+      else {
+        // Check the selector
+        var selectorIsValid = typeof selectorOrElement === 'string' && selectorOrElement.length > 0;
+        if (!selectorIsValid) {
+          kioskBoardConsoleError('"' + selectorOrElement + '" is not a valid selector.');
+          return false;
+        }
+
+        // Get the element(s)
+        kbElements = window.document.querySelectorAll(selectorOrElement);
+        if (kbElements.length < 1) {
+          kioskBoardConsoleError('You called the KioskBoard with the "' + selectorOrElement + '" selector, but there is no such element on the document.');
+          return false;
+        }
+      }
+
+      // If: Check the options to initialize or extend
+      if (typeof options === 'object' && Object.keys(options).length > 0) {
+        if (!kioskBoardNewOptions) {
+          KioskBoard.Init(options);
+        } else {
+          // extend the new options by the default options
+          kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardDefaultOptions, options);
+        }
+      }
+      // Else If: Check the initialize
+      else if (!kioskBoardNewOptions) {
+        kioskBoardConsoleError('You have to initialize the KioskBoard first. \n\nVisit to learn more: ' + kioskBoardGithubUrl);
         return false;
       }
 
-      // Keys Array
-      var keysArrayOfObjects = kioskBoardNewOptions.keysArrayOfObjects;
+      // The final options for each
+      var opt = kioskBoardNewOptions;
 
-      // Keys Array Object has keys
+      // Keys: Array of Objects
+      var keysArrayOfObjects = opt.keysArrayOfObjects;
+
+      // Keys: Array of Objects has keys
       var objectHasKeys = false;
 
       // Step 1: check the "keysArrayOfObjects": begin
@@ -235,10 +268,10 @@
 
       // Step 2: check the "keysJsonUrl": begin
       if (!objectHasKeys) {
-        // keys json url
-        var keysJsonUrl = kioskBoardNewOptions.keysJsonUrl;
+        // keys json url is valid
+        var keysJsonUrlIsValid = typeof opt.keysJsonUrl === 'string' && opt.keysJsonUrl.length > 0;
         // check the "keysJsonUrl"
-        if (!keysJsonUrl) {
+        if (!keysJsonUrlIsValid) {
           kioskBoardConsoleError('You have to set the path of KioskBoard Keys JSON file to "keysJsonUrl" option. \n\nVisit to learn more: ' + kioskBoardGithubUrl);
           return false;
         }
@@ -253,13 +286,10 @@
 
         // all inputs readonly check for allowing mobile keyboard
         var getReadOnlyAttr = input.getAttribute('readonly') !== null;
-        var allowMobileKeyboard = kioskBoardNewOptions.allowMobileKeyboard === true;
+        var allowMobileKeyboard = opt.allowMobileKeyboard === true;
 
         // each input focus listener: begin
         var inputFocusListener = function () {
-          // new options
-          var opt = kioskBoardNewOptions;
-
           // input element variables: begin
           var theInput = this;
           var theInputSelIndex = 0;
@@ -509,12 +539,12 @@
           kioskBoardVirtualKeyboard.appendChild(allKeysElement);
           // create the keyboard: end
 
-          // input element trigger change: begin
+          // event for input element trigger change: begin
           var changeEvent = new Event('change', {
             'bubbles': true,
             'cancelable': true,
           });
-          // input element trigger change: end
+          // event for input element trigger change: end
 
           // input element keypress listener: begin
           theInput.addEventListener('keypress', function (e) {
@@ -535,26 +565,25 @@
           }, false);
           // input element keypress listener: end
 
-          // input element change listener: begin
-          theInput.addEventListener('change', function () {
-            var thisValLen = (this.value || '').length;
-            // update selectionStart
-            theInputSelIndex = this.selectionStart || thisValLen;
-          }, false);
-          // input element change listener: end
-
           // keys click listeners: begin
           var keysClickListeners = function (input) {
             // each key click listener: begin
             var eachKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key');
             if (eachKeyElm && eachKeyElm.length > 0) {
-              for (var i = 0; i < eachKeyElm.length; i++) {
-                var keyElm = eachKeyElm[i];
+              for (var ekIndex = 0; ekIndex < eachKeyElm.length; ekIndex++) {
+                var keyElm = eachKeyElm[ekIndex];
                 keyElm.addEventListener('click', function (e) {
                   e.preventDefault();
 
-                  // input trigger change for selectionStart
-                  input.dispatchEvent(changeEvent);
+                  // check input max & maxlength
+                  var maxLength = (input.getAttribute('maxlength') || '') * 1;
+                  var max = (input.getAttribute('max') || '') * 1;
+                  var liveValueLength = (input.value || '').length || 0;
+                  if (maxLength > 0 && liveValueLength >= maxLength) { return false; }
+                  if (max > 0 && liveValueLength >= max) { return false; }
+
+                  // update the selectionStart
+                  theInputSelIndex = input.selectionStart || (input.value || '').length;
 
                   // input trigger focus
                   input.focus();
@@ -574,6 +603,12 @@
 
                   // update input value
                   input.value = theInputValArray.join('');
+
+                  // set next selection index
+                  input.setSelectionRange(theInputSelIndex + 1, theInputSelIndex + 1);
+
+                  // input trigger change event for update the value
+                  input.dispatchEvent(changeEvent);
 
                 }, false);
               }
@@ -609,8 +644,8 @@
               backspaceKeyElm.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                // trigger for selectionStart
-                input.dispatchEvent(changeEvent);
+                // update the selectionStart
+                theInputSelIndex = input.selectionStart || (input.value || '').length;
 
                 // input trigger focus
                 input.focus();
@@ -620,6 +655,12 @@
 
                 // update input value
                 input.value = theInputValArray.join('');
+
+                // set next selection index
+                input.setSelectionRange(theInputSelIndex - 1, theInputSelIndex - 1);
+
+                // input trigger change event for update the value
+                input.dispatchEvent(changeEvent);
 
               }, false);
             }
@@ -670,7 +711,7 @@
             var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
             if (keyboardHeight > Math.round((windowHeight / 3) * 2)) {
               var keyboardWrapper = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
-              keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 3) + 'px';
+              keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 4) + 'px';
               keyboardWrapper.style.overflowX = 'hidden';
               keyboardWrapper.style.overflowY = 'auto';
               keyboardWrapper.classList.add('kioskboard-overflow');
@@ -803,49 +844,33 @@
       // Functions: Get the Keys from JSON by XMLHttpRequest and AppendTo: end
 
       // Step 3: Select the element(s): begin
-      // if: selector is valid
-      if (typeof selector === 'string' && selector.length > 0) {
-        var kbElements = window.document.querySelectorAll(selector);
-        // if: elements exist on the document
-        if (kbElements && kbElements.length > 0) {
-          for (var i = 0; i < kbElements.length; i++) {
-            // each element
-            var eachElement = kbElements[i];
+      for (var kbIndex = 0; kbIndex < kbElements.length; kbIndex++) {
+        // each element
+        var eachElement = kbElements[kbIndex];
 
-            // each element tag name
-            var getTagName = ((eachElement || {}).tagName || '').toLocaleLowerCase('en');
+        // each element tag name
+        var getTagName = ((eachElement || {}).tagName || '').toLocaleLowerCase('en');
 
-            // if: an input or textarea element
-            if (getTagName === 'input' || getTagName === 'textarea') {
-              // if: has cached keys => create the keyboard by using cached keys
-              if (kioskBoardCachedKeys) {
-                createKeyboardAndAppendTo(kioskBoardCachedKeys, eachElement);
-              }
-              // else: try to get the keys from the JSON file via XmlHttpRequest
-              else {
-                getKeysViaXmlHttpRequest(keysJsonUrl, eachElement);
-              }
-            }
-            // else: other elements
-            else {
-              kioskBoardConsoleLog('You have to call the "KioskBoard" with an ID/ClassName of an Input or a TextArea element. Your element\'s tag name is: "' + getTagName + '". \n\nYou can visit the Documentation page to learn more. \n\nVisit: ' + kioskBoardGithubUrl);
-            }
+        // if: an input or textarea element
+        if (allowedElementTypes.indexOf(getTagName) > -1) {
+          // if: has cached keys => create the keyboard by using cached keys
+          if (kioskBoardCachedKeys) {
+            createKeyboardAndAppendTo(kioskBoardCachedKeys, eachElement);
+          }
+          // else: try to get the keys from the JSON file via XmlHttpRequest
+          else {
+            getKeysViaXmlHttpRequest(opt.keysJsonUrl, eachElement);
           }
         }
-        // else: there is no such element...
+        // else: other elements
         else {
-          kioskBoardConsoleError('You called the KioskBoard with the "' + selector + '" selector, but there is no such element on the document.');
-          return false;
+          kioskBoardConsoleLog('You have to call the "KioskBoard" with an ID/ClassName of an Input or a TextArea element. Your element\'s tag name is: "' + getTagName + '". \n\nYou can visit the Documentation page to learn more. \n\nVisit: ' + kioskBoardGithubUrl);
         }
-      }
-      // else: selector is not valid
-      else {
-        kioskBoardConsoleError('"' + selector + '" is not a valid selector.');
-        return false;
       }
       // Step 3: Select the element(s): end
     },
   };
+
   return KioskBoard;
   // KioskBoard: end
 });

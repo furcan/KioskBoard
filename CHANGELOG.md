@@ -1,3 +1,14 @@
+@1.4.0
+* **Fixed:** The dispatcher issue on the input change event has been fixed: ([#11](https://github.com/furcan/KioskBoard/issues/11))
+* **Fixed:** The current text selection issue has been fixed: ([#19](https://github.com/furcan/KioskBoard/issues/19))
+* **Added:** The `max` and `maxlength` attribute controls have been added: ([#17](https://github.com/furcan/KioskBoard/issues/17))
+* **Added:** The `options` parameter has been added to the `Run()` function to set the initialize options. => `KioskBoard.Run(selector, options);`
+* **Changed:** The `selector` parameter has been changed to `selectorOrElement` that also can use an element instead of the query selector. => `KioskBoard.Run(selectorOrElement);`
+* **Changed:** The `Merge()` function has been deprecated.
+* **Changed:** Code Review.
+
+-----
+
 @1.3.3
 * **Fixed:** `AllowMobileKeyboard` option was not working properly on iOS devices. ([#7](https://github.com/furcan/KioskBoard/issues/7))
 

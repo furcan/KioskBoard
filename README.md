@@ -19,7 +19,7 @@ A pure JavaScript library for using the Virtual Keyboard.
 ---------
 
 ### Current Version
-1.3.3 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
+1.4.0 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
 
 ---------
 
@@ -56,15 +56,15 @@ import KioskBoard from "kioskboard";
 ##### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-1.3.3.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-1.4.0.min.css" />
 
-<script src="dist/kioskboard-1.3.3.min.js"></script>
+<script src="dist/kioskboard-1.4.0.min.js"></script>
 ```
 
 ##### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-1.3.3.min.js"></script>
+<script src="dist/kioskboard-aio-1.4.0.min.js"></script>
 ```
 
 ---------
@@ -96,7 +96,8 @@ KioskBoard Virtual Keyboard can be used with the `input` or `textarea` elements.
 
 ---------
 
-##### JS => (Initialize & Run)
+##### JS => (Step1: Initialize)
+
 ```js
 // Initialize KioskBoard (default/all options)
 
@@ -171,24 +172,38 @@ KioskBoard.Init({
   // Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"
   autoScroll: true,
 });
+```
 
+##### JS => (Step2: Run)
 
-// Run KioskBoard
-// Select any input or textarea element(s) to run KioskBoard
+```js
+// Select the input or the textarea element(s) to run the KioskBoard
+
 KioskBoard.Run('.virtual-keyboard');
+```
+##### OR
+
+##### JS => (Run with Init - v1.4.0 and the next versions)
+
+```js
+// Select the input or the textarea element(s) to run the KioskBoard
+
+KioskBoard.Run('.virtual-keyboard', {
+   // ...init options
+});
 ```
 
 ---------
 
 ### Merge
-`KioskBoard.Merge({});` function can be used to extend the Initialize function via using a specific action or event.
+`KioskBoard.Merge({});` function has been deprecated. (v1.4.0 and the next versions)
 
 ```js
 // The Merge function extends the initialize function for a specific action or event.
-KioskBoard.Merge({
-  theme: 'dark',
-});
 
+// KioskBoard.Merge({
+  // theme: 'dark',
+// });
 ```
 
 ---------

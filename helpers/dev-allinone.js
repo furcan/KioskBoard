@@ -4,7 +4,7 @@
 * Description: Creates "kioskboard-aio.js" file automatically from "kioskboard.js" and "kioskboard.css" files.
 * Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2020 All In One Generator, MIT Licence ('https://opensource.org/licenses/MIT')
+* Copyright 2021 All In One Generator, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
 // Dev Dependencies

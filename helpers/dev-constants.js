@@ -3,7 +3,7 @@
 * Description: Constants for the development.
 * Version: 1.0.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2020 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
+* Copyright 2021 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
 // Dev Dependencies
@@ -67,7 +67,7 @@ module.exports = {
   title: 'KioskBoard - Virtual Keyboard',
   url: '(https://github.com/furcan/KioskBoard)',
   license: 'MIT Licence (https://opensource.org/licenses/MIT)',
-  year: new Date().getFullYear() || '2020',
+  year: new Date().getFullYear() || '2021',
   cleanCSSOptions,
   minifyOptions,
   minifyOverrides,
