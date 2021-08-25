@@ -85,13 +85,13 @@ KioskBoard Virtual Keyboard can be used with the `input` or `textarea` elements.
 ##### HTML => (data-* options)
 ```html
 <!-- An example of a textarea element: Keyboard type is "all" and the availability of special characters is "true". -->
-<textarea class="virtual-keyboard" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="Your Address"></textarea>
+<textarea class="js-virtual-keyboard" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="Your Address"></textarea>
 
 <!-- An example of an input element: Keyboard type is "keyboard" and the availability of special characters is "false". -->
-<input class="virtual-keyboard" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" placeholder="Your Name" />
+<input class="js-virtual-keyboard" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" placeholder="Your Name" />
 
 <!-- An example of an input element: Keyboard type is "numpad". (special characters are not allowed for the "numpad" type.) -->
-<input class="virtual-keyboard" data-kioskboard-type="numpad" placeholder="Your Number" />
+<input class="js-virtual-keyboard" data-kioskboard-type="numpad" placeholder="Your Number" />
 ```
 
 ---------
@@ -125,7 +125,7 @@ KioskBoard.Init({
 
   // Optional: (Other Options)
 
-  // Language Code (ISO 639-1) for custom keys (for language support) => e.g. "en" || "tr" || "es" || "de" || "fr" etc.
+  // Language Code (ISO 639-1) for custom keys (for language support) => e.g. "de" || "en" || "fr" || "hu" || "tr" etc...
   language: 'en',
 
   // The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"
@@ -134,8 +134,14 @@ KioskBoard.Init({
   // Uppercase or lowercase to start. Uppercase when "true"
   capsLockActive: true,
 
-  // Allow or prevent real/physical keyboard usage. Prevented when "false"
+  /*
+  * Allow or prevent real/physical keyboard usage. Prevented when "false"
+  * In addition, the "allowMobileKeyboard" option must be "true" as well, if the real/physical keyboard has wanted to be used.
+  */
   allowRealKeyboard: false,
+
+  // Allow or prevent mobile keyboard usage. Prevented when "false"
+  allowMobileKeyboard: false,
 
   // CSS animations for opening or closing the keyboard
   cssAnimations: true,
@@ -164,11 +170,6 @@ KioskBoard.Init({
   // Size of the icon keys
   keysIconSize: '25px',
 
-  // v1.1.0 and the next versions
-  // Allow or prevent mobile keyboard usage. Prevented when "false"
-  allowMobileKeyboard: false,
-
-  // v1.3.0 and the next versions
   // Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"
   autoScroll: true,
 });
@@ -179,7 +180,7 @@ KioskBoard.Init({
 ```js
 // Select the input or the textarea element(s) to run the KioskBoard
 
-KioskBoard.Run('.virtual-keyboard');
+KioskBoard.Run('.js-virtual-keyboard');
 ```
 ##### OR
 
@@ -188,7 +189,7 @@ KioskBoard.Run('.virtual-keyboard');
 ```js
 // Select the input or the textarea element(s) to run the KioskBoard
 
-KioskBoard.Run('.virtual-keyboard', {
+KioskBoard.Run('.js-virtual-keyboard', {
    // ...init options
 });
 ```
@@ -211,7 +212,7 @@ KioskBoard.Run('.virtual-keyboard', {
 ### Language (JSON)
 If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text.
 
-Additionally, KioskBoard includes 7 different language packages: `English` `Turkish` `Spanish` `German` `French` `Hungarian` `Russian`
+Additionally, KioskBoard includes 7 different language packages: `English`, `French`, `German`, `Hungarian`, `Russian`, `Spanish`, and `Turkish`.
 
 An example of a JSON file (for custom keys) is as below.
 ```json

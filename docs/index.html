@@ -294,32 +294,54 @@
           <span class="l1 l2"><span class="fnc1">specialCharactersObject:</span> <span class="bool">null</span>,</span>
 
           <span class="l1 l2 break"></span>
-
           <span class="l1 l2 cmmnt">// Optional: (Other Options)</span>
-
-          <span class="l1 l2"><span class="fnc1">language:</span> <span class="str">'en'</span>, <span class="cmmnt">// Language Code (ISO 639-1) for custom keys (for language support) => e.g. "en" || "tr" || "es" || "de" || "fr" etc.</span></span>
-          <span class="l1 l2"><span class="fnc1">theme:</span> <span class="str">'light'</span>, <span class="cmmnt">// The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"</span></span>
-          <span class="l1 l2"><span class="fnc1">capsLockActive:</span> <span class="bool">true</span>, <span class="cmmnt">// Uppercase or lowercase to start. Uppercase when "true"</span></span>
-          <span class="l1 l2"><span class="fnc1">allowRealKeyboard:</span> <span class="bool">false</span>, <span class="cmmnt">// Allow or prevent real/physical keyboard usage. Prevented when "false"</span></span>
-
-          <span class="l1 l2"><span class="fnc1">cssAnimations:</span> <span class="bool">true</span>, <span class="cmmnt">// CSS animations for opening or closing the keyboard</span></span>
-          <span class="l1 l2"><span class="fnc1">cssAnimationsDuration:</span> <span class="int">360</span>, <span class="cmmnt">// CSS animations duration as millisecond</span></span>
-          <span class="l1 l2"><span class="fnc1">cssAnimationsStyle:</span> <span class="str">'slide'</span>, <span class="cmmnt">// CSS animations style for opening or closing the keyboard => "slide" || "fade"</span></span>
-
-          <span class="l1 l2"><span class="fnc1">keysAllowSpacebar:</span> <span class="bool">true</span>, <span class="cmmnt">// Allow or deny Spacebar on the keyboard. The keyboard is denied when "false"</span></span>
-          <span class="l1 l2"><span class="fnc1">keysSpacebarText:</span> <span class="str">'Space'</span>, <span class="cmmnt">// Text of the space key (spacebar). Without text => " "</span></span>
-          <span class="l1 l2"><span class="fnc1">keysFontFamily:</span> <span class="str">'sans-serif'</span>, <span class="cmmnt">// Font family of the keys</span></span>
-          <span class="l1 l2"><span class="fnc1">keysFontSize:</span> <span class="str">'22px'</span>, <span class="cmmnt">// Font size of the keys</span></span>
-          <span class="l1 l2"><span class="fnc1">keysFontWeight:</span> <span class="str">'normal'</span>, <span class="cmmnt">// Font weight of the keys</span></span>
-          <span class="l1 l2"><span class="fnc1">keysIconSize:</span> <span class="str">'25px'</span>, <span class="cmmnt">// Size of the icon keys</span></span>
-
           <span class="l1 l2 break"></span>
-          <span class="l1 l2 cmmnt">// v1.1.0 and the next versions</span>
-          <span class="l1 l2"><span class="fnc1">allowMobileKeyboard:</span> <span class="bool">false</span>, <span class="cmmnt">// Allow or prevent mobile keyboard usage. Prevented when "false"</span></span>
 
-          <span class="l1 l2 break"></span>
-          <span class="l1 l2 cmmnt">// v1.3.0 and the next versions</span>
-          <span class="l1 l2"><span class="fnc1">autoScroll:</span> <span class="bool">true</span>, <span class="cmmnt">// Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"</span></span>
+          <span class="l1 l2 cmmnt">// Language Code (ISO 639-1) for custom keys (for language support) => e.g. "de" || "en" || "fr" || "hu" || "tr" etc...</span>
+          <span class="l1 l2"><span class="fnc1">language:</span> <span class="str">'en'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"</span>
+          <span class="l1 l2"><span class="fnc1">theme:</span> <span class="str">'light'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Uppercase or lowercase to start. Uppercase when "true"</span>
+          <span class="l1 l2"><span class="fnc1">capsLockActive:</span> <span class="bool">true</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Allow or prevent real/physical keyboard usage. Prevented when "false"</span>
+          <span class="l1 l2 cmmnt">// In addition, the "allowMobileKeyboard" option must be "true" as well, if the real/physical keyboard has wanted to be used.</span>
+          <span class="l1 l2"><span class="fnc1">allowRealKeyboard:</span> <span class="bool">false</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Allow or prevent mobile keyboard usage. Prevented when "false"</span>
+          <span class="l1 l2"><span class="fnc1">allowMobileKeyboard:</span> <span class="bool">false</span>,</span>
+
+          <span class="l1 l2 cmmnt">// CSS animations for opening or closing the keyboard</span>
+          <span class="l1 l2"><span class="fnc1">cssAnimations:</span> <span class="bool">true</span>,</span>
+
+          <span class="l1 l2 cmmnt">// CSS animations duration as millisecond</span>
+          <span class="l1 l2"><span class="fnc1">cssAnimationsDuration:</span> <span class="int">360</span>,</span>
+
+          <span class="l1 l2 cmmnt">// CSS animations style for opening or closing the keyboard => "slide" || "fade"</span>
+          <span class="l1 l2"><span class="fnc1">cssAnimationsStyle:</span> <span class="str">'slide'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Allow or deny Spacebar on the keyboard. The keyboard is denied when "false"</span>
+          <span class="l1 l2"><span class="fnc1">keysAllowSpacebar:</span> <span class="bool">true</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Text of the space key (spacebar). Without text => " "</span>
+          <span class="l1 l2"><span class="fnc1">keysSpacebarText:</span> <span class="str">'Space'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Font family of the keys</span>
+          <span class="l1 l2"><span class="fnc1">keysFontFamily:</span> <span class="str">'sans-serif'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Font size of the keys</span>
+          <span class="l1 l2"><span class="fnc1">keysFontSize:</span> <span class="str">'22px'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Font weight of the keys</span>
+          <span class="l1 l2"><span class="fnc1">keysFontWeight:</span> <span class="str">'normal'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Size of the icon keys</span>
+          <span class="l1 l2"><span class="fnc1">keysIconSize:</span> <span class="str">'25px'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"</span>
+          <span class="l1 l2"><span class="fnc1">autoScroll:</span> <span class="bool">true</span>,</span>
 
           <span class="l1">});</span>
         </code>
@@ -372,7 +394,23 @@
       <div class="head">
         <h2 class="sec-title">Language (JSON)</h2>
         <p class="sec-desc">If custom keys are not defined with the <span class="option">keysArrayOfObjects</span> option, the <span class="option">keysJsonUrl</span> option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like <span class="option">[{"key":"value", "key":"value"}, ...]</span> Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text. An example of a JSON file (for custom keys) is as below.</p>
-        <p class="sec-desc">Additionally, KioskBoard includes 7 different language packages: <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-english.json"><span class="option">English</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-turkish.json"><span class="option">Turkish</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-spanish.json"><span class="option">Spanish</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-german.json"><span class="option">German</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-french.json"><span class="option">French</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-hungarian.json"><span class="option">Hungarian</span></a> <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-russian.json"><span class="option">Russian</span></a></p>
+        <p class="sec-desc">
+          <span>Additionally, KioskBoard includes 7 different language packages: </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-english.json"><span class="option">English</span></a>
+          <span>,</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-french.json"><span class="option">French</span></a>
+          <span>,</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-german.json"><span class="option">German</span></a>
+          <span>,</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-hungarian.json"><span class="option">Hungarian</span></a>
+          <span>,</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-russian.json"><span class="option">Russian</span></a>
+          <span>,</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-spanish.json"><span class="option">Spanish</span></a>
+          <span>, and </span>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/furcan/KioskBoard/blob/master/dist/kioskboard-keys-turkish.json"><span class="option">Turkish</span></a>
+          <span>.</span>
+        </p>
       </div>
       <div class="section-content keyboard-json">
         <code class="json">
