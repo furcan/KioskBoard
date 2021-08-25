@@ -14,7 +14,7 @@ const CleanCSS = require('clean-css');
 const Constants = require('./dev-constants');
 
 // Constants
-const thisFilePath = 'helpers/dev-allinone.js';
+const thisFilePath = '.dev/helpers/dev-allinone.js';
 
 // Get File content as text: begin
 const getFileContentAsTextByType = (filePath, fileType, clean) => {

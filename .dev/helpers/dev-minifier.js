@@ -15,7 +15,7 @@ const CleanCSS = require('clean-css');
 const Constants = require('./dev-constants');
 
 // Constants
-const thisFilePath = 'helpers/dev-minifier.js';
+const thisFilePath = '.dev/helpers/dev-minifier.js';
 
 // Minified Code and Source Type: begin
 const minifiedCodeBySourceType = (text, type) => {

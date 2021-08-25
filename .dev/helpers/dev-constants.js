@@ -8,7 +8,7 @@
 
 // Dev Dependencies
 const chalk = require('chalk');
-const package = require('../package.json');
+const package = require('../../package.json');
 
 // Constants: begin
 // - CleanCSS Options: begin
