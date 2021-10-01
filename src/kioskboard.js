@@ -1,9 +1,9 @@
 /*!
-* KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.4.0
-* Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
-*/
+ * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
+ * Version: 1.4.0
+ * Author: Furkan MT ('https://github.com/furcan')
+ * Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+ */
 
 /* global define */
 (function (root, factory) {
@@ -64,6 +64,9 @@
     keysFontWeight: 'normal',
     keysIconSize: '25px',
     autoScroll: true, // v1.3.0 and the next versions
+    birthdateStyleFormater: false, //Style for birthdate
+    birthdateStyleFormat: 'MM-DD-AAAA',
+    birthdateStyleSeparatorCharacter: '-',
   };
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
@@ -127,27 +130,45 @@
 
   // KioskBoard: Icons: begin
   var kioskBoardIconBackspace = function (width, color) {
-    if (!width) { width = 25; }
-    if (!color) { color = '#707070'; }
+    if (!width) {
+      width = 25;
+    }
+    if (!color) {
+      color = '#707070';
+    }
     var icon = '&nbsp;<svg id="KioskBoardIconBackspace" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="' + width + '" height="' + width + '" viewBox="0 0 612 612" style="width:' + width + ';height:' + width + ';fill:' + color + ';" xml:space="preserve"><path d="M561,76.5H178.5c-17.85,0-30.6,7.65-40.8,22.95L0,306l137.7,206.55c10.2,12.75,22.95,22.95,40.8,22.95H561c28.05,0,51-22.95,51-51v-357C612,99.45,589.05,76.5,561,76.5z M484.5,397.8l-35.7,35.7L357,341.7l-91.8,91.8l-35.7-35.7l91.8-91.8l-91.8-91.8l35.7-35.7l91.8,91.8l91.8-91.8l35.7,35.7L392.7,306L484.5,397.8z"/></svg>';
     return icon;
   };
   var kioskBoardIconCapslock = function (width, color) {
-    if (!width) { width = 25; }
-    if (!color) { color = '#707070'; }
+    if (!width) {
+      width = 25;
+    }
+    if (!color) {
+      color = '#707070';
+    }
     var icon = '&nbsp;<svg id="KioskBoardIconCapslock" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="' + width + '" height="' + width + '" version="1.1" style="width:' + width + ';height:' + width + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 200 200" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M61.8 148.97l76.4 0c6,0 10.91,4.9 10.91,10.9l0 27.24c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -27.24c0,-6 4.91,-10.9 10.91,-10.9zm105.7 -60.38l-18.39 0 0 37.36c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -37.36 -18.39 0c-2.65,0 -4.91,-1.47 -5.97,-3.89 -1.07,-2.42 -0.63,-5.08 1.16,-7.02l67.5 -73.57c1.28,-1.39 2.91,-2.11 4.81,-2.11 1.9,0 3.53,0.72 4.81,2.11l67.5 73.57c1.79,1.94 2.23,4.6 1.16,7.02 -1.06,2.42 -3.32,3.89 -5.97,3.89z"/></svg>';
     return icon;
   };
   var kioskBoardIconSpecialCharacters = function (width, height, color) {
-    if (!width) { width = 50; }
-    if (!height) { width = 25; }
-    if (!color) { color = '#707070'; }
+    if (!width) {
+      width = 50;
+    }
+    if (!height) {
+      width = 25;
+    }
+    if (!color) {
+      color = '#707070';
+    }
     var icon = '&nbsp;<svg id="KioskBoardIconSpecialCharacters" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="' + width + '" height="' + height + '" version="1.1" style="width:' + width + ';height:' + height + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 300 150" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512"><path d="M34.19 79.43l1.99 -10.86 10.8 0 -1.96 10.86 -10.83 0zm264.98 -17.22l0 -9.63c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.63c0,1.23 1,2.23 2.24,2.23l74.48 0c1.24,0 2.24,-1 2.24,-2.23zm0 35.22l0 -9.62c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.62c0,1.23 1,2.24 2.24,2.24l74.48 0c1.24,0 2.24,-1.01 2.24,-2.24zm-153.98 -61.91l9.63 0c1.23,0 2.23,1.01 2.23,2.25l0 30.19 30.19 0c1.25,0 2.25,1.01 2.25,2.23l0 9.63c0,1.23 -1,2.23 -2.25,2.23l-30.19 0 0 30.19c0,1.25 -1,2.25 -2.23,2.25l-9.63 0c-1.23,0 -2.23,-1 -2.23,-2.25l0 -30.19 -30.19 0c-1.24,0 -2.25,-1 -2.25,-2.23l0 -9.63c0,-1.22 1.01,-2.23 2.25,-2.23l30.19 0 0 -30.19c0,-1.24 1,-2.25 2.23,-2.25zm-67.7 33.05c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-13.93 0 2.95 -16.51c0.12,-0.68 -0.07,-1.37 -0.51,-1.89 -0.44,-0.53 -1.09,-0.83 -1.77,-0.83l-9.36 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.12 17.34 -10.74 0 3.03 -16.49c0.12,-0.67 -0.06,-1.37 -0.5,-1.89 -0.44,-0.53 -1.09,-0.84 -1.77,-0.84l-9.48 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.16 17.33 -21.43 0c-1.28,0 -2.31,1.04 -2.31,2.32l0 9.19c0,1.28 1.03,2.31 2.31,2.31l18.91 0 -1.98 10.86 -16.93 0c-1.28,0 -2.31,1.04 -2.31,2.31l0 9.2c0,1.28 1.03,2.31 2.31,2.31l14.41 0 -3.35 18.36c-0.12,0.67 0.06,1.37 0.5,1.89 0.44,0.53 1.09,0.84 1.78,0.84l9.36 0c1.12,0 2.08,-0.8 2.28,-1.9l3.53 -19.19 10.88 0 -3.31 18.42c-0.13,0.67 0.06,1.36 0.49,1.89 0.44,0.52 1.08,0.83 1.76,0.84l9.49 0.09c0,0 0.01,0 0.02,0 1.12,0 2.08,-0.81 2.28,-1.91l3.44 -19.33 20.79 0c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-18.32 0 1.93 -10.86 16.39 0z"/></svg>';
     return icon;
   };
   var kioskBoardIconClose = function (width, color) {
-    if (!width) { width = 18; }
-    if (!color) { color = '#707070'; }
+    if (!width) {
+      width = 18;
+    }
+    if (!color) {
+      color = '#707070';
+    }
     var icon = '<svg version="1.1" id="KioskBoardIconClose" width="' + width + '" height="' + width + '" style="width:' + width + ';height:' + width + ';fill:' + color + ';" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 348.333 348.334" xml:space="preserve"><path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554	L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/></svg>';
     return icon;
   };
@@ -158,8 +179,13 @@
     if (typeof window.Event === 'function') {
       return false;
     }
+
     function Event(event, params) {
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
+      params = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined
+      };
       var evt = window.document.createEvent('CustomEvent');
       evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
       return evt;
@@ -578,8 +604,12 @@
                   var maxLength = (input.getAttribute('maxlength') || '') * 1;
                   var max = (input.getAttribute('max') || '') * 1;
                   var liveValueLength = (input.value || '').length || 0;
-                  if (maxLength > 0 && liveValueLength >= maxLength) { return false; }
-                  if (max > 0 && liveValueLength >= max) { return false; }
+                  if (maxLength > 0 && liveValueLength >= maxLength) {
+                    return false;
+                  }
+                  if (max > 0 && liveValueLength >= max) {
+                    return false;
+                  }
 
                   // update the selectionStart
                   theInputSelIndex = input.selectionStart || (input.value || '').length;
@@ -608,6 +638,37 @@
 
                   // input trigger change event for update the value
                   input.dispatchEvent(changeEvent);
+
+                  //Check if birthdate format is active
+                  var birthdateStyleFormater = opt.birthdateStyleFormater === true;
+
+                  if (birthdateStyleFormater) {
+                    var birthdateLength1 = 0;
+                    var birthdateLength2 = 0;
+
+                    //Checking the desired format
+                    if (opt.birthdateStyleFormat === 'DD-MM-AAAA' || opt.birthdateStyleFormat === 'MM-DD-AAAA') { //If 2-2-4
+                      birthdateLength1 = 3;
+                      birthdateLength2 = 6;
+                    } else if (opt.birthdateStyleFormat === 'AAAA-MM-DD') { //if 4-2-2
+                      birthdateLength1 = 5;
+                      birthdateLength2 = 8;
+                    }
+
+                    if (theInputValArray.length === birthdateLength1 || theInputValArray.length === birthdateLength2) {
+                      //Get the desired separation character
+                      keyValue = opt.birthdateStyleSeparatorCharacter;
+
+                      //Code to add values
+                      theInputValArray.splice(theInputSelIndex, 0, keyValue);
+
+                      input.value = theInputValArray.join('');
+
+                      input.setSelectionRange(theInputSelIndex + 2, theInputSelIndex + 2);
+
+                      input.dispatchEvent(changeEvent);
+                    }
+                  }
 
                 }, false);
               }
@@ -742,7 +803,11 @@
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
               if (userAgent.indexOf('edge') <= -1 && userAgent.indexOf('.net4') <= -1) {
                 var scrollTimeout = setTimeout(function () {
-                  window.scrollTo({ top: theInputOffsetTop, left: 0, behavior: scrollBehavior });
+                  window.scrollTo({
+                    top: theInputOffsetTop,
+                    left: 0,
+                    behavior: scrollBehavior
+                  });
                   clearTimeout(scrollTimeout);
                 }, scrollDelay);
               } else {

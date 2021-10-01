@@ -14,21 +14,25 @@
 [![License][lic-badge]][lic-url]
 
 # KioskBoard - Virtual Keyboard
+
 A pure JavaScript library for using the Virtual Keyboard.
 
 ---------
 
 ### Current Version
+
 1.4.0 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
 
 ---------
 
 ### Documentation and Demo
-https://furcan.github.io/KioskBoard/
+
+<https://furcan.github.io/KioskBoard/>
 
 ---------
 
 ### Browser Compatibility
+
 `Chrome` - `Firefox` - `Safari` - `Opera` - `Edge` - `IE 11`
 
 ---------
@@ -36,14 +40,19 @@ https://furcan.github.io/KioskBoard/
 ### (A) Install & Import
 
 Install
+
 ##### [npm](https://www.npmjs.com/package/kioskboard)
+
 ```js
 npm i kioskboard
 ```
+
 ##### [yarn](https://yarnpkg.com/en/package/kioskboard)
+
 ```js
 yarn add kioskboard
 ```
+
 Import
 
 ```jsx
@@ -53,6 +62,7 @@ import KioskBoard from "kioskboard";
 ---------
 
 ### (B) Adding to an HTML Document
+
 ##### CSS and JS
 
 ```html
@@ -69,8 +79,8 @@ import KioskBoard from "kioskboard";
 
 ---------
 
-
 ### Keyboard Types and Themes
+
 3 types of keyboards can be used: `all`, `keyboard`, and `numpad`.
 
 5 types of themes can be used. `light`, `dark`, `flat`, `material`, and `oldschool`.
@@ -78,11 +88,13 @@ import KioskBoard from "kioskboard";
 ---------
 
 ### Initialize / Run
+
 KioskBoard Virtual Keyboard can be used with the `input` or `textarea` elements. KioskBoard must be initialized with the required options. The other options are optional. The keyboard type `data-kioskboard-type` and special characters `data-kioskboard-specialcharacters` settings are each element-based (data attributes). All options and examples of data attribute usages are as below. Also, a custom class name can be defined for all input or textarea elements to run KioskBoard.
 
 ---------
 
 ##### HTML => (data-* options)
+
 ```html
 <!-- An example of a textarea element: Keyboard type is "all" and the availability of special characters is "true". -->
 <textarea class="js-virtual-keyboard" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="Your Address"></textarea>
@@ -172,6 +184,21 @@ KioskBoard.Init({
 
   // Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"
   autoScroll: true,
+
+  //Activate the formatter for birth dates. Prevented when "false"
+  birthdateStyleFormater : false,
+
+  /*
+  * Desired birth date format. Default: 'MM-JJ-AAAA'
+  * Accepted formats are :
+  * - 'DD-MM-AAAA' : Day-Month-Year
+  * - 'MM-DD-AAAA' : Month-Day-Year
+  * - 'AAAA-MM-DD' : Year-Month-Day
+  */ 
+  birthdateStyleFormat: 'MM-JJ-AAAA',
+
+  //Desired separation character. Default: '-'
+  birthdateStyleSeparatorCharacter: '-'
 });
 ```
 
@@ -182,6 +209,7 @@ KioskBoard.Init({
 
 KioskBoard.Run('.js-virtual-keyboard');
 ```
+
 ##### OR
 
 ##### JS => (Run with Init - v1.4.0 and the next versions)
@@ -197,6 +225,7 @@ KioskBoard.Run('.js-virtual-keyboard', {
 ---------
 
 ### Merge
+
 `KioskBoard.Merge({});` function has been deprecated. (v1.4.0 and the next versions)
 
 ```js
@@ -210,11 +239,13 @@ KioskBoard.Run('.js-virtual-keyboard', {
 ---------
 
 ### Language (JSON)
+
 If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text.
 
 Additionally, KioskBoard includes 7 different language packages: `English`, `French`, `German`, `Hungarian`, `Russian`, `Spanish`, and `Turkish`.
 
 An example of a JSON file (for custom keys) is as below.
+
 ```json
 [
    {
@@ -258,7 +289,9 @@ An example of a JSON file (for custom keys) is as below.
 ---------
 
 #### Copyright
+
 Copyright © 2021 KioskBoard - Virtual Keyboard
 
 #### License
-MIT license - https://opensource.org/licenses/MIT
+
+MIT license - <https://opensource.org/licenses/MIT>
