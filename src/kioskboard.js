@@ -598,7 +598,13 @@
                   }
 
                   // add value by index
-                  theInputValArray.splice(theInputSelIndex, 0, keyValue);
+                  /** Prevents breaking on custom keys that insert multiple characters, for example, imagine a ".com" key, 
+                   * it would be inserted into the array as a single element and could no longer be deleted because the length of 
+                   * the input would be greater than the length of the array, adding Math.min (and comparing the respective lengths) 
+                   * to the backspace key prevents this problem but would delete the entire contents of the key (all characters, for example ".com") 
+                   * Instead, concatenate the main array of the contents with a possible array of keyValue, you can delete any single character.
+                   **/
+                  theInputValArray = theInputValArray.concat(keyValue.split(''));
 
                   // update input value
                   input.value = theInputValArray.join('');
@@ -642,9 +648,10 @@
             if (backspaceKeyElm) {
               backspaceKeyElm.addEventListener('click', function (e) {
                 e.preventDefault();
-
+                
                 // update the selectionStart
-                theInputSelIndex = input.selectionStart || (input.value || '').length;
+                // Math.min prevents out of bound, theInputSelIndex cannot be greater than the length of theInputValArray
+                theInputSelIndex = Math.min((input.selectionStart || (input.value || '').length),theInputValArray.length);
 
                 // input trigger focus
                 input.focus();

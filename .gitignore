@@ -12,3 +12,6 @@ node_modules/
 # IDE/Editor
 .vscode/
 .vs/
+
+# Test
+test/
