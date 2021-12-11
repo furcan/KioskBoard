@@ -611,7 +611,8 @@
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
                   }
-                }, false);                
+                }, false);
+              }                
             }
             // capslock key click listener: end
 
