@@ -2,7 +2,7 @@
 * Minifier
 *
 * Description: Minify the KioskBoard scripts, and clean the KioskBoard styles to the distribution. (Used "Babel Minify", and "Clean CSS")
-* Version: 1.0.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 Minifier, MIT Licence ('https://opensource.org/licenses/MIT')
 */
@@ -15,7 +15,7 @@ const CleanCSS = require('clean-css');
 const Constants = require('./dev-constants');
 
 // Constants
-const thisFilePath = '.dev/helpers/dev-minifier.js';
+const thisFilePath = '.dev/dev-minifier.js';
 
 // Minified Code and Source Type: begin
 const minifiedCodeBySourceType = (text, type) => {

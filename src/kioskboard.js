@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.4.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -48,12 +48,13 @@
   var kioskBoardDefaultOptions = {
     keysArrayOfObjects: null,
     keysJsonUrl: null,
-    specialCharactersObject: null,
+    keysSpecialCharsArrayOfStrings: null,
+    keysNumpadArrayOfNumbers: null,
     language: 'en',
     theme: 'light', // "light" || "dark" || "flat" || "material" || "oldschool"
     capsLockActive: true,
     allowRealKeyboard: false,
-    allowMobileKeyboard: false, // v1.1.0 and the next versions
+    allowMobileKeyboard: false,
     cssAnimations: true,
     cssAnimationsDuration: 360,
     cssAnimationsStyle: 'slide', // "slide" || "fade"
@@ -63,11 +64,78 @@
     keysFontSize: '22px',
     keysFontWeight: 'normal',
     keysIconSize: '25px',
-    autoScroll: true, // v1.3.0 and the next versions
+    autoScroll: true,
   };
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
+  var kioskBoardSpecialCharacters = {
+    '0': '!',
+    '1': '\'',
+    '2': '^',
+    '3': '#',
+    '4': '+',
+    '5': '$',
+    '6': '%',
+    '7': '½',
+    '8': '&',
+    '9': '/',
+    '10': '{',
+    '11': '}',
+    '12': '(',
+    '13': ')',
+    '14': '[',
+    '15': ']',
+    '16': '=',
+    '17': '*',
+    '18': '?',
+    '19': '\\',
+    '20': '-',
+    '21': '_',
+    '22': '|',
+    '23': '@',
+    '24': '€',
+    '25': '₺',
+    '26': '~',
+    '27': 'æ',
+    '28': 'ß',
+    '29': '<',
+    '30': '>',
+    '31': ',',
+    '32': ';',
+    '33': '.',
+    '34': ':',
+    '35': '`',
+  };
+  var kioskBoardNumpadKeysObject = {
+    '0': '7',
+    '1': '8',
+    '2': '9',
+    '3': '4',
+    '4': '5',
+    '5': '6',
+    '6': '1',
+    '7': '2',
+    '8': '3',
+    '9': '0',
+  };
+  var kioskBoardAllKeysObject = {
+    '0': '1',
+    '1': '2',
+    '2': '3',
+    '3': '4',
+    '4': '5',
+    '5': '6',
+    '6': '7',
+    '7': '8',
+    '8': '9',
+    '9': '0',
+  };
+  var kioskBoardTypes = {
+    All: 'all',
+    Keyboard: 'keyboard',
+    Numpad: 'numpad',
+  };
   // KioskBoard: Default Options: end
 
   // KioskBoard: Extend Options: begin
@@ -129,26 +197,26 @@
   var kioskBoardIconBackspace = function (width, color) {
     if (!width) { width = 25; }
     if (!color) { color = '#707070'; }
-    var icon = '&nbsp;<svg id="KioskBoardIconBackspace" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="' + width + '" height="' + width + '" viewBox="0 0 612 612" style="width:' + width + ';height:' + width + ';fill:' + color + ';" xml:space="preserve"><path d="M561,76.5H178.5c-17.85,0-30.6,7.65-40.8,22.95L0,306l137.7,206.55c10.2,12.75,22.95,22.95,40.8,22.95H561c28.05,0,51-22.95,51-51v-357C612,99.45,589.05,76.5,561,76.5z M484.5,397.8l-35.7,35.7L357,341.7l-91.8,91.8l-35.7-35.7l91.8-91.8l-91.8-91.8l35.7-35.7l91.8,91.8l91.8-91.8l35.7,35.7L392.7,306L484.5,397.8z"/></svg>';
+    var icon = '&nbsp;<svg id="KioskBoardIconBackspace" xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + width + '" viewBox="0 0 612 612" style="width:' + width + ';height:' + width + ';fill:' + color + ';"><path d="M561,76.5H178.5c-17.85,0-30.6,7.65-40.8,22.95L0,306l137.7,206.55c10.2,12.75,22.95,22.95,40.8,22.95H561c28.05,0,51-22.95,51-51v-357C612,99.45,589.05,76.5,561,76.5z M484.5,397.8l-35.7,35.7L357,341.7l-91.8,91.8l-35.7-35.7l91.8-91.8l-91.8-91.8l35.7-35.7l91.8,91.8l91.8-91.8l35.7,35.7L392.7,306L484.5,397.8z"/></svg>';
     return icon;
   };
   var kioskBoardIconCapslock = function (width, color) {
     if (!width) { width = 25; }
     if (!color) { color = '#707070'; }
-    var icon = '&nbsp;<svg id="KioskBoardIconCapslock" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="' + width + '" height="' + width + '" version="1.1" style="width:' + width + ';height:' + width + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 200 200" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M61.8 148.97l76.4 0c6,0 10.91,4.9 10.91,10.9l0 27.24c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -27.24c0,-6 4.91,-10.9 10.91,-10.9zm105.7 -60.38l-18.39 0 0 37.36c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -37.36 -18.39 0c-2.65,0 -4.91,-1.47 -5.97,-3.89 -1.07,-2.42 -0.63,-5.08 1.16,-7.02l67.5 -73.57c1.28,-1.39 2.91,-2.11 4.81,-2.11 1.9,0 3.53,0.72 4.81,2.11l67.5 73.57c1.79,1.94 2.23,4.6 1.16,7.02 -1.06,2.42 -3.32,3.89 -5.97,3.89z"/></svg>';
+    var icon = '&nbsp;<svg id="KioskBoardIconCapslock" xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + width + '" style="width:' + width + ';height:' + width + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 200 200"><path d="M61.8 148.97l76.4 0c6,0 10.91,4.9 10.91,10.9l0 27.24c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -27.24c0,-6 4.91,-10.9 10.91,-10.9zm105.7 -60.38l-18.39 0 0 37.36c0,5.99 -4.91,10.89 -10.91,10.89l-76.4 0c-6,0 -10.91,-4.9 -10.91,-10.89l0 -37.36 -18.39 0c-2.65,0 -4.91,-1.47 -5.97,-3.89 -1.07,-2.42 -0.63,-5.08 1.16,-7.02l67.5 -73.57c1.28,-1.39 2.91,-2.11 4.81,-2.11 1.9,0 3.53,0.72 4.81,2.11l67.5 73.57c1.79,1.94 2.23,4.6 1.16,7.02 -1.06,2.42 -3.32,3.89 -5.97,3.89z"/></svg>';
     return icon;
   };
   var kioskBoardIconSpecialCharacters = function (width, height, color) {
     if (!width) { width = 50; }
     if (!height) { width = 25; }
     if (!color) { color = '#707070'; }
-    var icon = '&nbsp;<svg id="KioskBoardIconSpecialCharacters" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="' + width + '" height="' + height + '" version="1.1" style="width:' + width + ';height:' + height + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 300 150" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512"><path d="M34.19 79.43l1.99 -10.86 10.8 0 -1.96 10.86 -10.83 0zm264.98 -17.22l0 -9.63c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.63c0,1.23 1,2.23 2.24,2.23l74.48 0c1.24,0 2.24,-1 2.24,-2.23zm0 35.22l0 -9.62c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.62c0,1.23 1,2.24 2.24,2.24l74.48 0c1.24,0 2.24,-1.01 2.24,-2.24zm-153.98 -61.91l9.63 0c1.23,0 2.23,1.01 2.23,2.25l0 30.19 30.19 0c1.25,0 2.25,1.01 2.25,2.23l0 9.63c0,1.23 -1,2.23 -2.25,2.23l-30.19 0 0 30.19c0,1.25 -1,2.25 -2.23,2.25l-9.63 0c-1.23,0 -2.23,-1 -2.23,-2.25l0 -30.19 -30.19 0c-1.24,0 -2.25,-1 -2.25,-2.23l0 -9.63c0,-1.22 1.01,-2.23 2.25,-2.23l30.19 0 0 -30.19c0,-1.24 1,-2.25 2.23,-2.25zm-67.7 33.05c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-13.93 0 2.95 -16.51c0.12,-0.68 -0.07,-1.37 -0.51,-1.89 -0.44,-0.53 -1.09,-0.83 -1.77,-0.83l-9.36 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.12 17.34 -10.74 0 3.03 -16.49c0.12,-0.67 -0.06,-1.37 -0.5,-1.89 -0.44,-0.53 -1.09,-0.84 -1.77,-0.84l-9.48 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.16 17.33 -21.43 0c-1.28,0 -2.31,1.04 -2.31,2.32l0 9.19c0,1.28 1.03,2.31 2.31,2.31l18.91 0 -1.98 10.86 -16.93 0c-1.28,0 -2.31,1.04 -2.31,2.31l0 9.2c0,1.28 1.03,2.31 2.31,2.31l14.41 0 -3.35 18.36c-0.12,0.67 0.06,1.37 0.5,1.89 0.44,0.53 1.09,0.84 1.78,0.84l9.36 0c1.12,0 2.08,-0.8 2.28,-1.9l3.53 -19.19 10.88 0 -3.31 18.42c-0.13,0.67 0.06,1.36 0.49,1.89 0.44,0.52 1.08,0.83 1.76,0.84l9.49 0.09c0,0 0.01,0 0.02,0 1.12,0 2.08,-0.81 2.28,-1.91l3.44 -19.33 20.79 0c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-18.32 0 1.93 -10.86 16.39 0z"/></svg>';
+    var icon = '&nbsp;<svg id="KioskBoardIconSpecialCharacters" xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" style="width:' + width + ';height:' + height + ';fill:' + color + ';shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 300 150"><path d="M34.19 79.43l1.99 -10.86 10.8 0 -1.96 10.86 -10.83 0zm264.98 -17.22l0 -9.63c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.63c0,1.23 1,2.23 2.24,2.23l74.48 0c1.24,0 2.24,-1 2.24,-2.23zm0 35.22l0 -9.62c0,-1.23 -1,-2.23 -2.24,-2.23l-74.48 0c-1.24,0 -2.24,1 -2.24,2.23l0 9.62c0,1.23 1,2.24 2.24,2.24l74.48 0c1.24,0 2.24,-1.01 2.24,-2.24zm-153.98 -61.91l9.63 0c1.23,0 2.23,1.01 2.23,2.25l0 30.19 30.19 0c1.25,0 2.25,1.01 2.25,2.23l0 9.63c0,1.23 -1,2.23 -2.25,2.23l-30.19 0 0 30.19c0,1.25 -1,2.25 -2.23,2.25l-9.63 0c-1.23,0 -2.23,-1 -2.23,-2.25l0 -30.19 -30.19 0c-1.24,0 -2.25,-1 -2.25,-2.23l0 -9.63c0,-1.22 1.01,-2.23 2.25,-2.23l30.19 0 0 -30.19c0,-1.24 1,-2.25 2.23,-2.25zm-67.7 33.05c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-13.93 0 2.95 -16.51c0.12,-0.68 -0.07,-1.37 -0.51,-1.89 -0.44,-0.53 -1.09,-0.83 -1.77,-0.83l-9.36 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.12 17.34 -10.74 0 3.03 -16.49c0.12,-0.67 -0.06,-1.37 -0.5,-1.89 -0.44,-0.53 -1.09,-0.84 -1.77,-0.84l-9.48 -0.01c0,0 0,0 0,0 -1.12,0 -2.08,0.8 -2.28,1.9l-3.16 17.33 -21.43 0c-1.28,0 -2.31,1.04 -2.31,2.32l0 9.19c0,1.28 1.03,2.31 2.31,2.31l18.91 0 -1.98 10.86 -16.93 0c-1.28,0 -2.31,1.04 -2.31,2.31l0 9.2c0,1.28 1.03,2.31 2.31,2.31l14.41 0 -3.35 18.36c-0.12,0.67 0.06,1.37 0.5,1.89 0.44,0.53 1.09,0.84 1.78,0.84l9.36 0c1.12,0 2.08,-0.8 2.28,-1.9l3.53 -19.19 10.88 0 -3.31 18.42c-0.13,0.67 0.06,1.36 0.49,1.89 0.44,0.52 1.08,0.83 1.76,0.84l9.49 0.09c0,0 0.01,0 0.02,0 1.12,0 2.08,-0.81 2.28,-1.91l3.44 -19.33 20.79 0c1.28,0 2.31,-1.03 2.31,-2.31l0 -9.2c0,-1.27 -1.03,-2.31 -2.31,-2.31l-18.32 0 1.93 -10.86 16.39 0z"/></svg>';
     return icon;
   };
   var kioskBoardIconClose = function (width, color) {
     if (!width) { width = 18; }
     if (!color) { color = '#707070'; }
-    var icon = '<svg version="1.1" id="KioskBoardIconClose" width="' + width + '" height="' + width + '" style="width:' + width + ';height:' + width + ';fill:' + color + ';" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 348.333 348.334" xml:space="preserve"><path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554	L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/></svg>';
+    var icon = '<svg id="KioskBoardIconClose" width="' + width + '" height="' + width + '" style="width:' + width + ';height:' + width + ';fill:' + color + ';" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 348.333 348.334"><path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554	L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/></svg>';
     return icon;
   };
   // KioskBoard: Icons: end
@@ -170,7 +238,7 @@
   // KioskBoard: IE support for Event: end
 
   // KioskBoard: Check the event target by element: begin
-  var kioskBoardEventTargetIsElementOrChilds = function name(event, element) {
+  var kioskBoardEventTargetIsElementOrChilds = function (event, element) {
     if (event.target === element) {
       return true;
     } else {
@@ -191,19 +259,13 @@
   // KioskBoard: begin
   var KioskBoard = {
     // Initialize
-    Init: function (userInitOptions) {
+    init: function (userInitOptions) {
       userInitOptions = typeof userInitOptions === 'object' && !Array.isArray(userInitOptions) ? userInitOptions : {};
       kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardDefaultOptions, userInitOptions);
       kioskBoardInternalCSS();
     },
-    // Merge
-    Merge: function (userMergeOptions) {
-      // The Merge function has been deprecated. (v1.4.0 and the next versions).
-      kioskBoardConsoleLog('The Merge function has been deprecated. (v1.4.0 and the next versions). \n\n' + JSON.stringify(userMergeOptions || {}));
-      return false;
-    },
     // Run
-    Run: function (selectorOrElement, options) {
+    run: function (selectorOrElement, options) {
       // Element(s)
       var kbElements = [];
 
@@ -235,7 +297,7 @@
       // If: Check the options to initialize or extend
       if (typeof options === 'object' && Object.keys(options).length > 0) {
         if (!kioskBoardNewOptions) {
-          KioskBoard.Init(options);
+          KioskBoard.init(options);
         } else {
           // extend the new options by the default options
           kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardDefaultOptions, options);
@@ -288,14 +350,14 @@
         var allowMobileKeyboard = opt.allowMobileKeyboard === true;
 
         // each input focus listener: begin
-        var inputFocusListener = function () {
+        var inputFocusListener = function (e) {
           // input element variables: begin
-          var theInput = this;
+          var theInput = e.currentTarget;
           var theInputSelIndex = 0;
           var theInputValArray = [];
-          var keyboadTypeArray = ['all', 'keyboard', 'numpad'];
+          var keyboadTypeArray = [kioskBoardTypes.All, kioskBoardTypes.Keyboard, kioskBoardTypes.Numpad];
           var theInputKeyboardType = (theInput.dataset.kioskboardType || '').toLocaleLowerCase('en');
-          var keyboadType = keyboadTypeArray.indexOf(theInputKeyboardType) > -1 ? theInputKeyboardType : 'all';
+          var keyboadType = keyboadTypeArray.indexOf(theInputKeyboardType) > -1 ? theInputKeyboardType : kioskBoardTypes.All;
           var allowedSpecialCharacters = (theInput.dataset.kioskboardSpecialcharacters || '').toLocaleLowerCase('en') === 'true';
           var keyboardLanguage = typeof opt.language === 'string' && opt.language.length > 0 ? opt.language.toLocaleLowerCase('en') : 'en';
           // input element variables: end
@@ -343,63 +405,21 @@
             var specialKeyWidth = (size * 2) + 'px';
             var specialKeyHeight = size + 'px';
             specialCharacterKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-specialcharacter">' + kioskBoardIconSpecialCharacters(specialKeyWidth, specialKeyHeight, keysIconColor) + '</span>';
-            /* eslint-disable */
-            var specialKeysObject = {
-              "0": "!",
-              "1": "'",
-              "2": "^",
-              "3": "#",
-              "4": "+",
-              "5": "$",
-              "6": "%",
-              "7": "½",
-              "8": "&",
-              "9": "/",
-              "10": "{",
-              "11": "}",
-              "12": "(",
-              "13": ")",
-              "14": "[",
-              "15": "]",
-              "16": "=",
-              "17": "*",
-              "18": "?",
-              "19": "\\",
-              "20": "-",
-              "21": "_",
-              "22": "|",
-              "23": "@",
-              "24": "€",
-              "25": "₺",
-              "26": "~",
-              "27": "æ",
-              "28": "ß",
-              "29": "<",
-              "30": ">",
-              "31": ",",
-              "32": ";",
-              "33": ".",
-              "34": ":",
-              "35": "`"
-            };
-            /* eslint-enable */
 
-            // check "specialCharactersObject" for override: begin
-            var specialCharsObj = opt.specialCharactersObject;
-            if (typeof specialCharsObj === 'object') {
-              for (var key1 in specialCharsObj) {
-                if (Object.prototype.hasOwnProperty.call(specialCharsObj, key1)) {
-                  // override special characters object
-                  specialKeysObject = specialCharsObj;
-                }
-              }
+            // check "keysSpecialCharsArrayOfStrings" for override: begin
+            var specialCharacters = opt.keysSpecialCharsArrayOfStrings;
+            if (Array.isArray(specialCharacters) && specialCharacters.length > 0) {
+              kioskBoardSpecialCharacters = specialCharacters.reduce(function (scMemo, scKey, scIndex) {
+                scMemo[scIndex] = scKey;
+                return scMemo;
+              }, {});
             }
-            // check "specialCharactersObject" for override: end
+            // check "keysSpecialCharsArrayOfStrings" for override: end
 
-            for (var key2 in specialKeysObject) {
-              if (Object.prototype.hasOwnProperty.call(specialKeysObject, key2)) {
+            for (var key2 in kioskBoardSpecialCharacters) {
+              if (Object.prototype.hasOwnProperty.call(kioskBoardSpecialCharacters, key2)) {
                 var index2 = key2;
-                var value2 = specialKeysObject[key2];
+                var value2 = kioskBoardSpecialCharacters[key2];
                 var eachKey2 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key" data-index="' + index2.toString() + '" data-value="' + value2.toString() + '">' + value2.toString() + '</span>';
                 specialCharactersContent += eachKey2;
               }
@@ -408,28 +428,23 @@
           // keyboard "specialcharacter" setting is "true": begin
 
           // keyboard type is "numpad": begin
-          if (keyboadType === 'numpad') {
-            /* eslint-disable */
-            var numpadKeysObject = {
-              "0": "7",
-              "1": "8",
-              "2": "9",
-              "3": "4",
-              "4": "5",
-              "5": "6",
-              "6": "1",
-              "7": "2",
-              "8": "3",
-              "9": "0",
-            };
-            /* eslint-enable */
+          if (keyboadType === kioskBoardTypes.Numpad) {
+            // check "keysNumpadArrayOfNumbers" for override: begin
+            var numpadKeys = opt.keysNumpadArrayOfNumbers;
+            if (Array.isArray(numpadKeys) && numpadKeys.length === 10) {
+              kioskBoardNumpadKeysObject = numpadKeys.reduce(function (numpadMemo, numpadKey, numpadIndex) {
+                numpadMemo[numpadIndex] = numpadKey;
+                return numpadMemo;
+              }, {});
+            }
+            // check "keysNumpadArrayOfNumbers" for override: end
 
             var numpadKeysContent = '';
-            for (var key3 in numpadKeysObject) {
-              if (Object.prototype.hasOwnProperty.call(numpadKeysObject, key3)) {
+            for (var key3 in kioskBoardNumpadKeysObject) {
+              if (Object.prototype.hasOwnProperty.call(kioskBoardNumpadKeysObject, key3)) {
                 var index3 = key3;
-                var value3 = numpadKeysObject[key3];
-                var eachKey3 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value3.toString() + '" data-index="' + index3.toString() + '" data-value="' + value3.toString() + '">' + value3.toString() + '</span>';
+                var value3 = kioskBoardNumpadKeysObject[key3];
+                var eachKey3 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value3.toString() + ' ' + (index3 === '9' ? 'kioskboard-key-last' : '') + '" data-index="' + index3.toString() + '" data-value="' + value3.toString() + '">' + value3.toString() + '</span>';
                 numpadKeysContent += eachKey3;
               }
             }
@@ -438,29 +453,14 @@
           // keyboard type is "numpad": end
 
           // keyboard type is "all" or "keyboard": begin
-          if (keyboadType === 'keyboard' || keyboadType === 'all') {
+          if (keyboadType === kioskBoardTypes.Keyboard || keyboadType === kioskBoardTypes.All) {
             // only keyboard type is "all": begin
-            if (keyboadType === 'all') {
-              /* eslint-disable */
-              var numberKeysObject = {
-                "0": "1",
-                "1": "2",
-                "2": "3",
-                "3": "4",
-                "4": "5",
-                "5": "6",
-                "6": "7",
-                "7": "8",
-                "8": "9",
-                "9": "0",
-              };
-              /* eslint-enable */
-
+            if (keyboadType === kioskBoardTypes.All) {
               var numberKeysContent = '';
-              for (var key4 in numberKeysObject) {
-                if (Object.prototype.hasOwnProperty.call(numberKeysObject, key4)) {
+              for (var key4 in kioskBoardAllKeysObject) {
+                if (Object.prototype.hasOwnProperty.call(kioskBoardAllKeysObject, key4)) {
                   var index4 = key4;
-                  var value4 = numberKeysObject[key4];
+                  var value4 = kioskBoardAllKeysObject[key4];
                   var eachKey4 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value4.toString() + '" data-index="' + index4.toString() + '" data-value="' + value4.toString() + '">' + value4.toString() + '</span>';
                   numberKeysContent += eachKey4;
                 }
@@ -551,7 +551,7 @@
             var allowRealKeyboard = opt.allowRealKeyboard === true;
             if (allowRealKeyboard) {
               // update theInputValArray on keypress
-              theInputValArray = this.value.split('');
+              theInputValArray = e.currentTarget.value.split('');
             }
             // else: stop
             else {
@@ -581,14 +581,11 @@
                   if (maxLength > 0 && liveValueLength >= maxLength) { return false; }
                   if (max > 0 && liveValueLength >= max) { return false; }
 
-                  // update the selectionStart
-                  theInputSelIndex = input.selectionStart || (input.value || '').length;
-
                   // input trigger focus
                   input.focus();
 
                   // key's value
-                  var keyValue = this.dataset.value || '';
+                  var keyValue = e.currentTarget.dataset.value || '';
 
                   // check capslock
                   if (isCapsLockActive) {
@@ -597,18 +594,25 @@
                     keyValue = keyValue.toLocaleLowerCase(keyboardLanguage);
                   }
 
-                  // add value by index
-                  theInputValArray.splice(theInputSelIndex, 0, keyValue);
+                  var keyValArr = keyValue.split('');
+                  for (var keyValIndex = 0; keyValIndex < keyValArr.length; keyValIndex++) {
+                    // update the selectionStart
+                    theInputSelIndex = input.selectionStart || (input.value || '').length;
 
-                  // update input value
-                  input.value = theInputValArray.join('');
+                    // add value by index
+                    theInputValArray.splice(theInputSelIndex, 0, keyValArr[keyValIndex]);
 
-                  // set next selection index
-                  input.setSelectionRange(theInputSelIndex + 1, theInputSelIndex + 1);
+                    // update input value
+                    input.value = theInputValArray.join('');
 
-                  // input trigger change event for update the value
-                  input.dispatchEvent(changeEvent);
+                    // set next selection index
+                    if (input.type !== 'number') {
+                      input.setSelectionRange(theInputSelIndex + 1, theInputSelIndex + 1);
+                    }
 
+                    // input trigger change event for update the value
+                    input.dispatchEvent(changeEvent);
+                  }
                 }, false);
               }
             }
@@ -622,13 +626,13 @@
                 // focus the input
                 input.focus();
 
-                if (this.classList.contains('capslock-active')) {
-                  this.classList.remove('capslock-active');
+                if (e.currentTarget.classList.contains('capslock-active')) {
+                  e.currentTarget.classList.remove('capslock-active');
                   kioskBoardVirtualKeyboard.classList.add('kioskboard-tolowercase');
                   kioskBoardVirtualKeyboard.classList.remove('kioskboard-touppercase');
                   isCapsLockActive = false;
                 } else {
-                  this.classList.add('capslock-active');
+                  e.currentTarget.classList.add('capslock-active');
                   kioskBoardVirtualKeyboard.classList.remove('kioskboard-tolowercase');
                   kioskBoardVirtualKeyboard.classList.add('kioskboard-touppercase');
                   isCapsLockActive = true;
@@ -656,7 +660,9 @@
                 input.value = theInputValArray.join('');
 
                 // set next selection index
-                input.setSelectionRange(theInputSelIndex - 1, theInputSelIndex - 1);
+                if (input.type !== 'number') {
+                  input.setSelectionRange(theInputSelIndex - 1, theInputSelIndex - 1);
+                }
 
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
@@ -673,11 +679,11 @@
               specialCharacterKeyElm.addEventListener('click', function (e) {
                 e.preventDefault();
                 input.focus(); // focus the input
-                if (this.classList.contains('specialcharacter-active')) {
-                  this.classList.remove('specialcharacter-active');
+                if (e.currentTarget.classList.contains('specialcharacter-active')) {
+                  e.currentTarget.classList.remove('specialcharacter-active');
                   specialCharactersRowElm.classList.remove('kioskboard-specialcharacter-show');
                 } else {
-                  this.classList.add('specialcharacter-active');
+                  e.currentTarget.classList.add('specialcharacter-active');
                   specialCharactersRowElm.classList.add('kioskboard-specialcharacter-show');
                 }
               }, false);
@@ -792,9 +798,9 @@
         // each input focus listener: end
 
         // each input focusout listener: begin
-        var inputFocusoutListener = function () {
+        var inputFocusoutListener = function (e) {
           if (!allowMobileKeyboard && !getReadOnlyAttr) {
-            this.removeAttribute('readonly');
+            e.currentTarget.removeAttribute('readonly');
           }
         };
         input.addEventListener('focusout', inputFocusoutListener); // add input focusout listener
@@ -819,9 +825,9 @@
           xmlHttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
           xmlHttp.send();
           xmlHttp.onreadystatechange = function () {
-            if (this.readyState === 4) {
-              if (this.status === 200) { // success
-                var data = this.responseText || []; // data
+            if (xmlHttp.readyState === 4) {
+              if (xmlHttp.status === 200) { // success
+                var data = xmlHttp.responseText || []; // data
                 if (typeof data === 'string' && data.length > 0) {
                   var parsedData = JSON.parse(data); // JSON parse data
                   if (kioskBoardCheckArrayOfObjects(parsedData)) {

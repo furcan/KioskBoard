@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.0.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -60,18 +60,24 @@ var turkishKeyboard = [
     "5": "N",
     "6": "M",
     "7": "Ö",
-    "8": "Ç"
+    "8": "Ç",
   }
 ];
 // DEMO: Turkish Keys: end
 
 // DEMO: KioskBoard Run: begin
-KioskBoard.Run('.js-kioskboard-input', {
+KioskBoard.run('.js-kioskboard-input', {
   keysArrayOfObjects: turkishKeyboard,
+  // keysNumpadArrayOfNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+  // keysSpecialCharsArrayOfStrings: ['a', 'b', 'c'],
   // keysJsonUrl: 'kioskboard-keys-turkish.json',
   language: 'tr',
   keysFontFamily: 'Barlow',
   keysFontWeight: '500',
+  // keysFontSize: '20px',
+  // allowRealKeyboard: true,
+  // allowMobileKeyboard: true,
+  // keysAllowSpacebar: false,
 });
 // DEMO: KioskBoard Run: end
 
@@ -79,7 +85,7 @@ KioskBoard.Run('.js-kioskboard-input', {
 $('.js-kioskboard-input-theme').each(function () {
   var $this = $(this);
   var thisTheme = $this.data('theme') || 'light';
-  KioskBoard.Run(this, {
+  KioskBoard.run(this, {
     keysArrayOfObjects: turkishKeyboard,
     language: 'tr',
     theme: thisTheme,
@@ -88,7 +94,7 @@ $('.js-kioskboard-input-theme').each(function () {
 // DEMO: KioskBoard Theme: end
 
 // DEMO: KioskBoard: Alternative Run: begin
-KioskBoard.Run('.js-kioskboard-input-furcan', {
+KioskBoard.run('.js-kioskboard-input-furcan', {
   keysArrayOfObjects: [
     {
       "0": "F",

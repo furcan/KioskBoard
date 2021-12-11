@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.0.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -694,9 +694,10 @@ footer#Footer a.github i {
 
 /* Code on */
 .code-or {
-  font-size: 15px;
+  font-size: 20px;
   line-height: 25px;
-  margin: 0 0 25px;
+  font-weight: 900;
+  margin: 10px 0 35px;
   float: left;
   width: 100%;
 }

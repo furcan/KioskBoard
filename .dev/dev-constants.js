@@ -1,14 +1,14 @@
 /*!
 * Constants
 * Description: Constants for the development.
-* Version: 1.0.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
 // Dev Dependencies
 const chalk = require('chalk');
-const package = require('../../package.json');
+const package = require('../package.json');
 
 // Constants: begin
 // - CleanCSS Options: begin
@@ -57,7 +57,7 @@ const terminalError = (message, fileOrPath) => {
 module.exports = {
   prefix: 'kioskboard',
   dirInputDev: 'src',
-  dirOutputDev: 'src/all-in-one',
+  dirOutputDev: 'build',
   dirOutputDist: 'dist',
   fileScript: 'kioskboard.js',
   fileStyle: 'kioskboard.css',

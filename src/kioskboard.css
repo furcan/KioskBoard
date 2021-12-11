@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 1.4.0
+* Version: 2.0.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -289,7 +289,7 @@
 }
 /* stylelint-enable no-descending-specificity */
 
-#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-0,
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-last,
 #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
   max-width: 100%;
   width: calc(50% - 16px);
@@ -580,7 +580,7 @@
     min-height: 55px;
   }
 
-  #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-0,
+  #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-last,
   #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
     width: calc(50% - 20px);
   }

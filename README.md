@@ -14,114 +14,120 @@
 [![License][lic-badge]][lic-url]
 
 # KioskBoard - Virtual Keyboard
-A pure JavaScript library for using the Virtual Keyboard.
+A pure JavaScript library for using virtual keyboards.
 
 ---------
 
-### Current Version
-1.4.0 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
+## Current Version
+2.0.0 [*](https://github.com/furcan/KioskBoard/blob/master/CHANGELOG.md)
 
 ---------
 
-### Documentation and Demo
+## Documentation and Demo
 https://furcan.github.io/KioskBoard/
 
 ---------
 
-### Browser Compatibility
-`Chrome` - `Firefox` - `Safari` - `Opera` - `Edge` - `IE 11`
+## Browser Compatibility
+`Chrome` || `Firefox` || `Safari` || `Opera` || `Edge` || `IE 11`
 
 ---------
+## (A) Install & Import
 
-### (A) Install & Import
-
-Install
-##### [npm](https://www.npmjs.com/package/kioskboard)
-```js
-npm i kioskboard
-```
-##### [yarn](https://yarnpkg.com/en/package/kioskboard)
+### Install
+#### [yarn](https://yarnpkg.com/package/kioskboard)
 ```js
 yarn add kioskboard
 ```
-Import
+
+#### [npm](https://www.npmjs.com/package/kioskboard)
+```js
+npm i kioskboard
+```
+### Import
 
 ```jsx
-import KioskBoard from "kioskboard";
+import KioskBoard from 'kioskboard';
 ```
 
 ---------
 
-### (B) Adding to an HTML Document
-##### CSS and JS
+## (B) Adding to an HTML Document
+### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-1.4.0.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-2.0.0.min.css" />
 
-<script src="dist/kioskboard-1.4.0.min.js"></script>
+<script src="dist/kioskboard-2.0.0.min.js"></script>
 ```
 
-##### Or only JS (All in One - Internal CSS)
+### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-1.4.0.min.js"></script>
+<script src="dist/kioskboard-aio-2.0.0.min.js"></script>
 ```
 
 ---------
 
 
-### Keyboard Types and Themes
+## Keyboard Types and Themes
 3 types of keyboards can be used: `all`, `keyboard`, and `numpad`.
 
 5 types of themes can be used. `light`, `dark`, `flat`, `material`, and `oldschool`.
 
 ---------
 
-### Initialize / Run
-KioskBoard Virtual Keyboard can be used with the `input` or `textarea` elements. KioskBoard must be initialized with the required options. The other options are optional. The keyboard type `data-kioskboard-type` and special characters `data-kioskboard-specialcharacters` settings are each element-based (data attributes). All options and examples of data attribute usages are as below. Also, a custom class name can be defined for all input or textarea elements to run KioskBoard.
+## Initialize / Run
+KioskBoard Virtual Keyboard can be used with the `input` or `textarea` elements. KioskBoard must be initialized with the required options. The other ones are optional. Keyboard type `data-kioskboard-type` and special characters `data-kioskboard-specialcharacters` settings are each element-based (data attributes). All options and examples of data attribute usages are as below. Also, a custom class name can be defined as globally for all input and/or textarea elements to run KioskBoard.
 
 ---------
 
-##### HTML => (data-* options)
+### HTML => (data-* options)
 ```html
-<!-- An example of a textarea element: Keyboard type is "all" and the availability of special characters is "true". -->
+<!-- An example of a textarea element: The keyboard type is "all" and the availability of the special characters is "true". -->
 <textarea class="js-virtual-keyboard" data-kioskboard-type="all" data-kioskboard-specialcharacters="true" placeholder="Your Address"></textarea>
 
-<!-- An example of an input element: Keyboard type is "keyboard" and the availability of special characters is "false". -->
+<!-- An example of an input element: The keyboard type is "keyboard" and the availability of the special characters is "false". -->
 <input class="js-virtual-keyboard" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" placeholder="Your Name" />
 
-<!-- An example of an input element: Keyboard type is "numpad". (special characters are not allowed for the "numpad" type.) -->
+<!-- An example of an input element: Rhe keyboard type is "numpad". (Special characters are not allowed for "numpad".) -->
 <input class="js-virtual-keyboard" data-kioskboard-type="numpad" placeholder="Your Number" />
 ```
 
 ---------
 
-##### JS => (Step1: Initialize)
+### JS => (Step1: Initialize)
 
 ```js
 // Initialize KioskBoard (default/all options)
 
-KioskBoard.Init({
+KioskBoard.init({
 
   /*!
   * Required
-  * Have to define an Array of Objects for the custom keys. Hint: Each object creates a row element (HTML) on the keyboard.
+  * An Array of Objects has to be defined for the custom keys. Hint: Each object creates a row element (HTML) on the keyboard.
   * e.g. [{"key":"value"}, {"key":"value"}] => [{"0":"A","1":"B","2":"C"}, {"0":"D","1":"E","2":"F"}]
   */
   keysArrayOfObjects: null,
 
   /*!
   * Required only if "keysArrayOfObjects" is "null".
-  * The path of the "kioskboard-keys-${langugage}.json" file must be set to the "keysJsonUrl" option. (XMLHttpRequest to getting the keys from JSON file.)
+  * The path of the "kioskboard-keys-${langugage}.json" file must be set to the "keysJsonUrl" option. (XMLHttpRequest to get the keys from JSON file.)
   * e.g. '/Content/Plugins/KioskBoard/dist/kioskboard-keys-english.json'
   */
   keysJsonUrl: null,
 
   /*
-  * Optional: (Special Characters Object)* Can override default special characters object with the new/custom one.
-  * e.g. {"key":"value", "key":"value", ...} => {"0":"#", "1":"$", "2":"%", "3":"+", "4":"-", "5":"*"}
+  * Optional: An Array of Strings can be set to override the built-in special characters.
+  * e.g. ["#", "$", "%", "+", "-", "*"]
   */
-  specialCharactersObject: null,
+  keysSpecialCharsArrayOfStrings: null,
+
+  /*
+  * Optional: An Array of Numbers can be set to override the built-in numpad keys. (From 0 to 9, in any order.)
+  * e.g. [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  */
+  keysNumpadArrayOfNumbers: null,
 
   // Optional: (Other Options)
 
@@ -131,7 +137,7 @@ KioskBoard.Init({
   // The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"
   theme: 'light',
 
-  // Uppercase or lowercase to start. Uppercase when "true"
+  // Uppercase or lowercase to start. Uppercased when "true"
   capsLockActive: true,
 
   /*
@@ -152,10 +158,10 @@ KioskBoard.Init({
   // CSS animations style for opening or closing the keyboard => "slide" || "fade"
   cssAnimationsStyle: 'slide',
 
-  // Allow or deny Spacebar on the keyboard. The keyboard is denied when "false"
+  // Allow or deny Spacebar on the keyboard. The Spacebar will be passive when "false"
   keysAllowSpacebar: true,
 
-  // Text of the space key (spacebar). Without text => " "
+  // Text of the space key (Spacebar). Without text => " "
   keysSpacebarText: 'Space',
 
   // Font family of the keys
@@ -170,84 +176,71 @@ KioskBoard.Init({
   // Size of the icon keys
   keysIconSize: '25px',
 
-  // Scrolls the document to the top of the input/textarea element. The default value is "true" as before. Prevented when "false"
+  // Scrolls the document to the top of the input/textarea element. Prevented when "false"
   autoScroll: true,
 });
 ```
 
-##### JS => (Step2: Run)
+### JS => (Step2: Run)
 
 ```js
 // Select the input or the textarea element(s) to run the KioskBoard
 
-KioskBoard.Run('.js-virtual-keyboard');
+KioskBoard.run('.js-virtual-keyboard');
 ```
-##### OR
+### OR
 
-##### JS => (Run with Init - v1.4.0 and the next versions)
+### JS => (Run with Init)
 
 ```js
 // Select the input or the textarea element(s) to run the KioskBoard
 
-KioskBoard.Run('.js-virtual-keyboard', {
+KioskBoard.run('.js-virtual-keyboard', {
    // ...init options
 });
 ```
 
 ---------
 
-### Merge
-`KioskBoard.Merge({});` function has been deprecated. (v1.4.0 and the next versions)
+## Language (JSON)
+The `keysJsonUrl` option has to be set if custom keys are not defined with the `keysArrayOfObjects` option. JSON format has to be: `[{"key":"value", "key":"value"}, ...]`. Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is used as an "index" for each Keyboard Keys. The "value" is each key's value and inner text.
 
-```js
-// The Merge function extends the initialize function for a specific action or event.
+Additionally, KioskBoard includes 9 different language packages: `Arabic`, `English`, `French`, `German`, `Hungarian`, `Persian`, `Russian`, `Spanish`, and `Turkish`.
 
-// KioskBoard.Merge({
-  // theme: 'dark',
-// });
-```
-
----------
-
-### Language (JSON)
-If custom keys are not defined with the `keysArrayOfObjects` option, the `keysJsonUrl` option can be used. Can create an Array of Objects for custom keys related to a custom language. Expecting JSON format is like `[{"key":"value", "key":"value"}, ...]` Each object in that array creates a row element (HTML) on the keyboard. The "key" in the objects is an "index" for each Keyboard Keys. Also, the "value" is each key's value and text.
-
-Additionally, KioskBoard includes 7 different language packages: `English`, `French`, `German`, `Hungarian`, `Russian`, `Spanish`, and `Turkish`.
-
-An example of a JSON file (for custom keys) is as below.
+An example of a JSON file (for custom keys) in English.
 ```json
 [
    {
-      "0":"Q",
-      "1":"W",
-      "2":"E",
-      "3":"R",
-      "4":"T",
-      "5":"Y",
-      "6":"U",
-      "7":"I",
-      "8":"O",
-      "9":"P"
+      "0": "Q",
+      "1": "W",
+      "2": "E",
+      "3": "R",
+      "4": "T",
+      "5": "Y",
+      "6": "U",
+      "7": "I",
+      "8": "O",
+      "9": "P"
    },
    {
-      "0":"A",
-      "1":"S",
-      "2":"D",
-      "3":"F",
-      "4":"G",
-      "5":"H",
-      "6":"J",
-      "7":"K",
-      "8":"L"
+      "0": "A",
+      "1": "S",
+      "2": "D",
+      "3": "F",
+      "4": "G",
+      "5": "H",
+      "6": "J",
+      "7": "K",
+      "8": "L"
    },
    {
-      "0":"Z",
-      "1":"X",
-      "2":"C",
-      "3":"V",
-      "4":"B",
-      "5":"N",
-      "6":"M"
+      "0": "Z",
+      "1": "X",
+      "2": "C",
+      "3": "V",
+      "4": "B",
+      "5": "N",
+      "6": "M"
    }
 ]
 
@@ -257,8 +250,8 @@ An example of a JSON file (for custom keys) is as below.
 ---------
 ---------
 
-#### Copyright
+## Copyright
 Copyright © 2021 KioskBoard - Virtual Keyboard
 
-#### License
+## License
 MIT license - https://opensource.org/licenses/MIT

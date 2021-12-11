@@ -1,10 +1,11 @@
 {
   "name": "kioskboard",
-  "main": "dist/kioskboard-aio-1.4.0.min.js",
-  "version": "1.4.0",
-  "description": "A pure JavaScript library for using the Virtual Keyboard.",
+  "main": "dist/kioskboard-aio-2.0.0.min.js",
+  "version": "2.0.0",
+  "description": "A pure JavaScript library for using virtual keyboards.",
   "homepage": "https://github.com/furcan/KioskBoard",
   "files": [
+    "build",
     "dist",
     "src"
   ],
@@ -39,10 +40,10 @@
     "src:stylelint": "stylelint src/kioskboard.css",
     "src:eslint": "eslint src/kioskboard.js",
     "src:lint": "yarn src:stylelint && yarn src:eslint",
-    "dev:eslint": "eslint .dev",
+    "dev:eslint": "eslint -c .dev/.eslintrc.json .dev",
     "dev:lint": "yarn dev:eslint",
-    "dev:allinone": "yarn dev:lint && yarn src:lint && node .dev/helpers/dev-allinone.js",
-    "dev:minifier": "yarn dev:allinone && node .dev/helpers/dev-minifier.js",
+    "dev:allinone": "yarn dev:lint && yarn src:lint && node .dev/dev-allinone.js",
+    "dev:minifier": "yarn dev:allinone && node .dev/dev-minifier.js",
     "build": "yarn dev:minifier"
   }
 }
