@@ -573,73 +573,45 @@
                 var keyElm = eachKeyElm[ekIndex];
                 keyElm.addEventListener('click', function (e) {
                   e.preventDefault();
-
+                
                   // check input max & maxlength
                   var maxLength = (input.getAttribute('maxlength') || '') * 1;
                   var max = (input.getAttribute('max') || '') * 1;
                   var liveValueLength = (input.value || '').length || 0;
                   if (maxLength > 0 && liveValueLength >= maxLength) { return false; }
                   if (max > 0 && liveValueLength >= max) { return false; }
-
-                  // update the selectionStart
-                  theInputSelIndex = input.selectionStart || (input.value || '').length;
-
+                
                   // input trigger focus
                   input.focus();
-
+                
                   // key's value
-                  var keyValue = this.dataset.value || '';
-
+                  var keyValue = e.currentTarget.dataset.value || '';
+                
                   // check capslock
                   if (isCapsLockActive) {
                     keyValue = keyValue.toLocaleUpperCase(keyboardLanguage);
                   } else {
                     keyValue = keyValue.toLocaleLowerCase(keyboardLanguage);
                   }
-
-                  // add value by index
-                  /** Prevents breaking on custom keys that insert multiple characters, for example, imagine a ".com" key, 
-                   * it would be inserted into the array as a single element and could no longer be deleted because the length of 
-                   * the input would be greater than the length of the array, adding Math.min (and comparing the respective lengths) 
-                   * to the backspace key prevents this problem but would delete the entire contents of the key (all characters, for example ".com") 
-                   * Instead, concatenate the main array of the contents with a possible array of keyValue, you can delete any single character.
-                   **/
-                  theInputValArray = theInputValArray.concat(keyValue.split(''));
-
-                  // update input value
-                  input.value = theInputValArray.join('');
-
-                  // set next selection index
-                  input.setSelectionRange(theInputSelIndex + 1, theInputSelIndex + 1);
-
-                  // input trigger change event for update the value
-                  input.dispatchEvent(changeEvent);
-
-                }, false);
-              }
-            }
-            // each key click listener: end
-
-            // capslock key click listener: begin
-            var capsLockKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
-            if (capsLockKeyElm) {
-              capsLockKeyElm.addEventListener('click', function (e) {
-                e.preventDefault();
-                // focus the input
-                input.focus();
-
-                if (this.classList.contains('capslock-active')) {
-                  this.classList.remove('capslock-active');
-                  kioskBoardVirtualKeyboard.classList.add('kioskboard-tolowercase');
-                  kioskBoardVirtualKeyboard.classList.remove('kioskboard-touppercase');
-                  isCapsLockActive = false;
-                } else {
-                  this.classList.add('capslock-active');
-                  kioskBoardVirtualKeyboard.classList.remove('kioskboard-tolowercase');
-                  kioskBoardVirtualKeyboard.classList.add('kioskboard-touppercase');
-                  isCapsLockActive = true;
-                }
-              }, false);
+                
+                  var keyValArr = keyValue.split('');
+                  for (var keyValIndex = 0; keyValIndex < keyValArr.length; keyValIndex++) {
+                    // update the selectionStart
+                    theInputSelIndex = input.selectionStart || (input.value || '').length;
+                
+                    // add value by index
+                    theInputValArray.splice(theInputSelIndex, 0, keyValArr[keyValIndex]);
+                
+                    // update input value
+                    input.value = theInputValArray.join('');
+                
+                    // set next selection index
+                    input.setSelectionRange(theInputSelIndex + 1, theInputSelIndex + 1);
+                
+                    // input trigger change event for update the value
+                    input.dispatchEvent(changeEvent);
+                  }
+                }, false);                
             }
             // capslock key click listener: end
 
@@ -650,8 +622,7 @@
                 e.preventDefault();
                 
                 // update the selectionStart
-                // Math.min prevents out of bound, theInputSelIndex cannot be greater than the length of theInputValArray
-                theInputSelIndex = Math.min((input.selectionStart || (input.value || '').length),theInputValArray.length);
+                theInputSelIndex = input.selectionStart || (input.value || '').length;
 
                 // input trigger focus
                 input.focus();
