@@ -59,6 +59,9 @@
     cssAnimationsDuration: 360,
     cssAnimationsStyle: 'slide', // "slide" || "fade"
     keysAllowSpacebar: true,
+    keysEnableSpacebar: true,
+    keysEnableCapsLock: true,
+    keysEnableBackspace: true,
     keysSpacebarText: 'Space',
     keysFontFamily: 'sans-serif',
     keysFontSize: '22px',
@@ -392,9 +395,13 @@
           var spaceKeyValue = keysAllowSpacebar ? ' ' : '';
           var keysSpacebarText = typeof opt.keysSpacebarText === 'string' && opt.keysSpacebarText.length > 0 ? opt.keysSpacebarText : 'Space';
 
-          var spaceKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-space ' + (keysAllowSpacebar ? 'spacebar-allowed' : 'spacebar-denied') + '" data-value="' + spaceKeyValue + '">' + keysSpacebarText + '</span>';
-          var capsLockKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-capslock ' + (isCapsLockActive ? 'capslock-active' : '') + '">' + kioskBoardIconCapslock(keysIconWidth, keysIconColor) + '</span>';
-          var backspaceKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-backspace">' + kioskBoardIconBackspace(keysIconWidth, keysIconColor) + '</span>';
+          var keysEnableCapsLock = opt.keysEnableCapsLock === true;
+          var keysEnableSpacebar = opt.keysEnableSpacebar === true;
+          var keysEnableBackpace = opt.keysEnableBackpace === true;
+
+          var spaceKey = !keysEnableSpacebar ? '' : '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-space ' + (keysAllowSpacebar ? 'spacebar-allowed' : 'spacebar-denied') + '" data-value="' + spaceKeyValue + '">' + keysSpacebarText + '</span>';
+          var capsLockKey = !keysEnableCapsLock ? '' : '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-capslock ' + (isCapsLockActive ? 'capslock-active' : '') + '">' + kioskBoardIconCapslock(keysIconWidth, keysIconColor) + '</span>';
+          var backspaceKey = !keysEnableBackpace ? '' : '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-backspace">' + kioskBoardIconBackspace(keysIconWidth, keysIconColor) + '</span>';
           // static keys: end
 
           // keyboard "specialcharacter" setting is "true": begin
