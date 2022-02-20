@@ -1,8 +1,8 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.0.0
+* Version: 2.1.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* KioskBoard: Main: begin */
@@ -17,11 +17,21 @@
   -webkit-box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
   box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.25), 0 0 20px -8px rgba(0, 0, 0, 0.15);
   padding: 25px 20px 20px;
-  border-radius: 10px 10px 0 0;
   left: 0;
   right: 0;
-  bottom: 0;
   margin: auto;
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-placement-bottom {
+  top: unset;
+  bottom: 0;
+  border-radius: 10px 10px 0 0;
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-placement-top {
+  top: 0;
+  bottom: unset;
+  border-radius: 0 0 10px 10px;
 }
 
 #KioskBoard-VirtualKeyboard * {
@@ -686,13 +696,13 @@
   }
 }
 
-#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide {
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-placement-bottom.kioskboard-slide {
   bottom: 0;
-  -webkit-animation: kioskboard-animation-slide 1.2s ease-in-out 0s normal;
-  animation: kioskboard-animation-slide 1.2s ease-in-out 0s normal;
+  -webkit-animation: kioskboard-animation-slide-bottom 1.2s ease-in-out 0s normal;
+  animation: kioskboard-animation-slide-bottom 1.2s ease-in-out 0s normal;
 }
 
-@-webkit-keyframes kioskboard-animation-slide {
+@-webkit-keyframes kioskboard-animation-slide-bottom {
   0% {
     bottom: -100%;
   }
@@ -702,7 +712,7 @@
   }
 }
 
-@keyframes kioskboard-animation-slide {
+@keyframes kioskboard-animation-slide-bottom {
   0% {
     bottom: -100%;
   }
@@ -712,13 +722,13 @@
   }
 }
 
-#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide.kioskboard-slide-remove {
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide.kioskboard-placement-bottom.kioskboard-slide-remove {
   bottom: -100%;
-  -webkit-animation: kioskboard-animation-slide-remove 1.2s ease-in-out 0s normal;
-  animation: kioskboard-animation-slide-remove 1.2s ease-in-out 0s normal;
+  -webkit-animation: kioskboard-animation-slide-bottom-remove 1.2s ease-in-out 0s normal;
+  animation: kioskboard-animation-slide-bottom-remove 1.2s ease-in-out 0s normal;
 }
 
-@-webkit-keyframes kioskboard-animation-slide-remove {
+@-webkit-keyframes kioskboard-animation-slide-bottom-remove {
   0% {
     bottom: 0;
   }
@@ -728,13 +738,65 @@
   }
 }
 
-@keyframes kioskboard-animation-slide-remove {
+@keyframes kioskboard-animation-slide-bottom-remove {
   0% {
     bottom: 0;
   }
 
   100% {
     bottom: -100%;
+  }
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-placement-top.kioskboard-slide {
+  top: 0;
+  -webkit-animation: kioskboard-animation-slide-top 1.2s ease-in-out 0s normal;
+  animation: kioskboard-animation-slide-top 1.2s ease-in-out 0s normal;
+}
+
+@-webkit-keyframes kioskboard-animation-slide-top {
+  0% {
+    top: -100%;
+  }
+
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes kioskboard-animation-slide-top {
+  0% {
+    top: -100%;
+  }
+
+  100% {
+    top: 0;
+  }
+}
+
+#KioskBoard-VirtualKeyboard.kioskboard-with-animation.kioskboard-slide.kioskboard-placement-top.kioskboard-slide-remove {
+  top: -100%;
+  -webkit-animation: kioskboard-animation-slide-top-remove 1.2s ease-in-out 0s normal;
+  animation: kioskboard-animation-slide-top-remove 1.2s ease-in-out 0s normal;
+}
+
+@-webkit-keyframes kioskboard-animation-slide-top-remove {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: -100%;
+  }
+}
+
+@keyframes kioskboard-animation-slide-top-remove {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: -100%;
   }
 }
 

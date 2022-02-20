@@ -2,9 +2,9 @@
 * All In One Generator
 *
 * Description: Creates "kioskboard-aio.js" file automatically from "kioskboard.js" and "kioskboard.css" files.
-* Version: 2.0.0
+* Version: 2.1.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2021 All In One Generator, MIT Licence ('https://opensource.org/licenses/MIT')
+* Copyright 2022 All In One Generator, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
 // Dev Dependencies

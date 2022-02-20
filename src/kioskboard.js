@@ -1,8 +1,8 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.0.0
+* Version: 2.1.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* global define */
@@ -136,6 +136,10 @@
     Keyboard: 'keyboard',
     Numpad: 'numpad',
   };
+  var kioskBoardPlacements = {
+    Bottom: 'bottom',
+    Top: 'top',
+  };
   // KioskBoard: Default Options: end
 
   // KioskBoard: Extend Options: begin
@@ -259,9 +263,9 @@
   // KioskBoard: begin
   var KioskBoard = {
     // Initialize
-    init: function (userInitOptions) {
-      userInitOptions = typeof userInitOptions === 'object' && !Array.isArray(userInitOptions) ? userInitOptions : {};
-      kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardDefaultOptions, userInitOptions);
+    init: function (initOptions) {
+      initOptions = typeof initOptions === 'object' && Object.keys(initOptions).length > 0 ? initOptions : {};
+      kioskBoardNewOptions = kioskBoardExtendObjects(true, kioskBoardDefaultOptions, initOptions);
       kioskBoardInternalCSS();
     },
     // Run
@@ -273,7 +277,7 @@
       var allowedElementTypes = ['input', 'textarea'];
 
       // If: Check the selector is an element
-      var isElement = allowedElementTypes.indexOf((selectorOrElement.nodeName || '').toLocaleLowerCase('en')) > -1;
+      var isElement = allowedElementTypes.indexOf(((selectorOrElement || {}).nodeName || '').toLocaleLowerCase('en')) > -1;
       if (isElement) {
         kbElements.push(selectorOrElement);
       }
@@ -355,9 +359,11 @@
           var theInput = e.currentTarget;
           var theInputSelIndex = 0;
           var theInputValArray = [];
-          var keyboadTypeArray = [kioskBoardTypes.All, kioskBoardTypes.Keyboard, kioskBoardTypes.Numpad];
+          var keyboardTypeArray = [kioskBoardTypes.All, kioskBoardTypes.Keyboard, kioskBoardTypes.Numpad];
           var theInputKeyboardType = (theInput.dataset.kioskboardType || '').toLocaleLowerCase('en');
-          var keyboadType = keyboadTypeArray.indexOf(theInputKeyboardType) > -1 ? theInputKeyboardType : kioskBoardTypes.All;
+          var keyboardType = keyboardTypeArray.indexOf(theInputKeyboardType) > -1 ? theInputKeyboardType : kioskBoardTypes.All;
+          var theInputPlacement = (theInput.dataset.kioskboardPlacement || '').toLocaleLowerCase('en');
+          var keyboardPlacement = theInputPlacement === kioskBoardPlacements.Top ? theInputPlacement : kioskBoardPlacements.Bottom;
           var allowedSpecialCharacters = (theInput.dataset.kioskboardSpecialcharacters || '').toLocaleLowerCase('en') === 'true';
           var keyboardLanguage = typeof opt.language === 'string' && opt.language.length > 0 ? opt.language.toLocaleLowerCase('en') : 'en';
           // input element variables: end
@@ -428,7 +434,7 @@
           // keyboard "specialcharacter" setting is "true": begin
 
           // keyboard type is "numpad": begin
-          if (keyboadType === kioskBoardTypes.Numpad) {
+          if (keyboardType === kioskBoardTypes.Numpad) {
             // check "keysNumpadArrayOfNumbers" for override: begin
             var numpadKeys = opt.keysNumpadArrayOfNumbers;
             if (Array.isArray(numpadKeys) && numpadKeys.length === 10) {
@@ -453,9 +459,9 @@
           // keyboard type is "numpad": end
 
           // keyboard type is "all" or "keyboard": begin
-          if (keyboadType === kioskBoardTypes.Keyboard || keyboadType === kioskBoardTypes.All) {
+          if (keyboardType === kioskBoardTypes.Keyboard || keyboardType === kioskBoardTypes.All) {
             // only keyboard type is "all": begin
-            if (keyboadType === kioskBoardTypes.All) {
+            if (keyboardType === kioskBoardTypes.All) {
               var numberKeysContent = '';
               for (var key4 in kioskBoardAllKeysObject) {
                 if (Object.prototype.hasOwnProperty.call(kioskBoardAllKeysObject, key4)) {
@@ -529,6 +535,7 @@
           var kioskBoardVirtualKeyboard = window.document.createElement('div');
           kioskBoardVirtualKeyboard.id = 'KioskBoard-VirtualKeyboard';
           kioskBoardVirtualKeyboard.classList.add('kioskboard-theme-' + theTheme);
+          kioskBoardVirtualKeyboard.classList.add('kioskboard-placement-' + keyboardPlacement);
           kioskBoardVirtualKeyboard.classList.add(cssAnimationsClass);
           kioskBoardVirtualKeyboard.classList.add(cssAnimationsStyle);
           kioskBoardVirtualKeyboard.classList.add((isCapsLockActive ? 'kioskboard-touppercase' : 'kioskboard-tolowercase'));
@@ -706,7 +713,7 @@
           // append keyboard: begin
           var keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
           if (!keyboardElement) {
-            // append the keyboard to body
+            // append the keyboard to body and cache
             window.document.body.appendChild(kioskBoardVirtualKeyboard);
             keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
 
@@ -723,71 +730,88 @@
             }
             // check window and keyboard height: end
 
-            // body padding bottom: begin
-            var inputTop = theInput.getBoundingClientRect().top || 0;
+            // body padding bottom || top: begin
+            var isPlacementTop = keyboardPlacement === kioskBoardPlacements.Top;
+            var inputTop = (isPlacementTop ? theInput.getBoundingClientRect().bottom : theInput.getBoundingClientRect().top) || 0;
             var docTop = window.document.documentElement.scrollTop || 0;
-            var theInputOffsetTop = Math.round(inputTop + docTop) - 50;
-            if (documentHeight <= theInputOffsetTop + keyboardHeight) {
+            var inputThreshold = isPlacementTop ? (theInput.clientHeight + 20) : 50;
+            var theInputOffsetTop = Math.round(inputTop + docTop) - inputThreshold;
+            var isPaddingTop = theInputOffsetTop < keyboardHeight;
+            var isPaddingBottom = documentHeight <= (theInputOffsetTop + keyboardHeight);
+
+            if (isPaddingTop || isPaddingBottom) {
               var styleElm = window.document.getElementById('KioskboardBodyPadding');
               if (styleElm && styleElm.parentNode !== null) {
                 styleElm.parentNode.removeChild(styleElm);
               }
 
-              var style = '<style id="KioskboardBodyPadding">.kioskboard-body-padding {padding-bottom:' + keyboardHeight + 'px !important;}</style>';
+              var style = '<style id="KioskboardBodyPadding">.kioskboard-body-padding {padding-' + (isPaddingTop ? 'top' : 'bottom') + ':' + keyboardHeight + 'px !important;}</style>';
               var styleRange = window.document.createRange();
               styleRange.selectNode(window.document.head);
               var styleFragment = styleRange.createContextualFragment(style);
               window.document.head.appendChild(styleFragment);
               window.document.body.classList.add('kioskboard-body-padding');
             }
+            // body padding bottom || top: end
 
+            // auto scroll: begin
             var autoScroll = opt.autoScroll === true;
-            var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
-            var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
             if (autoScroll) {
+              var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
+              var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
-              if (userAgent.indexOf('edge') <= -1 && userAgent.indexOf('.net4') <= -1) {
+              var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
+              if (userAgent.indexOf('edge') < 0 && userAgent.indexOf('.net4') < 0) {
                 var scrollTimeout = setTimeout(function () {
-                  window.scrollTo({ top: theInputOffsetTop, left: 0, behavior: scrollBehavior });
+                  window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
                   clearTimeout(scrollTimeout);
                 }, scrollDelay);
               } else {
-                window.document.documentElement.scrollTop = theInputOffsetTop;
+                window.document.documentElement.scrollTop = scrollTop;
               }
             }
-            // body padding bottom: end
+            // auto scroll: end
 
             // keyboard keys click listeners
             keysClickListeners(theInput);
 
             // keyboard click outside listener: begin
             var docClickListener = function (e) {
-              // check event target to remove keyboard: begin
-              if (e.target !== theInput && !kioskBoardEventTargetIsElementOrChilds(e, keyboardElement)) {
-                // add remove class
-                kioskBoardVirtualKeyboard.classList.add(cssAnimationsStyle + '-remove');
+              var docClickTimeout = setTimeout(function () {
+                // check event target to remove keyboard: begin
+                if (
+                  e.target !== theInput &&
+                  !kioskBoardEventTargetIsElementOrChilds(e, keyboardElement) &&
+                  !e.target.classList.contains('kioskboard-body-padding')
+                ) {
+                  // add remove class
+                  kioskBoardVirtualKeyboard.classList.add(cssAnimationsStyle + '-remove');
 
-                // remove after the animation has been ended
-                var removeTimeout = setTimeout(function () {
-                  if (keyboardElement.parentNode !== null) {
-                    keyboardElement.parentNode.removeChild(keyboardElement); // remove keyboard
-                    window.document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
-                    window.document.removeEventListener('click', docClickListener); // remove document click listener
-                  }
-                  clearTimeout(removeTimeout);
-                }, cssAnimationsDuration);
-              }
-              // check event target to remove keyboard: end
+                  // remove after the animation has been ended
+                  var removeTimeout = setTimeout(function () {
+                    if (keyboardElement.parentNode !== null) {
+                      keyboardElement.parentNode.removeChild(keyboardElement); // remove keyboard
+                      window.document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
+                      window.document.removeEventListener('click', docClickListener); // remove document click listener
+                    }
+                    clearTimeout(removeTimeout);
+                  }, cssAnimationsDuration);
+                }
+                // check event target to remove keyboard: end
 
-              // toggle inputs: begin
-              if (allInputs.indexOf(theInput) > -1) {
-                var toggleTimeout = setTimeout(function () {
-                  e.target.blur();
-                  e.target.focus();
-                  clearTimeout(toggleTimeout);
-                }, cssAnimationsDuration);
-              }
-              // toggle inputs: end
+                // toggle inputs: begin
+                if (allInputs.indexOf(theInput) > -1) {
+                  var toggleTimeout = setTimeout(function () {
+                    e.target.blur();
+                    e.target.focus();
+                    clearTimeout(toggleTimeout);
+                  }, cssAnimationsDuration);
+                }
+                // toggle inputs: end
+
+                // clear doc click delay
+                clearTimeout(docClickTimeout);
+              }, cssAnimationsDuration);
             };
             window.document.addEventListener('click', docClickListener); // add document click listener
             // keyboard click outside listener: end

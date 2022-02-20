@@ -1,3 +1,14 @@
+@2.1.0
+* **Added:** Input based `data-kioskboard-placement` data attribute option has been added. This option sets the placement of the keyboard on `top` or `bottom` for each input/textarea element. The default value is `bottom`.
+
+  ```html
+  <input class="js-kioskboard" data-kioskboard-type="keyboard" data-kioskboard-placement="top" placeholder="Your Name" />
+  ```
+* **Added:** TypeScript declaration has been added.
+* **Changed:** Refactor.
+
+-----
+
 @2.0.0
 * **Removed:** The `KioskBoard.Merge()` method has been removed. (This method already has been deprecated in v1.4.0)
 

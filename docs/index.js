@@ -1,8 +1,8 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.0.0
+* Version: 2.1.0
 * Author: Furkan MT ('https://github.com/furcan')
-* Copyright 2021 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 // DEMO: Tooltip: begin
@@ -74,6 +74,7 @@ KioskBoard.run('.js-kioskboard-input', {
   language: 'tr',
   keysFontFamily: 'Barlow',
   keysFontWeight: '500',
+  // cssAnimationsStyle: 'fade',
   // keysFontSize: '20px',
   // allowRealKeyboard: true,
   // allowMobileKeyboard: true,
@@ -93,8 +94,38 @@ $('.js-kioskboard-input-theme').each(function () {
 });
 // DEMO: KioskBoard Theme: end
 
-// DEMO: KioskBoard: Alternative Run: begin
-KioskBoard.run('.js-kioskboard-input-furcan', {
+// DEMO: KioskBoard: Alternative Run: begin Sol lucet omnibus
+KioskBoard.run('.js-kioskboard-input-furcan-top', {
+  keysArrayOfObjects: [
+    {
+      "0": "S",
+      "1": "O",
+      "2": "L",
+    },
+    {
+      "0": "L",
+      "1": "U",
+      "2": "C",
+      "3": "E",
+      "4": "T",
+    },
+    {
+      "0": "O",
+      "1": "M",
+      "2": "N",
+      "3": "I",
+      "4": "B",
+      "5": "U",
+      "6": "S",
+    },
+  ],
+  allowRealKeyboard: false,
+  allowMobileKeyboard: false,
+  language: 'en',
+  theme: 'dark',
+});
+
+KioskBoard.run('.js-kioskboard-input-furcan-bottom', {
   keysArrayOfObjects: [
     {
       "0": "F",
@@ -111,7 +142,7 @@ KioskBoard.run('.js-kioskboard-input-furcan', {
   theme: 'dark',
 });
 
-$('.js-kioskboard-input-furcan').on('change', function () {
+$('.js-kioskboard-input-furcan-bottom').on('change', function () {
   console.log('".js-kioskboard-input-furcan" value is: \n\n', this.value);
 });
 // DEMO: KioskBoard: Alternative Run: end

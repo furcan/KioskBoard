@@ -1,10 +1,12 @@
 {
   "name": "kioskboard",
-  "main": "dist/kioskboard-aio-2.0.0.min.js",
-  "version": "2.0.0",
+  "main": "dist/kioskboard-aio-2.1.0.min.js",
+  "types": "index.d.ts",
+  "version": "2.1.0",
   "description": "A pure JavaScript library for using virtual keyboards.",
   "homepage": "https://github.com/furcan/KioskBoard",
   "files": [
+    "index.d.ts",
     "build",
     "dist",
     "src"

@@ -15,7 +15,7 @@
   <meta name="author" content="Furcan" />
   <meta name="generator" content="Furcan" />
   <meta name="designer" content="Furcan">
-  <meta name="copyright" content="2021 KioskBoard - Virtual Keyboard. All Rights Reserved.">
+  <meta name="copyright" content="2022 KioskBoard - Virtual Keyboard. All Rights Reserved.">
   <meta name="theme-color" content="#1e1e1e" />
 
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -24,12 +24,16 @@
   <link id="FontConsolas" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
 
   <!-- <link rel="stylesheet" href="../src/kioskboard.css" /> -->
-  <!-- <link rel="stylesheet" href="../dist/kioskboard-2.0.0.min.css" /> -->
+  <!-- <link rel="stylesheet" href="../dist/kioskboard-2.1.0.min.css" /> -->
 
-  <link rel="stylesheet" href="index.css?v=2.0.0" />
+  <link rel="stylesheet" href="index.css?v=2.1.0" />
 </head>
 
 <body>
+  <section id="FurcanTop">
+    <input type="text" class="furcan furcan-top js-kioskboard-input-furcan-top" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" data-kioskboard-placement="top" maxlength="17" placeholder="Sol lucet omnibus" />
+  </section>
+
   <header id="Header">
     <a id="Logo" href="https://furcan.github.io/KioskBoard/">
       <span class="title">KioskBoard<i class="fab fa-js-square"></i></span>
@@ -51,7 +55,7 @@
       <h1 class="title">KioskBoard<i class="fab fa-js-square"></i></h1>
       <h4 class="sub-title">Virtual Keyboard</h4>
       <p class="desc">A pure JavaScript library for using virtual keyboards.</p>
-      <p class="version" data-toggle="tooltip" title="Current Version">v2.0.0</p>
+      <p class="version" data-toggle="tooltip" title="Current Version">v2.1.0</p>
       <div class="browser-compatibility">
         <h5 class="bc-title">Browser Compatibility</h5>
         <ul class="bc-ul">
@@ -101,7 +105,7 @@
             <p><i class="fas fa-circle"></i>Special Character Keys (Optional)</p>
           </div>
           <div class="demo">
-            <textarea class="js-kioskboard-input" data-kioskboard-type="all" placeholder="Try me. (Without special character keys)" rows="4"></textarea>
+            <textarea class="js-kioskboard-input" data-kioskboard-type="all" data-kioskboard-placement="top" placeholder="Try me. (Without special character keys)" rows="4"></textarea>
           </div>
         </div>
 
@@ -203,15 +207,15 @@
         <code class="html">
           <span class="label">HTML <span class="desc">CSS and JS</span></span>
 
-          <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"dist/kioskboard-2.0.0.min.css"</span></span> /&gt;</span>
+          <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"dist/kioskboard-2.1.0.min.css"</span></span> /&gt;</span>
 
-          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-2.0.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-2.1.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
         </code>
 
         <code class="html">
           <span class="label">HTML <span class="desc">Only JS (Internal CSS)</span></span>
 
-          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-aio-2.0.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-aio-2.1.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
         </code>
       </div>
 
@@ -239,27 +243,40 @@
     <div class="max-width">
 
       <div class="head">
-        <h2 class="sec-title">Initialize / Run</h2>
-        <p class="sec-desc">KioskBoard Virtual Keyboard can be used with the <span class="option">input</span> or <span class="option">textarea</span> elements. KioskBoard must be initialized with the required options. The other ones are optional. Keyboard type <span class="option">data-kioskboard-type</span> and special characters <span class="option">data-kioskboard-specialcharacters</span> settings are each element-based (data attributes). All options and examples of data attribute usages are as below. Also, a custom class name can be defined as globally for all input and/or textarea elements to run KioskBoard.</p>
+        <h2 class="sec-title">Run / Initialize</h2>
+        <p class="sec-desc">KioskBoard Virtual Keyboard can be used with the <span class="option">input</span> or <span class="option">textarea</span> elements.</p>
+        <p class="sec-desc">KioskBoard must be initialized with the required options. The other ones are optional. Keyboard Type (the default value is "all") <span class="option">data-kioskboard-type</span>, Keyboard Placement (the default value is "bottom") <span class="option">data-kioskboard-placement</span>, and Special Characters <span class="option">data-kioskboard-specialcharacters</span> settings are each element-based (data attributes). </p>
+        <p class="sec-desc">All options and examples of data attribute usages are as below. Also, a custom class name can be defined as globally for all input and/or textarea elements to run KioskBoard.</p>
       </div>
 
       <div class="section-content keyboard-initialize">
         <code class="html">
           <span class="label">HTML <span class="desc">data-* options</span></span>
 
-          <span class="l1 cmmnt">&lt;!-- An example of a textarea element: The keyboard type is "all" and the availability of the special characters is "true". --&gt;</span>
-          <span class="l1">&lt;textarea <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"all"</span></span> <span class="data">data-kioskboard-specialcharacters=<span class="str">"true"</span></span> placeholder="Your Address"&gt;&lt;/textarea&gt;</span>
+          <span class="l1 cmmnt">&lt;!-- An example of a textarea element: The keyboard type is "all", the placement is "top", and the availability of the special characters is "true". --&gt;</span>
+          <span class="l1">&lt;textarea <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"all"</span></span> <span class="data">data-kioskboard-placement=<span class="str">"top"</span></span> <span class="data">data-kioskboard-specialcharacters=<span class="str">"true"</span></span> placeholder="Your Address"&gt;&lt;/textarea&gt;</span>
 
           <span class="l1 break"></span>
 
-          <span class="l1 cmmnt">&lt;!-- An example of an input element: The keyboard type is "keyboard" and the availability of the special characters is "false". --&gt;</span>
-          <span class="l1">&lt;input <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"keyboard"</span></span> <span class="data">data-kioskboard-specialcharacters=<span class="str">"false"</span></span> placeholder="Your Name" /&gt;</span>
+          <span class="l1 cmmnt">&lt;!-- An example of an input element: The keyboard type is "keyboard", the placement is "bottom", and the availability of the special characters is "false". --&gt;</span>
+          <span class="l1">&lt;input <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"keyboard"</span></span> <span class="data">data-kioskboard-placement=<span class="str">"bottom"</span></span> <span class="data">data-kioskboard-specialcharacters=<span class="str">"false"</span></span> placeholder="Your Name" /&gt;</span>
 
           <span class="l1 break"></span>
 
-          <span class="l1 cmmnt">&lt;!-- An example of an input element: The keyboard type is "numpad". (Special characters are not allowed for "numpad".) --&gt;</span>
-          <span class="l1">&lt;input <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"numpad"</span></span> placeholder="Your Number" /&gt;</span>
+          <span class="l1 cmmnt">&lt;!-- An example of an input element: The keyboard type is "numpad", and the placement is "bottom". (Special characters are not allowed for "numpad".) --&gt;</span>
+          <span class="l1">&lt;input <span class="data">class=<span class="str">"js-kioskboard-input"</span></span> <span class="data">data-kioskboard-type=<span class="str">"numpad"</span></span> <span class="data">data-kioskboard-placement=<span class="str">"bottom"</span></span> placeholder="Your Number" /&gt;</span>
         </code>
+
+        <code class="js">
+          <span class="label">JS <span class="desc">Run with Init</span></span>
+          <span class="l1 cmmnt">@param1 {string | HTMLInputElement | HTMLTextAreaElement}: CSS selector(s) that matches the element(s) or an input/textarea element.</span>
+          <span class="l1 cmmnt">@param2 {Object}: The init options.</span>
+          <span class="l1"><span class="fnc1">KioskBoard</span>.<span class="fnc2">run</span>(<span class="str">'.js-kioskboard-input'</span>, {</span>
+          <span class="l1 l2 cmmnt">// ...init options</span>
+          <span class="l1">});</span>
+        </code>
+
+        <p class="code-or">OR</p>
 
         <code class="js">
           <span class="label">JS <span class="desc">Step 1: Initialize</span></span>
@@ -288,7 +305,7 @@
           <span class="l1 l2 cmmnt">/*</span>
           <span class="l1 l2 cmmnt">* Optional: (Special Characters)</span>
           <span class="l1 l2 cmmnt">* An Array of Strings can be set to override the built-in special characters.</span>
-          <span class="l1 l2 cmmnt">* e.g. ["#", "$", "%", "+", "-", "*"]</span>
+          <span class="l1 l2 cmmnt">* e.g. ["#", "€", "%", "+", "-", "*"]</span>
           <span class="l1 l2 cmmnt">*/</span>
           <span class="l1 l2"><span class="fnc1">keysSpecialCharsArrayOfStrings:</span> <span class="bool">null</span>,</span>
 
@@ -330,7 +347,7 @@
           <span class="l1 l2 cmmnt">// CSS animations style for opening or closing the keyboard => "slide" || "fade"</span>
           <span class="l1 l2"><span class="fnc1">cssAnimationsStyle:</span> <span class="str">'slide'</span>,</span>
 
-          <span class="l1 l2 cmmnt">// Allow or deny Spacebar on the keyboard. The Spacebar will be passive when "false"</span>
+          <span class="l1 l2 cmmnt">// Enable or Disable Spacebar functionality on the keyboard. The Spacebar will be passive when "false"</span>
           <span class="l1 l2"><span class="fnc1">keysAllowSpacebar:</span> <span class="bool">true</span>,</span>
 
           <span class="l1 l2 cmmnt">// Text of the space key (Spacebar). Without text => " "</span>
@@ -348,7 +365,7 @@
           <span class="l1 l2 cmmnt">// Size of the icon keys</span>
           <span class="l1 l2"><span class="fnc1">keysIconSize:</span> <span class="str">'25px'</span>,</span>
 
-          <span class="l1 l2 cmmnt">// Scrolls the document to the top of the input/textarea element. Prevented when "false"</span>
+          <span class="l1 l2 cmmnt">// Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when "false"</span>
           <span class="l1 l2"><span class="fnc1">autoScroll:</span> <span class="bool">true</span>,</span>
 
           <span class="l1">});</span>
@@ -358,17 +375,6 @@
           <span class="label">JS <span class="desc">Step 2: Run</span></span>
           <span class="l1 cmmnt">// Select the input or the textarea element(s) to run the KioskBoard</span>
           <span class="l1"><span class="fnc1">KioskBoard</span>.<span class="fnc2">run</span>(<span class="str">'.js-kioskboard-input'</span>);</span>
-        </code>
-
-        <p class="code-or">OR</p>
-
-        <code class="js">
-          <span class="label">JS <span class="desc">Run with Init</span></span>
-          <span class="l1 cmmnt">@param1 {string | element}: The selector as a string format or an element.</span>
-          <span class="l1 cmmnt">@param2 {Object}: The init options.</span>
-          <span class="l1"><span class="fnc1">KioskBoard</span>.<span class="fnc2">run</span>(<span class="str">'.js-kioskboard-input'</span>, {</span>
-          <span class="l1 l2 cmmnt">// ...init options</span>
-          <span class="l1">});</span>
         </code>
       </div>
 
@@ -448,12 +454,12 @@
   </section>
 
   <footer id="Footer">
-    <p class="copyright">&copy; 2021 KioskBoard - Virtual Keyboard. All rights reserved.</p>
+    <p class="copyright">&copy; 2022 KioskBoard - Virtual Keyboard. All rights reserved.</p>
     <a class="github" target="_blank" rel="noopener" href="https://github.com/furcan"><i class="fab fa-github" aria-hidden="true"></i>/furcan</a>
   </footer>
 
-  <section id="Furcan">
-    <input type="text" class="furcan js-kioskboard-input-furcan" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" maxlength="12" placeholder=".js-kioskboard-input-furcan" />
+  <section id="FurcanBottom">
+    <input type="text" class="furcan furcan-bottom js-kioskboard-input-furcan-bottom" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" data-kioskboard-placement="bottom" maxlength="12" placeholder=".js-kioskboard-input-furcan" />
   </section>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -461,12 +467,12 @@
   <script src="index-tooltip.js"></script>
 
   <!-- <script src="../src/kioskboard.js"></script> -->
-  <!-- <script src="../dist/kioskboard-2.0.0.min.js"></script> -->
+  <!-- <script src="../dist/kioskboard-2.1.0.min.js"></script> -->
   <!-- <script src="../build/kioskboard-aio.js"></script> -->
-  <!-- <script src="../dist/kioskboard-aio-2.0.0.min.js"></script> -->
+  <!-- <script src="../dist/kioskboard-aio-2.1.0.min.js"></script> -->
 
-  <script src="kioskboard-aio-2.0.0.min.js"></script>
-  <script src="index.js?v=2.0.0"></script>
+  <script src="kioskboard-aio-2.1.0.min.js"></script>
+  <script src="index.js?v=2.1.0"></script>
 </body>
 
 </html>
