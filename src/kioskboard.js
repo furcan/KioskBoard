@@ -736,7 +736,7 @@
             var docTop = window.document.documentElement.scrollTop || 0;
             var inputThreshold = isPlacementTop ? (theInput.clientHeight + 20) : 50;
             var theInputOffsetTop = Math.round(inputTop + docTop) - inputThreshold;
-            var isPaddingTop = theInputOffsetTop < keyboardHeight;
+            var isPaddingTop = (theInputOffsetTop < keyboardHeight) && isPlacementTop;
             var isPaddingBottom = documentHeight <= (theInputOffsetTop + keyboardHeight);
 
             if (isPaddingTop || isPaddingBottom) {
