@@ -760,10 +760,15 @@
               var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
               var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
+              var isEdgeWebView = userAgent.indexOf('edge') > -1 && userAgent.indexOf('webview') > -1;
               var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
-              if (userAgent.indexOf('edge') < 0 && userAgent.indexOf('.net4') < 0) {
+              if ((userAgent.indexOf('edge') < 0 || isEdgeWebView) && userAgent.indexOf('.net4') < 0) {
                 var scrollTimeout = setTimeout(function () {
+                if (isEdgeWebView) {
+                  window.scrollBy(0, theInputOffsetTop);
+                } else {
                   window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
+                }
                   clearTimeout(scrollTimeout);
                 }, scrollDelay);
               } else {
