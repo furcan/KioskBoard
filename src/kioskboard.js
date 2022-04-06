@@ -761,13 +761,13 @@
               var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
               var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
-              var isEdgeWebView = userAgent.indexOf('edge') > -1 && userAgent.indexOf('webview') > -1;
               var isBrowserEdgeLegacy = userAgent.indexOf('edge') > -1;
               var isBrowserInternetExplorer = userAgent.indexOf('.net4') > -1;
               var isBrowserEdgeWebView = isBrowserEdgeLegacy && userAgent.indexOf('webview') > -1;
+              
               if ((!isBrowserEdgeLegacy || isBrowserEdgeWebView) && !isBrowserInternetExplorer) {
                 var scrollTimeout = setTimeout(function () {
-                if (isEdgeWebView) {
+                if (isBrowserEdgeWebView) {
                   window.scrollBy(0, theInputOffsetTop);
                 } else {
                   window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
