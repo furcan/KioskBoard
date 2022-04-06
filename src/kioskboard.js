@@ -759,10 +759,13 @@
             if (autoScroll) {
               var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
               var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
+              var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
               var userAgent = navigator.userAgent.toLocaleLowerCase('en');
               var isEdgeWebView = userAgent.indexOf('edge') > -1 && userAgent.indexOf('webview') > -1;
-              var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
-              if ((userAgent.indexOf('edge') < 0 || isEdgeWebView) && userAgent.indexOf('.net4') < 0) {
+              var isBrowserEdgeLegacy = userAgent.indexOf('edge') > -1;
+              var isBrowserInternetExplorer = userAgent.indexOf('.net4') > -1;
+              var isBrowserEdgeWebView = isBrowserEdgeLegacy && userAgent.indexOf('webview') > -1;
+              if ((!isBrowserEdgeLegacy || isBrowserEdgeWebView) && !isBrowserInternetExplorer) {
                 var scrollTimeout = setTimeout(function () {
                 if (isEdgeWebView) {
                   window.scrollBy(0, theInputOffsetTop);
