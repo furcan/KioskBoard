@@ -573,12 +573,17 @@
 
           // keys click listeners: begin
           var keysClickListeners = function (input) {
+            var addKeyClickListener = function (keyElm, clickHandler) {
+              keyElm.addEventListener("contextmenu", function (e) { e.preventDefault(); }, false);
+              keyElm.addEventListener("click", clickHandler);
+              keyElm.addEventListener("touchend", clickHandler);
+            };
             // each key click listener: begin
             var eachKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key');
             if (eachKeyElm && eachKeyElm.length > 0) {
               for (var ekIndex = 0; ekIndex < eachKeyElm.length; ekIndex++) {
                 var keyElm = eachKeyElm[ekIndex];
-                keyElm.addEventListener('click', function (e) {
+                addKeyClickListener(keyElm, function (e) {
                   e.preventDefault();
 
                   // check input max & maxlength
@@ -620,7 +625,7 @@
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
                   }
-                }, false);
+                });
               }
             }
             // each key click listener: end
@@ -628,7 +633,7 @@
             // capslock key click listener: begin
             var capsLockKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
             if (capsLockKeyElm) {
-              capsLockKeyElm.addEventListener('click', function (e) {
+              addKeyClickListener(capsLockKeyElm, function (e) {
                 e.preventDefault();
                 // focus the input
                 input.focus();
@@ -644,14 +649,14 @@
                   kioskBoardVirtualKeyboard.classList.add('kioskboard-touppercase');
                   isCapsLockActive = true;
                 }
-              }, false);
+              });
             }
             // capslock key click listener: end
 
             // backspace key click listener: begin
             var backspaceKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-backspace')[0];
             if (backspaceKeyElm) {
-              backspaceKeyElm.addEventListener('click', function (e) {
+              addKeyClickListener(backspaceKeyElm, function (e) {
                 e.preventDefault();
 
                 // update the selectionStart
@@ -674,7 +679,7 @@
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
 
-              }, false);
+              });
             }
             // backspace key click listener: end
 
@@ -683,7 +688,7 @@
             var specialCharactersRowElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-row-specialcharacters')[0];
             // open
             if (specialCharacterKeyElm && specialCharactersRowElm) {
-              specialCharacterKeyElm.addEventListener('click', function (e) {
+              addKeyClickListener(specialCharacterKeyElm, function (e) {
                 e.preventDefault();
                 input.focus(); // focus the input
                 if (e.currentTarget.classList.contains('specialcharacter-active')) {
@@ -693,17 +698,17 @@
                   e.currentTarget.classList.add('specialcharacter-active');
                   specialCharactersRowElm.classList.add('kioskboard-specialcharacter-show');
                 }
-              }, false);
+              });
             }
             // close
             var specialCharCloseElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-specialcharacter-close')[0];
             if (specialCharCloseElm && specialCharacterKeyElm && specialCharactersRowElm) {
-              specialCharCloseElm.addEventListener('click', function (e) {
+              addKeyClickListener(specialCharCloseElm, function (e) {
                 e.preventDefault();
                 input.focus(); // focus the input
                 specialCharacterKeyElm.classList.remove('specialcharacter-active');
                 specialCharactersRowElm.classList.remove('kioskboard-specialcharacter-show');
-              }, false);
+              });
             }
             // specialcharacter key click listener: end
 
@@ -736,7 +741,7 @@
             var docTop = window.document.documentElement.scrollTop || 0;
             var inputThreshold = isPlacementTop ? (theInput.clientHeight + 20) : 50;
             var theInputOffsetTop = Math.round(inputTop + docTop) - inputThreshold;
-            var isPaddingTop = (theInputOffsetTop < keyboardHeight) && isPlacementTop;
+            var isPaddingTop = theInputOffsetTop < keyboardHeight;
             var isPaddingBottom = documentHeight <= (theInputOffsetTop + keyboardHeight);
 
             if (isPaddingTop || isPaddingBottom) {
