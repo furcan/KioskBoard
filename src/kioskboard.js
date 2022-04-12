@@ -571,6 +571,23 @@
           }, false);
           // input element keypress listener: end
 
+          // keys event listeners: begin
+          var keysEventListeners = function (keyElement, onClickHandler) {
+            if (keyElement) {
+              var isTouchableDevice = 'ontouchend' in window || window.navigator.maxTouchPoints > 0;
+
+              if (isTouchableDevice) {
+                keyElement.addEventListener('contextmenu', function (event) {
+                  event.preventDefault();
+                }, false);
+                keyElement.addEventListener('touchend', onClickHandler);
+              } else {
+                keyElement.addEventListener('click', onClickHandler);
+              }
+            }
+          };
+          // keys event listeners: end
+
           // keys click listeners: begin
           var keysClickListeners = function (input) {
             // each key click listener: begin
@@ -578,7 +595,7 @@
             if (eachKeyElm && eachKeyElm.length > 0) {
               for (var ekIndex = 0; ekIndex < eachKeyElm.length; ekIndex++) {
                 var keyElm = eachKeyElm[ekIndex];
-                keyElm.addEventListener('click', function (e) {
+                keysEventListeners(keyElm, function (e) {
                   e.preventDefault();
 
                   // check input max & maxlength
@@ -620,7 +637,7 @@
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
                   }
-                }, false);
+                });
               }
             }
             // each key click listener: end
@@ -628,7 +645,7 @@
             // capslock key click listener: begin
             var capsLockKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
             if (capsLockKeyElm) {
-              capsLockKeyElm.addEventListener('click', function (e) {
+              keysEventListeners(capsLockKeyElm, function (e) {
                 e.preventDefault();
                 // focus the input
                 input.focus();
@@ -644,14 +661,14 @@
                   kioskBoardVirtualKeyboard.classList.add('kioskboard-touppercase');
                   isCapsLockActive = true;
                 }
-              }, false);
+              });
             }
             // capslock key click listener: end
 
             // backspace key click listener: begin
             var backspaceKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-backspace')[0];
             if (backspaceKeyElm) {
-              backspaceKeyElm.addEventListener('click', function (e) {
+              keysEventListeners(backspaceKeyElm, function (e) {
                 e.preventDefault();
 
                 // update the selectionStart
@@ -674,7 +691,7 @@
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
 
-              }, false);
+              });
             }
             // backspace key click listener: end
 
@@ -683,7 +700,7 @@
             var specialCharactersRowElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-row-specialcharacters')[0];
             // open
             if (specialCharacterKeyElm && specialCharactersRowElm) {
-              specialCharacterKeyElm.addEventListener('click', function (e) {
+              keysEventListeners(specialCharacterKeyElm, function (e) {
                 e.preventDefault();
                 input.focus(); // focus the input
                 if (e.currentTarget.classList.contains('specialcharacter-active')) {
@@ -693,17 +710,17 @@
                   e.currentTarget.classList.add('specialcharacter-active');
                   specialCharactersRowElm.classList.add('kioskboard-specialcharacter-show');
                 }
-              }, false);
+              });
             }
             // close
             var specialCharCloseElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-specialcharacter-close')[0];
             if (specialCharCloseElm && specialCharacterKeyElm && specialCharactersRowElm) {
-              specialCharCloseElm.addEventListener('click', function (e) {
+              keysEventListeners(specialCharCloseElm, function (e) {
                 e.preventDefault();
                 input.focus(); // focus the input
                 specialCharacterKeyElm.classList.remove('specialcharacter-active');
                 specialCharactersRowElm.classList.remove('kioskboard-specialcharacter-show');
-              }, false);
+              });
             }
             // specialcharacter key click listener: end
 
@@ -764,14 +781,14 @@
               var isBrowserEdgeLegacy = userAgent.indexOf('edge') > -1;
               var isBrowserInternetExplorer = userAgent.indexOf('.net4') > -1;
               var isBrowserEdgeWebView = isBrowserEdgeLegacy && userAgent.indexOf('webview') > -1;
-              
+
               if ((!isBrowserEdgeLegacy || isBrowserEdgeWebView) && !isBrowserInternetExplorer) {
                 var scrollTimeout = setTimeout(function () {
-                if (isBrowserEdgeWebView) {
-                  window.scrollBy(0, theInputOffsetTop);
-                } else {
-                  window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
-                }
+                  if (isBrowserEdgeWebView) {
+                    window.scrollBy(0, theInputOffsetTop);
+                  } else {
+                    window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
+                  }
                   clearTimeout(scrollTimeout);
                 }, scrollDelay);
               } else {
