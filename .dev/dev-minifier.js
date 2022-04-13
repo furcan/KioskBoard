@@ -2,7 +2,7 @@
 * Minifier
 *
 * Description: Minify the KioskBoard scripts, and clean the KioskBoard styles to the distribution. (Used "Babel Minify", and "Clean CSS")
-* Version: 2.1.0
+* Version: 2.2.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2022 Minifier, MIT Licence ('https://opensource.org/licenses/MIT')
 */
@@ -126,6 +126,5 @@ if (existsSync(Constants.dirInputDev) && existsSync(Constants.dirOutputDev)) { /
   // Script (All In One): end
 } else {
   Constants.terminalError(`The "${!existsSync(Constants.dirInputDev) ? Constants.dirInputDev : Constants.dirOutputDev}" directory does not exist in the root directory.`, `${thisFilePath} => Line: 128`);
-  return false;
 }
 // Minify: end

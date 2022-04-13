@@ -22,7 +22,7 @@ A pure JavaScript library for using virtual keyboards.
 ---------
 
 ## Current Version
-2.1.0 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
+2.2.0 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
 
 ---------
 
@@ -59,15 +59,15 @@ import KioskBoard from 'kioskboard';
 ### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-2.1.0.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-2.2.0.min.css" />
 
-<script src="dist/kioskboard-2.1.0.min.js"></script>
+<script src="dist/kioskboard-2.2.0.min.js"></script>
 ```
 
 ### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-2.1.0.min.js"></script>
+<script src="dist/kioskboard-aio-2.2.0.min.js"></script>
 ```
 
 ---------

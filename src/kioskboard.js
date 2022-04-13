@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.1.0
+* Version: 2.2.0
 * Author: Furkan MT ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -581,9 +581,9 @@
                   event.preventDefault();
                 }, false);
                 keyElement.addEventListener('touchend', onClickHandler);
-              } else {
-                keyElement.addEventListener('click', onClickHandler);
               }
+
+              keyElement.addEventListener('click', onClickHandler);
             }
           };
           // keys event listeners: end
@@ -777,9 +777,10 @@
               var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
               var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
               var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
-              var userAgent = navigator.userAgent.toLocaleLowerCase('en');
-              var isBrowserEdgeLegacy = userAgent.indexOf('edge') > -1;
+
+              var userAgent = window.navigator.userAgent.toLocaleLowerCase('en');
               var isBrowserInternetExplorer = userAgent.indexOf('.net4') > -1;
+              var isBrowserEdgeLegacy = userAgent.indexOf('edge') > -1;
               var isBrowserEdgeWebView = isBrowserEdgeLegacy && userAgent.indexOf('webview') > -1;
 
               if ((!isBrowserEdgeLegacy || isBrowserEdgeWebView) && !isBrowserInternetExplorer) {
@@ -859,14 +860,6 @@
 
       // Functions: Get the Keys from JSON by XMLHttpRequest and AppendTo: begin
       var getKeysViaXmlHttpRequest = function (jsonUrl, input) {
-        // check the protocol
-        var protocolSchemes = ['http:', 'data:', 'chrome:', 'chrome-extension:', 'https:'];
-        var protocol = (window.location || {}).protocol;
-        if (protocolSchemes.indexOf(protocol) <= -1) {
-          kioskBoardConsoleError('The Browser has blocked this request by CORS policy.');
-          return false;
-        }
-
         // if "kioskBoardCachedKeys" is undefined || null => send XMLHttpRequest
         if (!kioskBoardCachedKeys) {
           var xmlHttp = new XMLHttpRequest();
