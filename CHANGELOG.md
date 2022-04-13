@@ -1,6 +1,7 @@
 @2.2.0
 * **Added:** Using KioskBoard in embedded webview - https://github.com/furcan/KioskBoard/pull/51 (Thanks [surexxx](https://github.com/surexxx))
 * **Added:** Add long press feature - https://github.com/furcan/KioskBoard/pull/53 (Thanks [surexxx](https://github.com/surexxx))
+* **Fixed:** Text encoding board-keys-*.json change to UTF-8 - https://github.com/furcan/KioskBoard/pull/48 (Thanks [densen2014](https://github.com/densen2014))
 * **Fixed:** Fix the autofocus behavior - https://github.com/furcan/KioskBoard/pull/52 (Thanks [surexxx](https://github.com/surexxx))
 * **Fixed:** Avoiding CORS in Electron - https://github.com/furcan/KioskBoard/issues/46
 * **Changed:** Refactor.
