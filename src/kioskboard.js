@@ -749,12 +749,11 @@
 
             // body padding bottom || top: begin
             var isPlacementTop = keyboardPlacement === kioskBoardPlacements.Top;
-            var inputTop = (isPlacementTop ? theInput.getBoundingClientRect().bottom : theInput.getBoundingClientRect().top) || 0;
+            var inputVisibleEdge = (isPlacementTop ? theInput.getBoundingClientRect().top : theInput.getBoundingClientRect().bottom) || 0;
             var docTop = window.document.documentElement.scrollTop || 0;
-            var inputThreshold = isPlacementTop ? (theInput.clientHeight + 20) : 50;
-            var theInputOffsetTop = Math.round(inputTop + docTop) - inputThreshold;
+            var theInputOffsetTop = Math.round(inputVisibleEdge + docTop);
             var isPaddingTop = (theInputOffsetTop < keyboardHeight) && isPlacementTop;
-            var isPaddingBottom = documentHeight <= (theInputOffsetTop + keyboardHeight);
+            var isPaddingBottom = documentHeight <= (theInputOffsetTop + keyboardHeight) && !isPlacementTop;
 
             if (isPaddingTop || isPaddingBottom) {
               var styleElm = window.document.getElementById('KioskboardBodyPadding');
@@ -774,9 +773,12 @@
             // auto scroll: begin
             var autoScroll = opt.autoScroll === true;
             if (autoScroll) {
+              var inputThreshold = isPlacementTop ? 20 : 50;
+              var inputTop = theInput.getBoundingClientRect().top || 0;
+              var inputScrollOffsetTop = Math.round(inputTop + docTop);
               var scrollBehavior = opt.cssAnimations === true ? 'smooth' : 'auto';
               var scrollDelay = opt.cssAnimations === true && typeof opt.cssAnimationsDuration === 'number' ? opt.cssAnimationsDuration : 0;
-              var scrollTop = theInputOffsetTop - (isPlacementTop ? keyboardHeight : 0);
+              var scrollTop = inputScrollOffsetTop - inputThreshold - (isPlacementTop ? keyboardHeight : 0);
 
               var userAgent = window.navigator.userAgent.toLocaleLowerCase('en');
               var isBrowserInternetExplorer = userAgent.indexOf('.net4') > -1;
@@ -786,7 +788,7 @@
               if ((!isBrowserEdgeLegacy || isBrowserEdgeWebView) && !isBrowserInternetExplorer) {
                 var scrollTimeout = setTimeout(function () {
                   if (isBrowserEdgeWebView) {
-                    window.scrollBy(0, theInputOffsetTop);
+                    window.scrollBy(0, inputScrollOffsetTop);
                   } else {
                     window.scrollTo({ top: scrollTop, left: 0, behavior: scrollBehavior });
                   }
