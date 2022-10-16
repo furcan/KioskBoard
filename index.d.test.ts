@@ -29,6 +29,7 @@ KioskBoard.init({
   keysNumpadArrayOfNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
   language: 'en',
   theme: 'light',
+  autoScroll: true,
   capsLockActive: true,
   allowRealKeyboard: false,
   allowMobileKeyboard: false,
@@ -41,7 +42,9 @@ KioskBoard.init({
   keysFontSize: '22px',
   keysFontWeight: 'normal',
   keysIconSize: '25px',
-  autoScroll: true,
+  keysEnterText: 'Enter',
+  keysEnterCanClose: false,
+  keysEnterCallback: () => undefined,
 });
 
 KioskBoard.run('.js-kioskboard', {

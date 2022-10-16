@@ -1,3 +1,14 @@
+@2.3.0
+* **Fixed:** Suggested fix for Autoscroll not happening - https://github.com/furcan/KioskBoard/pull/62 (Thanks [revaij83](https://github.com/revaij83))
+* **Fixed:** Specialcharacters keyboard close button is not visible when kioskboard-overflow class present - https://github.com/furcan/KioskBoard/issues/60
+* **Added:** Enter key added.
+  - "`keysEnterText`", "`keysEnterCallback`", and "`keysEnterCanClose`" options are added.
+  - https://github.com/furcan/KioskBoard/issues/50
+  - https://github.com/furcan/KioskBoard/issues/55
+* **Changed:** Refactor.
+
+-----
+
 @2.2.0
 * **Added:** Using KioskBoard in embedded webview - https://github.com/furcan/KioskBoard/pull/51 (Thanks [surexxx](https://github.com/surexxx))
 * **Added:** Add long press feature - https://github.com/furcan/KioskBoard/pull/53 (Thanks [surexxx](https://github.com/surexxx))

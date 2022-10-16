@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.2.0
+* Version: 2.3.0
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -52,6 +52,7 @@
     keysNumpadArrayOfNumbers: null,
     language: 'en',
     theme: 'light', // "light" || "dark" || "flat" || "material" || "oldschool"
+    autoScroll: true,
     capsLockActive: true,
     allowRealKeyboard: false,
     allowMobileKeyboard: false,
@@ -64,7 +65,9 @@
     keysFontSize: '22px',
     keysFontWeight: 'normal',
     keysIconSize: '25px',
-    autoScroll: true,
+    keysEnterText: 'Enter',
+    keysEnterCallback: undefined,
+    keysEnterCanClose: true,
   };
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
@@ -119,7 +122,7 @@
     '8': '3',
     '9': '0',
   };
-  var kioskBoardAllKeysObject = {
+  var kioskBoardAllKeysNumbersObject = {
     '0': '1',
     '1': '2',
     '2': '3',
@@ -397,10 +400,12 @@
           var keysAllowSpacebar = opt.keysAllowSpacebar === true;
           var spaceKeyValue = keysAllowSpacebar ? ' ' : '';
           var keysSpacebarText = typeof opt.keysSpacebarText === 'string' && opt.keysSpacebarText.length > 0 ? opt.keysSpacebarText : 'Space';
+          var keysEnterText = typeof opt.keysEnterText === 'string' && opt.keysEnterText.length > 0 ? opt.keysEnterText : 'Enter';
 
           var spaceKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-space ' + (keysAllowSpacebar ? 'spacebar-allowed' : 'spacebar-denied') + '" data-value="' + spaceKeyValue + '">' + keysSpacebarText + '</span>';
           var capsLockKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-capslock ' + (isCapsLockActive ? 'capslock-active' : '') + '">' + kioskBoardIconCapslock(keysIconWidth, keysIconColor) + '</span>';
           var backspaceKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-backspace">' + kioskBoardIconBackspace(keysIconWidth, keysIconColor) + '</span>';
+          var enterKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key-enter">' + keysEnterText + '</span>';
           // static keys: end
 
           // keyboard "specialcharacter" setting is "true": begin
@@ -454,7 +459,7 @@
                 numpadKeysContent += eachKey3;
               }
             }
-            keysRowElements += '<div class="kioskboard-row kioskboard-row-numpad">' + numpadKeysContent + backspaceKey + '</div>';
+            keysRowElements += '<div class="kioskboard-row kioskboard-row-numpad">' + numpadKeysContent + backspaceKey + enterKey + '</div>';
           }
           // keyboard type is "numpad": end
 
@@ -463,10 +468,10 @@
             // only keyboard type is "all": begin
             if (keyboardType === kioskBoardTypes.All) {
               var numberKeysContent = '';
-              for (var key4 in kioskBoardAllKeysObject) {
-                if (Object.prototype.hasOwnProperty.call(kioskBoardAllKeysObject, key4)) {
+              for (var key4 in kioskBoardAllKeysNumbersObject) {
+                if (Object.prototype.hasOwnProperty.call(kioskBoardAllKeysNumbersObject, key4)) {
                   var index4 = key4;
-                  var value4 = kioskBoardAllKeysObject[key4];
+                  var value4 = kioskBoardAllKeysNumbersObject[key4];
                   var eachKey4 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value4.toString() + '" data-index="' + index4.toString() + '" data-value="' + value4.toString() + '">' + value4.toString() + '</span>';
                   numberKeysContent += eachKey4;
                 }
@@ -492,7 +497,7 @@
             // dynamic keys group: end
 
             // bottom keys group: begin
-            keysRowElements += '<div class="kioskboard-row kioskboard-row-bottom ' + (allowedSpecialCharacters ? 'kioskboard-with-specialcharacter' : '') + '">' + capsLockKey + specialCharacterKey + spaceKey + backspaceKey + '</div>';
+            keysRowElements += '<div class="kioskboard-row kioskboard-row-bottom ' + (allowedSpecialCharacters ? 'kioskboard-with-specialcharacter' : '') + '">' + capsLockKey + specialCharacterKey + spaceKey + enterKey + backspaceKey + '</div>';
             // bottom keys group: end
 
             // add if special character keys allowed: begin
@@ -532,8 +537,9 @@
 
           // create the keyboard: begin
           var theTheme = typeof opt.theme === 'string' && opt.theme.length > 0 ? opt.theme.trim() : 'light';
+          var kioskBoardVirtualKeyboardId = 'KioskBoard-VirtualKeyboard';
           var kioskBoardVirtualKeyboard = window.document.createElement('div');
-          kioskBoardVirtualKeyboard.id = 'KioskBoard-VirtualKeyboard';
+          kioskBoardVirtualKeyboard.id = kioskBoardVirtualKeyboardId;
           kioskBoardVirtualKeyboard.classList.add('kioskboard-theme-' + theTheme);
           kioskBoardVirtualKeyboard.classList.add('kioskboard-placement-' + keyboardPlacement);
           kioskBoardVirtualKeyboard.classList.add(cssAnimationsClass);
@@ -544,6 +550,25 @@
           kioskBoardVirtualKeyboard.style.animationDuration = cssAnimations ? (cssAnimationsDuration + 'ms') : '';
           kioskBoardVirtualKeyboard.appendChild(allKeysElement);
           // create the keyboard: end
+
+          // remove the keyboard: begin
+          var removeKeyboard = function () {
+            // add remove class
+            var keyboardElm = window.document.getElementById(kioskBoardVirtualKeyboardId);
+            if (keyboardElm) {
+              keyboardElm.classList.add(cssAnimationsStyle + '-remove');
+
+              // remove after the animation has been ended
+              var removeTimeout = setTimeout(function () {
+                if (keyboardElm.parentNode !== null) {
+                  keyboardElm.parentNode.removeChild(keyboardElm); // remove keyboard
+                  window.document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
+                }
+                clearTimeout(removeTimeout);
+              }, cssAnimationsDuration);
+            }
+          };
+          // remove the keyboard: end
 
           // event for input element trigger change: begin
           var changeEvent = new Event('change', {
@@ -591,7 +616,7 @@
           // keys click listeners: begin
           var keysClickListeners = function (input) {
             // each key click listener: begin
-            var eachKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key');
+            var eachKeyElm = window.document.querySelectorAll('.kioskboard-key');
             if (eachKeyElm && eachKeyElm.length > 0) {
               for (var ekIndex = 0; ekIndex < eachKeyElm.length; ekIndex++) {
                 var keyElm = eachKeyElm[ekIndex];
@@ -643,7 +668,7 @@
             // each key click listener: end
 
             // capslock key click listener: begin
-            var capsLockKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-capslock')[0];
+            var capsLockKeyElm = window.document.querySelector('.kioskboard-key-capslock');
             if (capsLockKeyElm) {
               keysEventListeners(capsLockKeyElm, function (e) {
                 e.preventDefault();
@@ -666,7 +691,7 @@
             // capslock key click listener: end
 
             // backspace key click listener: begin
-            var backspaceKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-backspace')[0];
+            var backspaceKeyElm = window.document.querySelector('.kioskboard-key-backspace');
             if (backspaceKeyElm) {
               keysEventListeners(backspaceKeyElm, function (e) {
                 e.preventDefault();
@@ -690,14 +715,13 @@
 
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
-
               });
             }
             // backspace key click listener: end
 
             // specialcharacter key click listener: begin
-            var specialCharacterKeyElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-key-specialcharacter')[0];
-            var specialCharactersRowElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-row-specialcharacters')[0];
+            var specialCharacterKeyElm = window.document.querySelector('.kioskboard-key-specialcharacter');
+            var specialCharactersRowElm = window.document.querySelector('.kioskboard-row-specialcharacters');
             // open
             if (specialCharacterKeyElm && specialCharactersRowElm) {
               keysEventListeners(specialCharacterKeyElm, function (e) {
@@ -713,7 +737,7 @@
               });
             }
             // close
-            var specialCharCloseElm = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-specialcharacter-close')[0];
+            var specialCharCloseElm = window.document.querySelector('.kioskboard-specialcharacter-close');
             if (specialCharCloseElm && specialCharacterKeyElm && specialCharactersRowElm) {
               keysEventListeners(specialCharCloseElm, function (e) {
                 e.preventDefault();
@@ -724,22 +748,34 @@
             }
             // specialcharacter key click listener: end
 
+            // enter key click listener: begin
+            var enterKeyElm = window.document.querySelector('.kioskboard-key-enter');
+            if (enterKeyElm) {
+              keysEventListeners(enterKeyElm, function () {
+                if (opt.keysEnterCanClose === true) {
+                  removeKeyboard();
+                }
+                if (typeof opt.keysEnterCallback === 'function') {
+                  opt.keysEnterCallback();
+                }
+              });
+            }
+            // enter key click listener: end
           };
           // keys click listeners: end
 
           // append keyboard: begin
-          var keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
+          var keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboardId);
           if (!keyboardElement) {
             // append the keyboard to body and cache
             window.document.body.appendChild(kioskBoardVirtualKeyboard);
-            keyboardElement = window.document.getElementById(kioskBoardVirtualKeyboard.id);
 
             // check window and keyboard height: begin
             var windowHeight = Math.round(window.innerHeight);
             var documentHeight = Math.round(window.document.body.clientHeight);
-            var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboard.id).offsetHeight);
+            var keyboardHeight = Math.round(window.document.getElementById(kioskBoardVirtualKeyboardId).offsetHeight);
             if (keyboardHeight > Math.round((windowHeight / 3) * 2)) {
-              var keyboardWrapper = window.document.getElementById(kioskBoardVirtualKeyboard.id).getElementsByClassName('kioskboard-wrapper')[0];
+              var keyboardWrapper = window.document.querySelector('.kioskboard-wrapper');
               keyboardWrapper.style.maxHeight = Math.round((windowHeight / 5) * 4) + 'px';
               keyboardWrapper.style.overflowX = 'hidden';
               keyboardWrapper.style.overflowY = 'auto';
@@ -807,23 +843,15 @@
             var docClickListener = function (e) {
               var docClickTimeout = setTimeout(function () {
                 // check event target to remove keyboard: begin
+                var keyboardElm = window.document.getElementById(kioskBoardVirtualKeyboardId);
                 if (
-                  e.target !== theInput &&
-                  !kioskBoardEventTargetIsElementOrChilds(e, keyboardElement) &&
-                  !e.target.classList.contains('kioskboard-body-padding')
+                  keyboardElm
+                  && e.target !== theInput
+                  && !kioskBoardEventTargetIsElementOrChilds(e, keyboardElm)
+                  && !e.target.classList.contains('kioskboard-body-padding')
                 ) {
-                  // add remove class
-                  kioskBoardVirtualKeyboard.classList.add(cssAnimationsStyle + '-remove');
-
-                  // remove after the animation has been ended
-                  var removeTimeout = setTimeout(function () {
-                    if (keyboardElement.parentNode !== null) {
-                      keyboardElement.parentNode.removeChild(keyboardElement); // remove keyboard
-                      window.document.body.classList.remove('kioskboard-body-padding'); // remove body padding class
-                      window.document.removeEventListener('click', docClickListener); // remove document click listener
-                    }
-                    clearTimeout(removeTimeout);
-                  }, cssAnimationsDuration);
+                  removeKeyboard();
+                  window.document.removeEventListener('click', docClickListener);
                 }
                 // check event target to remove keyboard: end
 

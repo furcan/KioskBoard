@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.2.0
+* Version: 2.3.0
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -235,6 +235,7 @@
   background: #5decaa;
 }
 
+#KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-enter,
 #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-backspace {
   position: relative;
   max-width: 100%;
@@ -246,20 +247,20 @@
   flex: 1 1 auto;
 }
 
-/* 140+16=>CapsLock && 140+16=>BackSpace */
+/* 140+16=>CapsLock && 140+16=>BackSpace && 140+16=>Enter */
 #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-space {
   min-height: 60px;
   max-width: 100%;
-  width: calc(100% - 16px - 140px - 16px - 140px - 16px);
+  width: calc(100% - 16px - 140px - 16px - 140px - 16px - 140px - 16px);
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
 
-/* 140+16=>CapsLock && 140+16=>BackSpace && 140+16=>SpecialChar */
+/* 140+16=>CapsLock && 140+16=>BackSpace && 140+16=>SpecialChar && 140+16=>Enter */
 #KioskBoard-VirtualKeyboard .kioskboard-row-bottom.kioskboard-with-specialcharacter span.kioskboard-key-space {
-  width: calc(100% - 16px - 140px - 16px - 140px - 16px - 140px - 16px);
+  width: calc(100% - 16px - 140px - 16px - 140px - 16px - 140px - 16px - 140px - 16px);
 }
 
 #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-space.spacebar-denied {
@@ -282,7 +283,7 @@
 
 /* KioskBoard: Row & Keys Numpad Group: begin */
 #KioskBoard-VirtualKeyboard .kioskboard-row-numpad {
-  display: block;
+  display: flex;
   max-width: 320px;
   margin: auto;
 }
@@ -299,10 +300,16 @@
 }
 /* stylelint-enable no-descending-specificity */
 
-#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-last,
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-last {
+  order: 11;
+}
+
 #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
-  max-width: 100%;
-  width: calc(50% - 16px);
+  order: 10;
+}
+
+#KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-enter {
+  order: 12;
 }
 
 /* KioskBoard: Row & Keys Numpad Group: end */
@@ -337,7 +344,7 @@
   position: absolute;
   z-index: 30;
   right: 0;
-  top: -42.5px;
+  top: 0;
   width: 40px;
   height: 40px;
   background: #a9a9a9;
@@ -590,11 +597,7 @@
     min-height: 55px;
   }
 
-  #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-last,
-  #KioskBoard-VirtualKeyboard .kioskboard-row-numpad span.kioskboard-key-backspace {
-    width: calc(50% - 20px);
-  }
-
+  #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-enter,
   #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-backspace,
   #KioskBoard-VirtualKeyboard .kioskboard-with-specialcharacter span.kioskboard-key-specialcharacter,
   #KioskBoard-VirtualKeyboard .kioskboard-row-bottom span.kioskboard-key-capslock {
@@ -636,7 +639,7 @@
   #KioskBoard-VirtualKeyboard .kioskboard-row-specialcharacters span.kioskboard-specialcharacter-close {
     width: 30px;
     height: 30px;
-    top: -27px;
+    top: 0;
     right: 5px;
   }
 }

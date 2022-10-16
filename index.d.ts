@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.2.0
+* Version: 2.3.0
 * Description: TypeScript Declaration.
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
@@ -68,6 +68,12 @@ declare namespace KioskBoard {
      * @defaultValue `light`
      */
     theme?: 'light' | 'dark' | 'flat' | 'material' | 'oldschool';
+
+    /**
+     * @property {boolean} - Optional, Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when `false`.
+     * @defaultValue `true`
+     */
+    autoScroll?: boolean;
 
     /**
      * @property {boolean} - Optional, Uppercase or lowercase to start. Uppercased when `true`.
@@ -144,10 +150,22 @@ declare namespace KioskBoard {
     keysIconSize?: string;
 
     /**
-     * @property {boolean} - Optional, Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when `false`.
+     * @property {string} - Optional, Text of the Enter key (Enter/Return). Without text => `" "`
+     * @defaultValue `Enter`
+     */
+    keysEnterText?: string;
+
+    /**
+     * @property {function} - Optional, The callback function of the Enter key. This function will be called when the enter key has been clicked.
+     * @defaultValue `undefined`
+     */
+    keysEnterCallback?: () => void;
+
+    /**
+     * @property {boolean} - Optional, The Enter key can close and remove the keyboard. Prevented when `false`
      * @defaultValue `true`
      */
-    autoScroll?: boolean;
+    keysEnterCanClose?: boolean;
   }
 
   /**
