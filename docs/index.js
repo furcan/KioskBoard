@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.2.0
+* Version: 2.3.0
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -123,6 +123,11 @@ KioskBoard.run('.js-kioskboard-input-furcan-top', {
   allowMobileKeyboard: false,
   language: 'en',
   theme: 'dark',
+  keysEnterText: 'Close',
+  keysEnterCanClose: true,
+  keysEnterCallback: function () {
+    console.log('closed');
+  },
 });
 
 KioskBoard.run('.js-kioskboard-input-furcan-bottom', {

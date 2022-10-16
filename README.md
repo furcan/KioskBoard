@@ -22,7 +22,7 @@ A pure JavaScript library for using virtual keyboards.
 ---------
 
 ## Current Version
-2.2.0 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
+2.3.0 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
 
 ---------
 
@@ -59,15 +59,15 @@ import KioskBoard from 'kioskboard';
 ### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-2.2.0.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-2.3.0.min.css" />
 
-<script src="dist/kioskboard-2.2.0.min.js"></script>
+<script src="dist/kioskboard-2.3.0.min.js"></script>
 ```
 
 ### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-2.2.0.min.js"></script>
+<script src="dist/kioskboard-aio-2.3.0.min.js"></script>
 ```
 
 ---------
@@ -156,6 +156,9 @@ KioskBoard.init({
   // The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"
   theme: 'light',
 
+  // Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when "false"
+  autoScroll: true,
+
   // Uppercase or lowercase to start. Uppercased when "true"
   capsLockActive: true,
 
@@ -195,8 +198,14 @@ KioskBoard.init({
   // Size of the icon keys
   keysIconSize: '25px',
 
-  // Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when "false"
-  autoScroll: true,
+  // Text of the Enter key (Enter/Return). Without text => " "
+  keysEnterText: 'Enter',
+
+  // The callback function of the Enter key. This function will be called when the enter key has been clicked.
+  keysEnterCallback: undefined,
+
+  // The Enter key can close and remove the keyboard. Prevented when "false"
+  keysEnterCanClose: true,
 });
 ```
 

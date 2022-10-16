@@ -24,9 +24,9 @@
   <link id="FontConsolas" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&amp;subset=latin-ext" rel="stylesheet">
 
   <!-- <link rel="stylesheet" href="../src/kioskboard.css" /> -->
-  <!-- <link rel="stylesheet" href="../dist/kioskboard-2.2.0.min.css" /> -->
+  <!-- <link rel="stylesheet" href="../dist/kioskboard-2.3.0.min.css" /> -->
 
-  <link rel="stylesheet" href="index.css?v=2.2.0" />
+  <link rel="stylesheet" href="index.css?v=2.3.0" />
 </head>
 
 <body>
@@ -55,7 +55,7 @@
       <h1 class="title">KioskBoard<i class="fab fa-js-square"></i></h1>
       <h4 class="sub-title">Virtual Keyboard</h4>
       <p class="desc">A pure JavaScript library for using virtual keyboards.</p>
-      <p class="version" data-toggle="tooltip" title="Current Version">v2.2.0</p>
+      <p class="version" data-toggle="tooltip" title="Current Version">v2.3.0</p>
       <div class="browser-compatibility">
         <h5 class="bc-title">Browser Compatibility</h5>
         <ul class="bc-ul">
@@ -207,15 +207,15 @@
         <code class="html">
           <span class="label">HTML <span class="desc">CSS and JS</span></span>
 
-          <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"dist/kioskboard-2.2.0.min.css"</span></span> /&gt;</span>
+          <span class="l1">&lt;<span class="link">link</span> <span class="data">rel=<span class="str">"stylesheet"</span></span> <span class="data">href=<span class="str">"dist/kioskboard-2.3.0.min.css"</span></span> /&gt;</span>
 
-          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-2.2.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-2.3.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
         </code>
 
         <code class="html">
           <span class="label">HTML <span class="desc">Only JS (Internal CSS)</span></span>
 
-          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-aio-2.2.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
+          <span class="l1">&lt;<span class="link">script</span> <span class="data">src=<span class="str">"dist/kioskboard-aio-2.3.0.min.js"</span></span>&gt;&lt;/<span class="link">script</span>&gt;</span>
         </code>
       </div>
 
@@ -328,6 +328,9 @@
           <span class="l1 l2 cmmnt">// The theme of keyboard => "light" || "dark" || "flat" || "material" || "oldschool"</span>
           <span class="l1 l2"><span class="fnc1">theme:</span> <span class="str">'light'</span>,</span>
 
+          <span class="l1 l2 cmmnt">// Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when "false"</span>
+          <span class="l1 l2"><span class="fnc1">autoScroll:</span> <span class="bool">true</span>,</span>
+
           <span class="l1 l2 cmmnt">// Uppercase or lowercase to start. Uppercased when "true"</span>
           <span class="l1 l2"><span class="fnc1">capsLockActive:</span> <span class="bool">true</span>,</span>
 
@@ -350,7 +353,7 @@
           <span class="l1 l2 cmmnt">// Enable or Disable Spacebar functionality on the keyboard. The Spacebar will be passive when "false"</span>
           <span class="l1 l2"><span class="fnc1">keysAllowSpacebar:</span> <span class="bool">true</span>,</span>
 
-          <span class="l1 l2 cmmnt">// Text of the space key (Spacebar). Without text => " "</span>
+          <span class="l1 l2 cmmnt">// Text of the Space key (Spacebar). Without text => " "</span>
           <span class="l1 l2"><span class="fnc1">keysSpacebarText:</span> <span class="str">'Space'</span>,</span>
 
           <span class="l1 l2 cmmnt">// Font family of the keys</span>
@@ -365,8 +368,14 @@
           <span class="l1 l2 cmmnt">// Size of the icon keys</span>
           <span class="l1 l2"><span class="fnc1">keysIconSize:</span> <span class="str">'25px'</span>,</span>
 
-          <span class="l1 l2 cmmnt">// Scrolls the document to the top or bottom(by the placement option) of the input/textarea element. Prevented when "false"</span>
-          <span class="l1 l2"><span class="fnc1">autoScroll:</span> <span class="bool">true</span>,</span>
+          <span class="l1 l2 cmmnt">// Text of the Enter key (Enter/Return). Without text => " "</span>
+          <span class="l1 l2"><span class="fnc1">keysEnterText:</span> <span class="str">'Enter'</span>,</span>
+
+          <span class="l1 l2 cmmnt">// The callback function of the Enter key. This function will be called when the enter key has been clicked.</span>
+          <span class="l1 l2"><span class="fnc1">keysEnterCallback:</span> <span class="bool">undefined</span>,</span>
+
+          <span class="l1 l2 cmmnt">// The Enter key can close and remove the keyboard. Prevented when "false"</span>
+          <span class="l1 l2"><span class="fnc1">keysEnterCanClose:</span> <span class="bool">true</span>,</span>
 
           <span class="l1">});</span>
         </code>
@@ -467,12 +476,12 @@
   <script src="index-tooltip.js"></script>
 
   <!-- <script src="../src/kioskboard.js"></script> -->
-  <!-- <script src="../dist/kioskboard-2.2.0.min.js"></script> -->
   <!-- <script src="../build/kioskboard-aio.js"></script> -->
-  <!-- <script src="../dist/kioskboard-aio-2.2.0.min.js"></script> -->
+  <!-- <script src="../dist/kioskboard-2.3.0.min.js"></script> -->
+  <!-- <script src="../dist/kioskboard-aio-2.3.0.min.js"></script> -->
 
-  <script src="kioskboard-aio-2.2.0.min.js"></script>
-  <script src="index.js?v=2.2.0"></script>
+  <script src="kioskboard-aio-2.3.0.min.js"></script>
+  <script src="index.js?v=2.3.0"></script>
 </body>
 
 </html>
