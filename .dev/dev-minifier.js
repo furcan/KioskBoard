@@ -3,7 +3,7 @@
 *
 * Description: Minify the KioskBoard scripts, and clean the KioskBoard styles to the distribution. (Used "Babel Minify", and "Clean CSS")
 * Version: 2.2.0
-* Author: Furkan MT ('https://github.com/furcan')
+* Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 Minifier, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 

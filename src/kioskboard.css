@@ -1,7 +1,7 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Version: 2.2.0
-* Author: Furkan MT ('https://github.com/furcan')
+* Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 

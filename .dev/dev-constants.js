@@ -2,7 +2,7 @@
 * Constants
 * Description: Constants for the development.
 * Version: 2.2.0
-* Author: Furkan MT ('https://github.com/furcan')
+* Author: Furkan ('https://github.com/furcan')
 * Copyright 2022 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
