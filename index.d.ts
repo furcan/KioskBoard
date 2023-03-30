@@ -1,9 +1,9 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.0
+* Version: 2.3.1
 * Description: TypeScript Declaration.
 * Author: Furkan ('https://github.com/furcan')
-* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /**
@@ -188,6 +188,7 @@ declare namespace KioskBoard {
     initOptions: IKioskBoardOptions,
   ): void;
 
+  function getFocusListener(): object;
 }
 
 export = KioskBoard;

@@ -1,8 +1,8 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.0
+* Version: 2.3.1
 * Author: Furkan ('https://github.com/furcan')
-* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* global define */
@@ -71,6 +71,7 @@
   };
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
+  var kioskboardFocusListener;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
   var kioskBoardSpecialCharacters = {
     '0': '!',
@@ -875,6 +876,7 @@
           // append keyboard: end
         };
         input.addEventListener('focus', inputFocusListener); // add input focus listener
+        kioskboardFocusListener = inputFocusListener;
         // each input focus listener: end
 
         // each input focusout listener: begin
@@ -945,6 +947,10 @@
         }
       }
       // Step 3: Select the element(s): end
+    },
+    // Get focus listener
+    getFocusListener: function () {
+      return kioskboardFocusListener;
     },
   };
 
