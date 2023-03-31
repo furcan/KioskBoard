@@ -1,9 +1,9 @@
 /*!
 * Constants
 * Description: Constants for the development.
-* Version: 2.3.0
+* Version: 2.3.1
 * Author: Furkan ('https://github.com/furcan')
-* Copyright 2022 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
+* Copyright 2023 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
 */
 
 // Dev Dependencies

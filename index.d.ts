@@ -1,9 +1,9 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.0
+* Version: 2.3.1
 * Description: TypeScript Declaration.
 * Author: Furkan ('https://github.com/furcan')
-* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /**
@@ -148,6 +148,12 @@ declare namespace KioskBoard {
      * @defaultValue `25px`
      */
     keysIconSize?: string;
+
+    /**
+     * @property {function} - Optional, The callback function of all the keys. This function will be called when any key has been clicked.
+     * @defaultValue `undefined`
+     */
+    keysCallback?: () => void;
 
     /**
      * @property {string} - Optional, Text of the Enter key (Enter/Return). Without text => `" "`

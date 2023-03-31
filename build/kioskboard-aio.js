@@ -1,9 +1,9 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Description: This file contains the KioskBoard CSS codes as internal to use the KioskBoard as one file. This file has been created automatically from using the "kioskboard.js", and "kioskboard.css" files.
-* Version: 2.3.0
+* Version: 2.3.1
 * Author: Furkan ('https://github.com/furcan')
-* Copyright 2022 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
+* Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
 
 /* global define */
@@ -66,6 +66,7 @@
     keysFontSize: '22px',
     keysFontWeight: 'normal',
     keysIconSize: '25px',
+    keysCallback: undefined,
     keysEnterText: 'Enter',
     keysEnterCallback: undefined,
     keysEnterCanClose: true,
@@ -662,6 +663,10 @@
 
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
+                  }
+
+                  if (typeof opt.keysCallback === 'function') {
+                    opt.keysCallback();
                   }
                 });
               }
