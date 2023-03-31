@@ -756,7 +756,7 @@
                   removeKeyboard();
                 }
                 if (typeof opt.keysEnterCallback === 'function') {
-                  opt.keysEnterCallback();
+                  opt.keysEnterCallback(input);
                 }
               });
             }
