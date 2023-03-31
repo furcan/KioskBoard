@@ -1,7 +1,7 @@
 /*!
 * Constants
 * Description: Constants for the development.
-* Version: 2.3.2
+* Version: 2.3.3
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2023 Constants, MIT Licence ('https://opensource.org/licenses/MIT')
 */

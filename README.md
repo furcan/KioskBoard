@@ -20,7 +20,7 @@ A pure JavaScript library for using virtual keyboards.
 ---------
 
 ## Current Version
-2.3.2 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
+2.3.3 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
 
 ---------
 
@@ -57,15 +57,15 @@ import KioskBoard from 'kioskboard';
 ### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-2.3.2.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-2.3.3.min.css" />
 
-<script src="dist/kioskboard-2.3.2.min.js"></script>
+<script src="dist/kioskboard-2.3.3.min.js"></script>
 ```
 
 ### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-2.3.2.min.js"></script>
+<script src="dist/kioskboard-aio-2.3.3.min.js"></script>
 ```
 
 ---------
@@ -198,6 +198,9 @@ KioskBoard.init({
 
   // The callback function of all the keys. This function will be called when any key has been clicked.
   keysCallback: undefined,
+
+  // The callback function of the Backspace key. This function will be called when the backspace key has been clicked.
+  keysBackspaceCallback: undefined,
 
   // Text of the Enter key (Enter/Return). Without text => " "
   keysEnterText: 'Enter',

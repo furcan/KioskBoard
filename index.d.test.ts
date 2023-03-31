@@ -43,6 +43,7 @@ KioskBoard.init({
   keysFontWeight: 'normal',
   keysIconSize: '25px',
   keysCallback: () => undefined,
+  keysBackspaceCallback: () => undefined,
   keysEnterText: 'Enter',
   keysEnterCanClose: false,
   keysEnterCallback: () => undefined,

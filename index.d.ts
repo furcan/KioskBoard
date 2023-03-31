@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.2
+* Version: 2.3.3
 * Description: TypeScript Declaration.
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
@@ -154,6 +154,12 @@ declare namespace KioskBoard {
      * @defaultValue `undefined`
      */
     keysCallback?: () => void;
+
+    /**
+     * @property {function} - Optional, The callback function of the Backspace key. This function will be called when the backspace key has been clicked.
+     * @defaultValue `undefined`
+     */
+    keysBackspaceCallback?: () => void;
 
     /**
      * @property {string} - Optional, Text of the Enter key (Enter/Return). Without text => `" "`

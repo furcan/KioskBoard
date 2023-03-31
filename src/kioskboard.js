@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.2
+* Version: 2.3.3
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -66,6 +66,7 @@
     keysFontWeight: 'normal',
     keysIconSize: '25px',
     keysCallback: undefined,
+    keysBackspaceCallback: undefined,
     keysEnterText: 'Enter',
     keysEnterCallback: undefined,
     keysEnterCanClose: true,
@@ -721,6 +722,10 @@
 
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
+
+                if (typeof opt.keysBackspaceCallback === 'function') {
+                  opt.keysBackspaceCallback();
+                }
               });
             }
             // backspace key click listener: end
