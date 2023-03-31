@@ -1,7 +1,7 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
 * Description: This file contains the KioskBoard CSS codes as internal to use the KioskBoard as one file. This file has been created automatically from using the "kioskboard.js", and "kioskboard.css" files.
-* Version: 2.3.1
+* Version: 2.3.2
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
 */
@@ -74,6 +74,7 @@
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
+  var kioskBoardElementsWithFocusListener = {};
   var kioskBoardSpecialCharacters = {
     '0': '!',
     '1': '\'',
@@ -881,6 +882,9 @@
           // append keyboard: end
         };
         input.addEventListener('focus', inputFocusListener); // add input focus listener
+        if (input.id) {
+          kioskBoardElementsWithFocusListener[input.id] = inputFocusListener;
+        }
         // each input focus listener: end
 
         // each input focusout listener: begin
@@ -951,6 +955,9 @@
         }
       }
       // Step 3: Select the element(s): end
+    },
+    getElementFocusListener: function (elementId) {
+      return kioskBoardElementsWithFocusListener[elementId];
     },
   };
 

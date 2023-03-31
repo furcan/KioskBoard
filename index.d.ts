@@ -1,6 +1,6 @@
 /*!
 * KioskBoard - Virtual Keyboard ('https://github.com/furcan/KioskBoard')
-* Version: 2.3.1
+* Version: 2.3.2
 * Description: TypeScript Declaration.
 * Author: Furkan ('https://github.com/furcan')
 * Copyright 2023 KioskBoard - Virtual Keyboard, MIT Licence ('https://opensource.org/licenses/MIT')*
@@ -194,6 +194,13 @@ declare namespace KioskBoard {
     initOptions: IKioskBoardOptions,
   ): void;
 
+  /**
+    * This method can be used to get the focus listener of an element by its id.
+    * @function getElementFocusListener
+    * @memberof KioskBoard
+    * @param {string} elementId - Required, `KioskBoard.IKioskBoardOptions`.
+    */
+  function getElementFocusListener(elementId: string): function;
 }
 
 export = KioskBoard;
