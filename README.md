@@ -3,7 +3,6 @@
 </p>
 
 [npm-version-badge]: https://img.shields.io/npm/v/kioskboard.svg
-[npm-version-url]: https://www.npmjs.com/package/kioskboard
 [synk-badge]: https://snyk.io/test/github/furcan/KioskBoard/badge.svg?targetFile=package.json
 [synk-url]: https://snyk.io/test/github/furcan/KioskBoard?targetFile=package.json
 [typescript-badge]: https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=3178c6&color=555
@@ -11,7 +10,6 @@
 [lic-badge]: https://img.shields.io/github/license/furcan/KioskBoard.svg
 [lic-url]: https://github.com/furcan/KioskBoard/blob/main/LICENSE
 
-[![NPM Version][npm-version-badge]][npm-version-url]
 [![Known Vulnerabilities][synk-badge]][synk-url]
 [![TypeScript][typescript-badge]][typescript-url]
 [![License][lic-badge]][lic-url]
@@ -22,7 +20,7 @@ A pure JavaScript library for using virtual keyboards.
 ---------
 
 ## Current Version
-2.3.0 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
+2.3.2 [*](https://github.com/furcan/KioskBoard/blob/main/CHANGELOG.md)
 
 ---------
 
@@ -59,15 +57,15 @@ import KioskBoard from 'kioskboard';
 ### CSS and JS
 
 ```html
-<link rel="stylesheet" href="dist/kioskboard-2.3.0.min.css" />
+<link rel="stylesheet" href="dist/kioskboard-2.3.2.min.css" />
 
-<script src="dist/kioskboard-2.3.0.min.js"></script>
+<script src="dist/kioskboard-2.3.2.min.js"></script>
 ```
 
 ### Or only JS (All in One - Internal CSS)
 
 ```html
-<script src="dist/kioskboard-aio-2.3.0.min.js"></script>
+<script src="dist/kioskboard-aio-2.3.2.min.js"></script>
 ```
 
 ---------
@@ -198,6 +196,9 @@ KioskBoard.init({
   // Size of the icon keys
   keysIconSize: '25px',
 
+  // The callback function of all the keys. This function will be called when any key has been clicked.
+  keysCallback: undefined,
+
   // Text of the Enter key (Enter/Return). Without text => " "
   keysEnterText: 'Enter',
 
@@ -268,7 +269,7 @@ An example of a JSON file (for custom keys) in English.
 ---------
 
 ## Copyright
-Copyright © 2022 KioskBoard - Virtual Keyboard
+Copyright © 2023 KioskBoard - Virtual Keyboard
 
 ## License
 MIT license - https://opensource.org/licenses/MIT
