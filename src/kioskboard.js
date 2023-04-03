@@ -65,6 +65,8 @@
     keysFontSize: '22px',
     keysFontWeight: 'normal',
     keysIconSize: '25px',
+    keysCallback: undefined,
+    keysBackspaceCallback: undefined,
     keysEnterText: 'Enter',
     keysEnterCallback: undefined,
     keysEnterCanClose: true,
@@ -72,6 +74,7 @@
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
+  var kioskBoardElementsWithFocusListener = {};
   var kioskBoardSpecialCharacters = {
     '0': '!',
     '1': '\'',
@@ -662,6 +665,10 @@
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
                   }
+
+                  if (typeof opt.keysCallback === 'function') {
+                    opt.keysCallback();
+                  }
                 });
               }
             }
@@ -715,6 +722,10 @@
 
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
+
+                if (typeof opt.keysBackspaceCallback === 'function') {
+                  opt.keysBackspaceCallback();
+                }
               });
             }
             // backspace key click listener: end
@@ -875,6 +886,9 @@
           // append keyboard: end
         };
         input.addEventListener('focus', inputFocusListener); // add input focus listener
+        if (input.id) {
+          kioskBoardElementsWithFocusListener[input.id] = inputFocusListener;
+        }
         // each input focus listener: end
 
         // each input focusout listener: begin
@@ -945,6 +959,9 @@
         }
       }
       // Step 3: Select the element(s): end
+    },
+    getElementFocusListener: function (elementId) {
+      return kioskBoardElementsWithFocusListener[elementId];
     },
   };
 
