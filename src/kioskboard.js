@@ -65,6 +65,8 @@
     keysFontSize: '22px',
     keysFontWeight: 'normal',
     keysIconSize: '25px',
+    keysCallback: undefined,
+    keysBackspaceCallback: undefined,
     keysEnterText: 'Enter',
     keysEnterCallback: undefined,
     keysEnterCanClose: true,
@@ -72,6 +74,7 @@
   var kioskBoardCachedKeys;
   var kioskBoardNewOptions;
   var kioskBoardGithubUrl = 'https://github.com/furcan/KioskBoard';
+  var kioskBoardElementsWithFocusListener = {};
   var kioskBoardSpecialCharacters = {
     '0': '!',
     '1': '\'',
@@ -442,7 +445,7 @@
           if (keyboardType === kioskBoardTypes.Numpad) {
             // check "keysNumpadArrayOfNumbers" for override: begin
             var numpadKeys = opt.keysNumpadArrayOfNumbers;
-            if (Array.isArray(numpadKeys) && numpadKeys.length === 10) {
+            if (Array.isArray(numpadKeys) && numpadKeys.length === 11) { // length is the number of numbers + 1 decimal separator char (',' or '.')
               kioskBoardNumpadKeysObject = numpadKeys.reduce(function (numpadMemo, numpadKey, numpadIndex) {
                 numpadMemo[numpadIndex] = numpadKey;
                 return numpadMemo;
@@ -451,15 +454,21 @@
             // check "keysNumpadArrayOfNumbers" for override: end
 
             var numpadKeysContent = '';
+            var decimalSeparatorKey = '';
             for (var key3 in kioskBoardNumpadKeysObject) {
               if (Object.prototype.hasOwnProperty.call(kioskBoardNumpadKeysObject, key3)) {
                 var index3 = key3;
                 var value3 = kioskBoardNumpadKeysObject[key3];
-                var eachKey3 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value3.toString() + ' ' + (index3 === '9' ? 'kioskboard-key-last' : '') + '" data-index="' + index3.toString() + '" data-value="' + value3.toString() + '">' + value3.toString() + '</span>';
-                numpadKeysContent += eachKey3;
+                if (!isNaN(parseInt(value3))) { // only the numbers
+                  var eachKey3 = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key kioskboard-key-' + value3.toString() + ' ' + (index3 === '9' ? 'kioskboard-key-last' : '') + '" data-index="' + index3.toString() + '" data-value="' + value3.toString() + '">' + value3.toString() + '</span>';
+                  numpadKeysContent += eachKey3;
+                }
+                if (value3 == ',' || value3 == '.') { // decimal separator
+                  decimalSeparatorKey = '<span style="font-family:' + fontFamily + ',sans-serif;font-weight:' + fontWeight + ';font-size:' + fontSize + ';" class="kioskboard-key" data-index="' + index3.toString() + '" data-value="' + value3.toString() + '">' + value3.toString() + '</span>';
+                }
               }
             }
-            keysRowElements += '<div class="kioskboard-row kioskboard-row-numpad">' + numpadKeysContent + backspaceKey + enterKey + '</div>';
+            keysRowElements += '<div class="kioskboard-row kioskboard-row-numpad">' + numpadKeysContent + backspaceKey + enterKey + decimalSeparatorKey + '</div>';
           }
           // keyboard type is "numpad": end
 
@@ -662,6 +671,10 @@
                     // input trigger change event for update the value
                     input.dispatchEvent(changeEvent);
                   }
+
+                  if (typeof opt.keysCallback === 'function') {
+                    opt.keysCallback();
+                  }
                 });
               }
             }
@@ -715,6 +728,10 @@
 
                 // input trigger change event for update the value
                 input.dispatchEvent(changeEvent);
+
+                if (typeof opt.keysBackspaceCallback === 'function') {
+                  opt.keysBackspaceCallback();
+                }
               });
             }
             // backspace key click listener: end
@@ -875,6 +892,9 @@
           // append keyboard: end
         };
         input.addEventListener('focus', inputFocusListener); // add input focus listener
+        if (input.id) {
+          kioskBoardElementsWithFocusListener[input.id] = inputFocusListener;
+        }
         // each input focus listener: end
 
         // each input focusout listener: begin
@@ -945,6 +965,9 @@
         }
       }
       // Step 3: Select the element(s): end
+    },
+    getElementFocusListener: function (elementId) {
+      return kioskBoardElementsWithFocusListener[elementId];
     },
   };
 
